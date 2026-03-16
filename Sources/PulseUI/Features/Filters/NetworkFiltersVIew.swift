@@ -26,7 +26,7 @@ struct NetworkFiltersView: View {
         Form {
             formContents
         }
-        .navigationBarTitle(L10n.tr("pulse.filters.title"), displayMode: .inline)
+        .navigationBarTitle(Text(L10n.tr("pulse.filters.title")), displayMode: .inline)
         .navigationBarItems(leading: buttonClose, trailing: buttonReset)
     }
 
@@ -481,7 +481,7 @@ extension NetworkFiltersView {
             makeDomainPicker()
         }
         #if os(iOS)
-        .navigationBarTitle(L10n.tr("pulse.filters.select_hosts"), displayMode: .inline)
+        .navigationBarTitle(Text(L10n.tr("pulse.filters.select_hosts")), displayMode: .inline)
         #else
         .navigationTitle(L10n.tr("pulse.filters.select_hosts"))
         #endif

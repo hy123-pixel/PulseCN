@@ -18,7 +18,7 @@ struct FileViewer: View {
                 NavigationView {
                     WebView(data: viewModel.data, contentType: "application/html")
 #if os(iOS)
-                        .navigationBarTitle(L10n.tr("pulse.file.browser_preview"), displayMode: .inline)
+                        .navigationBarTitle(Text(L10n.tr("pulse.file.browser_preview")), displayMode: .inline)
                         .navigationBarItems(trailing: Button(action: {
                             isWebViewOpen = false
                         }) { Image(systemName: "xmark") })

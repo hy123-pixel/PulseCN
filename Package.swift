@@ -13,6 +13,7 @@ let package = Package(
     ],
     products: [
         .library(name: "Pulse", targets: ["Pulse"]),
+        .library(name: "PulseProxy", targets: ["Pulse"]),
         .library(name: "PulseUI", targets: ["PulseUI"]),
         .library(name: "PulseLogHandler", targets: ["PulseLogHandler"])
     ],

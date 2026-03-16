@@ -10,12 +10,12 @@ import CoreData
 
 extension LoggerStore {
     static let mock: LoggerStore = {
-        let store: LoggerStore = MockStoreConfiguration.isUsingDefaultStore ? .shared : makeMockStore()
+        let store: LoggerStore = makeMockStore()
 
-        if MockStoreConfiguration.isDelayingLogs {
+        if false {
             func populate() {
                 asyncPopulateStore(store)
-                if MockStoreConfiguration.isIndefinite {
+                if false {
                     DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(14)) {
                         populate()
                     }

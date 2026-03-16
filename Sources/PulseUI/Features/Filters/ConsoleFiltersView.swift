@@ -22,7 +22,7 @@ struct ConsoleFiltersView: View {
 
     var body: some View {
         Form { formContents }
-            .navigationBarTitle(L10n.tr("pulse.filters.title"), displayMode: .inline)
+            .navigationBarTitle(Text(L10n.tr("pulse.filters.title")), displayMode: .inline)
             .navigationBarItems(leading: buttonClose, trailing: buttonReset)
     }
 

@@ -2,17 +2,34 @@
 //
 // Copyright (c) 2020–2022 Alexander Grebenyuk (github.com/kean).
 
+import UIKit
 import SwiftUI
 import Pulse
 import PulseUI
 
 @main
-struct Pulse_Demo_iOSApp: App {
-    var body: some Scene {
-//        let _ = testProxy()
-        WindowGroup {
-            MainView(store: .mock)
-        }
+final class Pulse_Demo_iOSApp: UIResponder, UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        true
+    }
+
+    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+        let configuration = UISceneConfiguration(name: nil, sessionRole: connectingSceneSession.role)
+        configuration.delegateClass = PulseDemoSceneDelegate.self
+        return configuration
+    }
+}
+
+final class PulseDemoSceneDelegate: UIResponder, UIWindowSceneDelegate {
+    var window: UIWindow?
+
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        guard let windowScene = scene as? UIWindowScene else { return }
+
+        let window = UIWindow(windowScene: windowScene)
+        window.rootViewController = UIHostingController(rootView: MainView(store: .mock))
+        window.makeKeyAndVisible()
+        self.window = window
     }
 }
 

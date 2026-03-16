@@ -24,7 +24,7 @@ struct StoreDetailsView: View {
         Contents(viewModel: viewModel)
             .onAppear { viewModel.load(from: source) }
 #if os(iOS)
-            .navigationBarTitle(L10n.tr("pulse.store.details"), displayMode: .inline)
+            .navigationBarTitle(Text(L10n.tr("pulse.store.details")), displayMode: .inline)
 #endif
     }
 }

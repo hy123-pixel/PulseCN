@@ -45,7 +45,7 @@ public struct MainView: View {
                     }
                 }
                 .listStyle(.sidebar)
-                .navigationBarTitle(L10n.tr("pulse.main.menu"))
+                .navigationBarTitle(Text(L10n.tr("pulse.main.menu")))
                 viewModel.makeView(for: viewModel.items[0])
                 EmptyView()
             }
