@@ -18,16 +18,16 @@ struct NetworkInspectorRequestView: View {
             SpinnerView(viewModel: viewModel.progress)
         } else if viewModel.task.type == .uploadTask {
             PlaceholderView(imageName: "arrow.up.circle", title: {
-                var title = "Uploaded from a File"
+                var title = L10n.tr("pulse.network.uploaded_from_file")
                 if viewModel.task.requestBodySize > 0 {
                     title = "\(ByteCountFormatter.string(fromByteCount: viewModel.task.requestBodySize))\n\(title)"
                 }
                 return title
             }())
         } else if viewModel.task.requestBodySize > 0 {
-            PlaceholderView(imageName: "exclamationmark.circle", title: "Unavailable", subtitle: "The request body was deleted from the store to reduce its size")
+            PlaceholderView(imageName: "exclamationmark.circle", title: L10n.tr("pulse.common.unavailable"), subtitle: L10n.tr("pulse.network.request_body_deleted"))
         } else {
-            PlaceholderView(imageName: "nosign", title: "Empty Request")
+            PlaceholderView(imageName: "nosign", title: L10n.tr("pulse.network.empty_request"))
         }
     }
 }
@@ -40,7 +40,7 @@ final class NetworkInspectorRequestViewModel: ObservableObject {
         }
         if let requestBody = task.requestBody?.data {
             _fileViewModel = FileViewerViewModel(
-                title: "Request",
+                title: L10n.tr("pulse.network.request"),
                 context: task.requestFileViewerContext,
                 data: { requestBody }
             )

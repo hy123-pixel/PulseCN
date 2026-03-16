@@ -18,16 +18,16 @@ struct NetworkInspectorResponseView: View {
             SpinnerView(viewModel: viewModel.progress)
         } else if viewModel.task.type == .downloadTask {
             PlaceholderView(imageName: "arrow.down.circle", title: {
-                var title = "Downloaded to a File"
+                var title = L10n.tr("pulse.network.downloaded_to_file")
                 if viewModel.task.responseBodySize > 0 {
                     title = "\(ByteCountFormatter.string(fromByteCount: viewModel.task.responseBodySize))\n\(title)"
                 }
                 return title
             }())
         } else if viewModel.task.responseBodySize > 0 {
-            PlaceholderView(imageName: "exclamationmark.circle", title: "Unavailable", subtitle: "The response body was deleted from the store to reduce its size")
+            PlaceholderView(imageName: "exclamationmark.circle", title: L10n.tr("pulse.common.unavailable"), subtitle: L10n.tr("pulse.network.response_body_deleted"))
         } else {
-            PlaceholderView(imageName: "nosign", title: "Empty Response")
+            PlaceholderView(imageName: "nosign", title: L10n.tr("pulse.network.empty_response"))
         }
     }
 }
@@ -41,7 +41,7 @@ final class NetworkInspectorResponseViewModel: ObservableObject {
         }
         if let responseBody = task.responseBody?.data {
             _fileViewModel = FileViewerViewModel(
-                title: "Response",
+                title: L10n.tr("pulse.network.response"),
                 context: task.responseFileViewerContext,
                 data: { responseBody }
             )
