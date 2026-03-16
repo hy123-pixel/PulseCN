@@ -13,11 +13,11 @@ enum Filters {
     typealias ContentType = NetworkSearchCriteria.ContentTypeFilter.ContentType
 
     static func contentTypesPicker(selection: Binding<ContentType>) -> some View {
-        Picker("Content Type", selection: selection) {
+        Picker(L10n.tr("pulse.filters.content_type"), selection: selection) {
             Section {
-                Text("Any").tag(ContentType.any)
+                Text(L10n.tr("pulse.common.any")).tag(ContentType.any)
                 Text("JSON").tag(ContentType.json)
-                Text("Text").tag(ContentType.plain)
+                Text(L10n.tr("pulse.search.text")).tag(ContentType.plain)
             }
             Section {
                 Text("HTML").tag(ContentType.html)
@@ -28,28 +28,28 @@ enum Filters {
                 Text("PDF").tag(ContentType.pdf)
             }
             Section {
-                Text("Image").tag(ContentType.anyImage)
+                Text(L10n.tr("pulse.filters.image")).tag(ContentType.anyImage)
                 Text("JPEG").tag(ContentType.jpeg)
                 Text("PNG").tag(ContentType.png)
                 Text("GIF").tag(ContentType.gif)
                 Text("WebP").tag(ContentType.webp)
             }
             Section {
-                Text("Video").tag(ContentType.anyVideo)
+                Text(L10n.tr("pulse.filters.video")).tag(ContentType.anyVideo)
             }
         }
     }
 
     static func sizeUnitPicker(_ selection: Binding<NetworkSearchCriteria.ResponseSizeFilter.MeasurementUnit>) -> some View {
         #if os(iOS)
-        Picker("Size Unit", selection: selection) {
-            Text("Bytes").tag(NetworkSearchCriteria.ResponseSizeFilter.MeasurementUnit.bytes)
-            Text("Kilobytes").tag(NetworkSearchCriteria.ResponseSizeFilter.MeasurementUnit.kilobytes)
-            Text("Megabytes").tag(NetworkSearchCriteria.ResponseSizeFilter.MeasurementUnit.megabytes)
+        Picker(L10n.tr("pulse.filters.size_unit"), selection: selection) {
+            Text(L10n.tr("pulse.units.bytes")).tag(NetworkSearchCriteria.ResponseSizeFilter.MeasurementUnit.bytes)
+            Text(L10n.tr("pulse.units.kilobytes")).tag(NetworkSearchCriteria.ResponseSizeFilter.MeasurementUnit.kilobytes)
+            Text(L10n.tr("pulse.units.megabytes")).tag(NetworkSearchCriteria.ResponseSizeFilter.MeasurementUnit.megabytes)
         }
         #else
-        Picker("Size Unit", selection: selection) {
-            Text("Bytes").tag(NetworkSearchCriteria.ResponseSizeFilter.MeasurementUnit.bytes)
+        Picker(L10n.tr("pulse.filters.size_unit"), selection: selection) {
+            Text(L10n.tr("pulse.units.bytes")).tag(NetworkSearchCriteria.ResponseSizeFilter.MeasurementUnit.bytes)
             Text("KB").tag(NetworkSearchCriteria.ResponseSizeFilter.MeasurementUnit.kilobytes)
             Text("MB").tag(NetworkSearchCriteria.ResponseSizeFilter.MeasurementUnit.megabytes)
         }
@@ -57,20 +57,20 @@ enum Filters {
     }
 
     static func responseSourcePicker(_ selection: Binding<NetworkSearchCriteria.NetworkingFilter.Source>) -> some View {
-        Picker("Response Source", selection: selection) {
-            Text("Any").tag(NetworkSearchCriteria.NetworkingFilter.Source.any)
-            Text("Network").tag(NetworkSearchCriteria.NetworkingFilter.Source.network)
-            Text("Cache").tag(NetworkSearchCriteria.NetworkingFilter.Source.cache)
+        Picker(L10n.tr("pulse.filters.response_source"), selection: selection) {
+            Text(L10n.tr("pulse.common.any")).tag(NetworkSearchCriteria.NetworkingFilter.Source.any)
+            Text(L10n.tr("pulse.network.title")).tag(NetworkSearchCriteria.NetworkingFilter.Source.network)
+            Text(L10n.tr("pulse.cache.title")).tag(NetworkSearchCriteria.NetworkingFilter.Source.cache)
         }
     }
 
     static func taskTypePicker(_ selection: Binding<NetworkSearchCriteria.NetworkingFilter.TaskType>) -> some View {
-        Picker("Task Type", selection: selection) {
-            Text("Any").tag(NetworkSearchCriteria.NetworkingFilter.TaskType.any)
-            Text("Data").tag(NetworkSearchCriteria.NetworkingFilter.TaskType.some(.dataTask))
-            Text("Download").tag(NetworkSearchCriteria.NetworkingFilter.TaskType.some(.downloadTask))
-            Text("Upload").tag(NetworkSearchCriteria.NetworkingFilter.TaskType.some(.uploadTask))
-            Text("Stream").tag(NetworkSearchCriteria.NetworkingFilter.TaskType.some(.streamTask))
+        Picker(L10n.tr("pulse.filters.task_type"), selection: selection) {
+            Text(L10n.tr("pulse.common.any")).tag(NetworkSearchCriteria.NetworkingFilter.TaskType.any)
+            Text(L10n.tr("pulse.network.data_task")).tag(NetworkSearchCriteria.NetworkingFilter.TaskType.some(.dataTask))
+            Text(L10n.tr("pulse.network.download_task")).tag(NetworkSearchCriteria.NetworkingFilter.TaskType.some(.downloadTask))
+            Text(L10n.tr("pulse.network.upload_task")).tag(NetworkSearchCriteria.NetworkingFilter.TaskType.some(.uploadTask))
+            Text(L10n.tr("pulse.network.stream_task")).tag(NetworkSearchCriteria.NetworkingFilter.TaskType.some(.streamTask))
             Text("WebSocket").tag(NetworkSearchCriteria.NetworkingFilter.TaskType.some(.webSocketTask))
         }
     }

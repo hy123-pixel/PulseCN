@@ -22,12 +22,12 @@ struct ConsoleFiltersView: View {
 
     var body: some View {
         Form { formContents }
-            .navigationBarTitle("Filters", displayMode: .inline)
+            .navigationBarTitle(L10n.tr("pulse.filters.title"), displayMode: .inline)
             .navigationBarItems(leading: buttonClose, trailing: buttonReset)
     }
 
     private var buttonClose: some View {
-        Button("Close") { isPresented = false }
+        Button(L10n.tr("pulse.common.close")) { isPresented = false }
     }
 #else
     @AppStorage("networkFilterIsParametersExpanded") var isGeneralSectionExpanded = true
@@ -40,7 +40,7 @@ struct ConsoleFiltersView: View {
             VStack(spacing: Filters.formSpacing) {
                 VStack(spacing: 6) {
                     HStack {
-                        Text("FILTERS")
+                        Text(L10n.tr("pulse.filters.title_upper"))
                             .foregroundColor(.secondary)
                         Spacer()
                         buttonReset
@@ -70,7 +70,7 @@ extension ConsoleFiltersView {
     }
 
     var buttonReset: some View {
-        Button("Reset") { viewModel.resetAll() }
+        Button(L10n.tr("pulse.common.reset")) { viewModel.resetAll() }
             .disabled(!viewModel.isButtonResetEnabled)
     }
 }
@@ -90,7 +90,7 @@ extension ConsoleFiltersView {
 
     private var generalHeader: some View {
         FilterSectionHeader(
-            icon: "line.horizontal.3.decrease.circle", title: "General",
+            icon: "line.horizontal.3.decrease.circle", title: L10n.tr("pulse.filters.general"),
             color: .yellow,
             reset: { viewModel.resetFilters() },
             isDefault: viewModel.filters.count == 1 && viewModel.filters[0].isDefault,
@@ -112,7 +112,7 @@ extension ConsoleFiltersView {
             HStack {
                 Image(systemName: "plus.circle")
                     .font(.system(size: 18))
-                Text("Add Filter")
+                Text(L10n.tr("pulse.filters.add_filter"))
             }
         }
         .frame(maxWidth: .infinity, alignment: .center)
@@ -150,7 +150,7 @@ extension ConsoleFiltersView {
 
     private var logLevelsHeader: some View {
         FilterSectionHeader(
-            icon: "flag", title: "Levels",
+            icon: "flag", title: L10n.tr("pulse.filters.levels"),
             color: .accentColor,
             reset: { viewModel.criteria.logLevels = .default },
             isDefault: false,
@@ -169,14 +169,14 @@ extension ConsoleFiltersView {
         .padding(.bottom, 10)
         .buttonStyle(.plain)
 
-        Button(viewModel.bindingForTogglingAllLevels.wrappedValue ? "Disable All" : "Enable All", action: { viewModel.bindingForTogglingAllLevels.wrappedValue.toggle() })
+        Button(viewModel.bindingForTogglingAllLevels.wrappedValue ? L10n.tr("pulse.common.disable_all") : L10n.tr("pulse.common.enable_all"), action: { viewModel.bindingForTogglingAllLevels.wrappedValue.toggle() })
             .frame(maxWidth: .infinity, alignment: .center)
     }
 #else
     private var logLevelsContent: some View {
         HStack(spacing:0) {
             VStack(alignment: .leading, spacing: 6) {
-                Toggle("All", isOn: viewModel.bindingForTogglingAllLevels)
+                Toggle(L10n.tr("pulse.common.all"), isOn: viewModel.bindingForTogglingAllLevels)
                     .accentColor(Color.secondary)
                     .foregroundColor(Color.secondary)
                 HStack(spacing: 32) {
@@ -220,7 +220,7 @@ extension ConsoleFiltersView {
 
     private var labelsHeader: some View {
         FilterSectionHeader(
-            icon: "tag", title: "Labels",
+            icon: "tag", title: L10n.tr("pulse.filters.labels"),
             color: .orange,
             reset: { viewModel.criteria.labels = .default },
             isDefault: viewModel.criteria.labels == .default,
@@ -234,7 +234,7 @@ extension ConsoleFiltersView {
         let labels = viewModel.allLabels
 
         if labels.isEmpty {
-            Text("No Labels")
+            Text(L10n.tr("pulse.filters.no_labels"))
                 .frame(maxWidth: .infinity, alignment: .center)
                 .foregroundColor(.secondary)
         } else {
@@ -242,7 +242,7 @@ extension ConsoleFiltersView {
                 Toggle(item.capitalized, isOn: viewModel.binding(forLabel: item))
             }
             if labels.count > 4 {
-                Button("View All", action: { isAllLabelsShown = true })
+                Button(L10n.tr("pulse.common.view_all"), action: { isAllLabelsShown = true })
                     .frame(maxWidth: .infinity, alignment: .center)
                     .background(allLabelsNavigationLink)
             }
@@ -260,7 +260,7 @@ extension ConsoleFiltersView {
     private var labelsContent: some View {
         HStack {
             VStack(alignment: .leading, spacing: 6) {
-                Toggle("All", isOn: viewModel.bindingForTogglingAllLabels)
+                Toggle(L10n.tr("pulse.common.all"), isOn: viewModel.bindingForTogglingAllLabels)
                     .accentColor(Color.secondary)
                     .foregroundColor(Color.secondary)
                 ForEach(viewModel.allLabels, id: \.self) { item in
@@ -286,7 +286,7 @@ extension ConsoleFiltersView {
 
     private var timePeriodHeader: some View {
         FilterSectionHeader(
-            icon: "calendar", title: "Time Period",
+            icon: "calendar", title: L10n.tr("pulse.filters.time_period"),
             color: .yellow,
             reset: { viewModel.criteria.dates = .default },
             isDefault: viewModel.criteria.dates == .default,
@@ -296,14 +296,14 @@ extension ConsoleFiltersView {
 
     @ViewBuilder
     private var timePeriodContent: some View {
-        Filters.toggle("Latest Session", isOn: $viewModel.criteria.dates.isCurrentSessionOnly)
+        Filters.toggle(L10n.tr("pulse.filters.latest_session"), isOn: $viewModel.criteria.dates.isCurrentSessionOnly)
 
-        DateRangePicker(title: "Start Date", date: viewModel.bindingStartDate, isEnabled: $viewModel.criteria.dates.isStartDateEnabled)
-        DateRangePicker(title: "End Date", date: viewModel.bindingEndDate, isEnabled: $viewModel.criteria.dates.isEndDateEnabled)
+        DateRangePicker(title: L10n.tr("pulse.date.start_date"), date: viewModel.bindingStartDate, isEnabled: $viewModel.criteria.dates.isStartDateEnabled)
+        DateRangePicker(title: L10n.tr("pulse.date.end_date"), date: viewModel.bindingEndDate, isEnabled: $viewModel.criteria.dates.isEndDateEnabled)
 
         HStack(spacing: 16) {
-            Button("Recent") { viewModel.criteria.dates = .recent }
-            Button("Today") { viewModel.criteria.dates = .today }
+            Button(L10n.tr("pulse.filters.recent")) { viewModel.criteria.dates = .recent }
+            Button(L10n.tr("pulse.filters.today")) { viewModel.criteria.dates = .today }
             Spacer()
         }
 #if os(iOS)

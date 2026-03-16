@@ -26,12 +26,12 @@ struct NetworkFiltersView: View {
         Form {
             formContents
         }
-        .navigationBarTitle("Filters", displayMode: .inline)
+        .navigationBarTitle(L10n.tr("pulse.filters.title"), displayMode: .inline)
         .navigationBarItems(leading: buttonClose, trailing: buttonReset)
     }
 
     private var buttonClose: some View {
-        Button("Close") { isPresented = false }
+        Button(L10n.tr("pulse.common.close")) { isPresented = false }
     }
 
     #else
@@ -51,7 +51,7 @@ struct NetworkFiltersView: View {
             VStack(spacing: Filters.formSpacing) {
                 VStack(spacing: 6) {
                     HStack {
-                        Text("FILTERS")
+                        Text(L10n.tr("pulse.filters.title_upper"))
                             .foregroundColor(.secondary)
                         Spacer()
                         buttonReset
@@ -85,7 +85,7 @@ extension NetworkFiltersView {
     }
 
     var buttonReset: some View {
-        Button("Reset") { viewModel.resetAll() }
+        Button(L10n.tr("pulse.common.reset")) { viewModel.resetAll() }
             .disabled(!viewModel.isButtonResetEnabled)
     }
 }
@@ -105,7 +105,7 @@ extension NetworkFiltersView {
 
     private var generalGroupHeader: some View {
         FilterSectionHeader(
-            icon: "line.horizontal.3.decrease.circle", title: "General",
+            icon: "line.horizontal.3.decrease.circle", title: L10n.tr("pulse.filters.general"),
             color: .yellow,
             reset: { viewModel.resetFilters() },
             isDefault: viewModel.filters.count == 1 && viewModel.filters[0].isDefault,
@@ -128,7 +128,7 @@ extension NetworkFiltersView {
             HStack {
                 Image(systemName: "plus.circle")
                     .font(.system(size: 18))
-                Text("Add Filter")
+                Text(L10n.tr("pulse.filters.add_filter"))
             }
         }
         .frame(maxWidth: .infinity, alignment: .center)
@@ -168,7 +168,7 @@ extension NetworkFiltersView {
 
     private var responseGroupHeader: some View {
         FilterSectionHeader(
-            icon: "arrow.down.circle", title: "Response",
+            icon: "arrow.down.circle", title: L10n.tr("pulse.network.response"),
             color: .yellow,
             reset: { viewModel.criteria.response = .default },
             isDefault: viewModel.criteria.response == .default,
@@ -193,7 +193,7 @@ extension NetworkFiltersView {
     @ViewBuilder
     private var statusCodeRow: some View {
         HStack {
-            makeRangePicker(title: "Status Code", from: $viewModel.criteria.response.statusCode.from, to: $viewModel.criteria.response.statusCode.to, isEnabled: $viewModel.criteria.response.isEnabled)
+            makeRangePicker(title: L10n.tr("pulse.network.status_code"), from: $viewModel.criteria.response.statusCode.from, to: $viewModel.criteria.response.statusCode.to, isEnabled: $viewModel.criteria.response.isEnabled)
         }
     }
 
@@ -210,7 +210,7 @@ extension NetworkFiltersView {
                 .animation(.none)
                 .fixedSize()
             } else {
-                Text("KB")
+                Text(L10n.tr("pulse.units.kb"))
                     .foregroundColor(.secondary)
             }
         }
@@ -222,14 +222,14 @@ extension NetworkFiltersView {
 
         Spacer()
 
-        TextField("Min", text: from, onEditingChanged: {
+        TextField(L10n.tr("pulse.common.min"), text: from, onEditingChanged: {
             if $0 { isEnabled.wrappedValue = true }
         })
         .keyboardType(.decimalPad)
         .textFieldStyle(.roundedBorder)
         .frame(width: 80)
 
-        TextField("Max", text: to, onEditingChanged: {
+        TextField(L10n.tr("pulse.common.max"), text: to, onEditingChanged: {
             if $0 { isEnabled.wrappedValue = true }
         })
         .keyboardType(.decimalPad)
@@ -242,13 +242,13 @@ extension NetworkFiltersView {
     @ViewBuilder
     private var statusCodeRow: some View {
         HStack {
-            Text("Status Code")
+            Text(L10n.tr("pulse.network.status_code"))
                 .fixedSize()
 
-            TextField("Min", text: $viewModel.criteria.response.statusCode.from)
+            TextField(L10n.tr("pulse.common.min"), text: $viewModel.criteria.response.statusCode.from)
                 .textFieldStyle(.roundedBorder)
 
-            TextField("Max", text: $viewModel.criteria.response.statusCode.to)
+            TextField(L10n.tr("pulse.common.max"), text: $viewModel.criteria.response.statusCode.to)
                 .textFieldStyle(.roundedBorder)
         }
     }
@@ -256,10 +256,10 @@ extension NetworkFiltersView {
     @ViewBuilder
     private var responseSizeRow: some View {
         HStack {
-            TextField("Min", text: $viewModel.criteria.response.responseSize.from)
+            TextField(L10n.tr("pulse.common.min"), text: $viewModel.criteria.response.responseSize.from)
                 .textFieldStyle(.roundedBorder)
 
-            TextField("Max", text: $viewModel.criteria.response.responseSize.to)
+            TextField(L10n.tr("pulse.common.max"), text: $viewModel.criteria.response.responseSize.to)
                 .textFieldStyle(.roundedBorder)
 
             Filters.sizeUnitPicker($viewModel.criteria.response.responseSize.unit)
@@ -283,7 +283,7 @@ extension NetworkFiltersView {
 
     private var timePeriodGroupHeader: some View {
         FilterSectionHeader(
-            icon: "calendar", title: "Time Period",
+            icon: "calendar", title: L10n.tr("pulse.filters.time_period"),
             color: .yellow,
             reset: { viewModel.criteria.dates = .default },
             isDefault: viewModel.criteria.dates == .default,
@@ -293,14 +293,14 @@ extension NetworkFiltersView {
 
     @ViewBuilder
     private var timePeriodGroupContent: some View {
-        Filters.toggle("Latest Session", isOn: $viewModel.criteria.dates.isCurrentSessionOnly)
+        Filters.toggle(L10n.tr("pulse.filters.latest_session"), isOn: $viewModel.criteria.dates.isCurrentSessionOnly)
 
-        DateRangePicker(title: "Start Date", date: viewModel.bindingStartDate, isEnabled: $viewModel.criteria.dates.isStartDateEnabled)
-        DateRangePicker(title: "End Date", date: viewModel.bindingEndDate, isEnabled: $viewModel.criteria.dates.isEndDateEnabled)
+        DateRangePicker(title: L10n.tr("pulse.date.start_date"), date: viewModel.bindingStartDate, isEnabled: $viewModel.criteria.dates.isStartDateEnabled)
+        DateRangePicker(title: L10n.tr("pulse.date.end_date"), date: viewModel.bindingEndDate, isEnabled: $viewModel.criteria.dates.isEndDateEnabled)
 
         HStack(spacing: 16) {
-            Button("Recent") { viewModel.criteria.dates = .recent }
-            Button("Today") { viewModel.criteria.dates = .today }
+            Button(L10n.tr("pulse.filters.recent")) { viewModel.criteria.dates = .recent }
+            Button(L10n.tr("pulse.filters.today")) { viewModel.criteria.dates = .today }
             Spacer()
         }
 #if os(iOS)
@@ -327,7 +327,7 @@ extension NetworkFiltersView {
 
     private var durationGroupHeader: some View {
         FilterSectionHeader(
-            icon: "hourglass", title: "Duration",
+            icon: "hourglass", title: L10n.tr("pulse.filters.duration"),
             color: .yellow,
             reset: { viewModel.criteria.duration = .default },
             isDefault: viewModel.criteria.duration == .default,
@@ -340,7 +340,7 @@ extension NetworkFiltersView {
     @ViewBuilder
     private var durationGroupContent: some View {
         HStack {
-            Text("Duration")
+            Text(L10n.tr("pulse.filters.duration"))
             Spacer()
             durationMinField
             durationMaxField
@@ -362,7 +362,7 @@ extension NetworkFiltersView {
 #endif
 
     private var durationMinField: some View {
-        TextField("Min", text: $viewModel.criteria.duration.min)
+        TextField(L10n.tr("pulse.common.min"), text: $viewModel.criteria.duration.min)
             .textFieldStyle(.roundedBorder)
 #if os(iOS)
             .keyboardType(.decimalPad)
@@ -371,7 +371,7 @@ extension NetworkFiltersView {
     }
 
     private var durationMaxField: some View {
-        TextField("Max", text: $viewModel.criteria.duration.max)
+        TextField(L10n.tr("pulse.common.max"), text: $viewModel.criteria.duration.max)
             .textFieldStyle(.roundedBorder)
 #if os(iOS)
             .keyboardType(.decimalPad)
@@ -380,10 +380,10 @@ extension NetworkFiltersView {
     }
 
     private var durationUnitPicker: some View {
-        Picker("Unit", selection: $viewModel.criteria.duration.unit) {
-            Text("Min").tag(NetworkSearchCriteria.DurationFilter.Unit.minutes)
-            Text("Sec").tag(NetworkSearchCriteria.DurationFilter.Unit.seconds)
-            Text("Ms").tag(NetworkSearchCriteria.DurationFilter.Unit.milliseconds)
+        Picker(L10n.tr("pulse.filters.unit"), selection: $viewModel.criteria.duration.unit) {
+            Text(L10n.tr("pulse.units.min")).tag(NetworkSearchCriteria.DurationFilter.Unit.minutes)
+            Text(L10n.tr("pulse.units.sec")).tag(NetworkSearchCriteria.DurationFilter.Unit.seconds)
+            Text(L10n.tr("pulse.units.ms")).tag(NetworkSearchCriteria.DurationFilter.Unit.milliseconds)
         }
     }
 }
@@ -401,7 +401,7 @@ extension NetworkFiltersView {
 
     private var domainsGroupHeader: some View {
         FilterSectionHeader(
-            icon: "server.rack", title: "Hosts",
+            icon: "server.rack", title: L10n.tr("pulse.filters.hosts"),
             color: .yellow,
             reset: { viewModel.criteria.host = .default },
             isDefault: viewModel.criteria.host == .default,
@@ -420,7 +420,7 @@ extension NetworkFiltersView {
     #if os(iOS)
     private var domainsShowAllButton: some View {
         NavigationLink(destination: { domainsPickerView }) {
-            Text("Show All")
+            Text(L10n.tr("pulse.common.show_all"))
         }
     }
 
@@ -447,7 +447,7 @@ extension NetworkFiltersView {
         HStack {
             Spacer()
             Button(action: { isDomainsPickerPresented = true }) {
-                Text("Show All")
+                Text(L10n.tr("pulse.common.show_all"))
             }
             .padding(.top, 6)
             .popover(isPresented: $isDomainsPickerPresented) {
@@ -475,15 +475,15 @@ extension NetworkFiltersView {
 
     private var domainsPickerView: some View {
         List {
-            Button("Deselect All") {
+            Button(L10n.tr("pulse.common.deselect_all")) {
                 viewModel.criteria.host.values = []
             }
             makeDomainPicker()
         }
         #if os(iOS)
-        .navigationBarTitle("Select Hosts", displayMode: .inline)
+        .navigationBarTitle(L10n.tr("pulse.filters.select_hosts"), displayMode: .inline)
         #else
-        .navigationTitle("Select Hosts")
+        .navigationTitle(L10n.tr("pulse.filters.select_hosts"))
         #endif
     }
 }
@@ -501,7 +501,7 @@ extension NetworkFiltersView {
 
     private var networkingGroupHeader: some View {
         FilterSectionHeader(
-            icon: "arrowshape.zigzag.right", title: "Networking",
+            icon: "arrowshape.zigzag.right", title: L10n.tr("pulse.filters.networking"),
             color: .yellow,
             reset: { viewModel.criteria.networking = .default },
             isDefault: viewModel.criteria.networking == .default,
@@ -513,7 +513,7 @@ extension NetworkFiltersView {
     private var networkingGroupContent: some View {
         Filters.taskTypePicker($viewModel.criteria.networking.taskType)
         Filters.responseSourcePicker($viewModel.criteria.networking.source)
-        Filters.toggle("Redirect", isOn: $viewModel.criteria.networking.isRedirect)
+        Filters.toggle(L10n.tr("pulse.network.redirect"), isOn: $viewModel.criteria.networking.isRedirect)
     }
 }
 
