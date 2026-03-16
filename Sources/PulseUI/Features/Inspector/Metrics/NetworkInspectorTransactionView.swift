@@ -19,29 +19,29 @@ struct NetworkInspectorTransactionView: View {
                     TimingView(viewModel: timingViewModel)
                 }
                 if let viewModel = viewModel.transferSizeViewModel {
-                    Section(header: LargeSectionHeader(title: "Transfer Size")) {
+                    Section(header: LargeSectionHeader(title: L10n.tr("pulse.insights.transfer_size"))) {
                         NetworkInspectorTransferInfoView(viewModel: viewModel)
                     }
                 }
-                Section(header: LargeSectionHeader(title: "Request")) {
+                Section(header: LargeSectionHeader(title: L10n.tr("pulse.network.request"))) {
                     KeyValueGridView(items: [
                         viewModel.requestSummary,
                         viewModel.requestHeaders,
                         viewModel.requestParameters
                     ].compactMap { $0 })
                 }
-                Section(header: LargeSectionHeader(title: "Response")) {
+                Section(header: LargeSectionHeader(title: L10n.tr("pulse.network.response"))) {
                     KeyValueGridView(items: [
                         viewModel.responseSummary,
                         viewModel.responseHeaders
                     ])
                 }
                 if let details = viewModel.details {
-                    Section(header: LargeSectionHeader(title: "Details")) {
+                    Section(header: LargeSectionHeader(title: L10n.tr("pulse.message.details"))) {
                         KeyValueGridView(items: details.sections)
                     }
                 }
-                Section(header: LargeSectionHeader(title: "Timing")) {
+                Section(header: LargeSectionHeader(title: L10n.tr("pulse.metrics.timing"))) {
                     KeyValueSectionView(viewModel: viewModel.timingSummary)
                 }
             }
@@ -93,7 +93,7 @@ final class NetworkInspectorTransactionViewModel: ObservableObject {
 
     lazy var responseSummary: KeyValueSectionViewModel = {
         guard let response = transaction.response else {
-            return KeyValueSectionViewModel(title: "Response", color: .indigo)
+            return KeyValueSectionViewModel(title: L10n.tr("pulse.network.response"), color: .indigo)
         }
         return KeyValueSectionViewModel.makeSummary(for: response)
     }()
@@ -112,7 +112,7 @@ struct NetworkInspectorTransactionView_Previews: PreviewProvider {
         NavigationView {
             NetworkInspectorTransactionView(viewModel: mockModel)
                 .background(Color(UXColor.systemBackground))
-                .backport.navigationTitle("Network Load")
+                .backport.navigationTitle(L10n.tr("pulse.metrics.network_load"))
         }
         .previewDisplayName("Light")
         .environment(\.colorScheme, .light)

@@ -22,7 +22,7 @@ struct NetworkInspectorMetricsView: View {
                     .padding(NetworkInspectorMetricsView.padding)
 #if !os(tvOS)
                 if let transactions = viewModel.transactions {
-                    LargeSectionHeader(title: "Transactions")
+                    LargeSectionHeader(title: L10n.tr("pulse.network.transactions"))
                         .padding(.leading, NetworkInspectorMetricsView.padding)
                     NetworkInspectorTransactionsListView(viewModel: transactions)
                         .padding([.leading, .trailing], NetworkInspectorMetricsView.padding)
@@ -37,7 +37,7 @@ struct NetworkInspectorMetricsView: View {
         .frame(maxWidth: 1200, alignment: .center)
 #endif
 #if !os(iOS)
-        .backport.navigationTitle("Metrics")
+        .backport.navigationTitle(L10n.tr("pulse.network.metrics"))
 #endif
     }
 }

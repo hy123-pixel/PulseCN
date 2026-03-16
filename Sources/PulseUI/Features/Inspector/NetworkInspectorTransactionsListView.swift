@@ -62,11 +62,11 @@ struct NetworkInspectorTransactionsListView: View {
 #else
         VStack(spacing: 0) {
             HStack {
-                Text("\(item.title) Details")
+                Text(L10n.fmt("pulse.details.section_title", item.title))
                     .font(.headline)
                     .foregroundColor(.secondary)
                 Spacer()
-                Button("Close") { presented = nil }
+                Button(L10n.tr("pulse.common.close")) { presented = nil }
                     .keyboardShortcut(.cancelAction)
             }.padding()
             NetworkInspectorTransactionView(viewModel: item.viewModel())
@@ -93,11 +93,11 @@ final class NetworkInspectorTransactionsListViewModel {
         self.items = task.transactions.map { transaction in
             let title: String
             switch transaction.fetchType {
-            case .networkLoad: title = "Network Load"
-            case .localCache: title = "Cache Lookup"
-            case .serverPush: title = "Server Push"
-            case .unknown: title = "Unknown"
-            default: title = "Unknown"
+            case .networkLoad: title = L10n.tr("pulse.metrics.network_load")
+            case .localCache: title = L10n.tr("pulse.metrics.cache_lookup")
+            case .serverPush: title = L10n.tr("pulse.metrics.server_push")
+            case .unknown: title = L10n.tr("pulse.status.unknown")
+            default: title = L10n.tr("pulse.status.unknown")
             }
             var details: String?
             if let startDate = transaction.timing.fetchStartDate,
