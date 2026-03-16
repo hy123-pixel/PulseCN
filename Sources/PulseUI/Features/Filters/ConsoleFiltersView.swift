@@ -43,7 +43,7 @@ struct ConsoleFiltersView: View {
     }
 
     private var buttonReset: some View {
-        Button(role: .destructive, action: viewModel.resetAll) { Text("Reset") }
+        Button(role: .destructive, action: viewModel.resetAll) { Text(L10n.tr("pulse.common.reset")) }
             .disabled(viewModel.isDefaultFilters(for: environment.mode))
     }
 }
@@ -54,7 +54,7 @@ struct ConsoleFiltersView: View {
 extension ConsoleFiltersView {
     var sessionsSection: some View {
         ConsoleSection(isDividerHidden: true, header: {
-            ConsoleSectionHeader(icon: "list.clipboard", title: "Sessions", filter: $viewModel.criteria.shared.sessions, default: viewModel.defaultCriteria.shared.sessions)
+            ConsoleSectionHeader(icon: "list.clipboard", title: L10n.tr("pulse.console.sessions.title"), filter: $viewModel.criteria.shared.sessions, default: viewModel.defaultCriteria.shared.sessions)
         }, content: {
             ConsoleSessionsPickerView(selection: $viewModel.criteria.shared.sessions.selection)
         })
@@ -63,7 +63,7 @@ extension ConsoleFiltersView {
 #if os(iOS) || os(visionOS)
     var timePeriodSection: some View {
         ConsoleSection(header: {
-            ConsoleSectionHeader(icon: "calendar", title: "Time Period", filter: $viewModel.criteria.shared.dates)
+            ConsoleSectionHeader(icon: "calendar", title: L10n.tr("pulse.filters.time_period"), filter: $viewModel.criteria.shared.dates)
         }, content: {
             ConsoleSearchTimePeriodCell(selection: $viewModel.criteria.shared.dates)
         })
@@ -72,7 +72,7 @@ extension ConsoleFiltersView {
 
     var logLevelsSection: some View {
         ConsoleSection(header: {
-            ConsoleSectionHeader(icon: "flag", title: "Levels", filter: $viewModel.criteria.messages.logLevels)
+            ConsoleSectionHeader(icon: "flag", title: L10n.tr("pulse.filters.levels"), filter: $viewModel.criteria.messages.logLevels)
         }, content: {
             ConsoleSearchLogLevelsCell(selection: $viewModel.criteria.messages.logLevels.levels)
         })
@@ -80,7 +80,7 @@ extension ConsoleFiltersView {
 
     var labelsSection: some View {
         ConsoleSection(header: {
-            ConsoleSectionHeader(icon: "tag", title: "Labels", filter: $viewModel.criteria.messages.labels)
+            ConsoleSectionHeader(icon: "tag", title: L10n.tr("pulse.filters.labels"), filter: $viewModel.criteria.messages.labels)
         }, content: {
             ConsoleLabelsSelectionView(viewModel: viewModel)
         })
@@ -88,7 +88,7 @@ extension ConsoleFiltersView {
 
     var domainsSection: some View {
         ConsoleSection(header: {
-            ConsoleSectionHeader(icon: "server.rack", title: "Hosts", filter: $viewModel.criteria.network.host)
+            ConsoleSectionHeader(icon: "server.rack", title: L10n.tr("pulse.filters.hosts"), filter: $viewModel.criteria.network.host)
         }, content: {
             ConsoleDomainsSelectionView(viewModel: viewModel)
         })

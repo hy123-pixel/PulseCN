@@ -51,37 +51,37 @@ private struct ConsoleMenuView: View {
     var body: some View {
         Section {
             Toggle(isOn: $viewModel.options.isOnlyErrors) {
-                Label("Errors Only", systemImage: "exclamationmark.octagon")
+                Label(L10n.tr("pulse.console.errors_only"), systemImage: "exclamationmark.octagon")
             }
             Toggle(isOn: environment.bindingForNetworkMode) {
-                Label("Network Only", systemImage: "arrow.down.circle")
+                Label(L10n.tr("pulse.console.network_only"), systemImage: "arrow.down.circle")
             }
             NavigationLink(destination: destinationFilters) {
-                Label(environment.bindingForNetworkMode.wrappedValue ? "Network Filters" : "Message Filters", systemImage: "line.3.horizontal.decrease.circle")
+                Label(environment.bindingForNetworkMode.wrappedValue ? L10n.tr("pulse.console.network_filters") : L10n.tr("pulse.console.message_filters"), systemImage: "line.3.horizontal.decrease.circle")
             }
-        } header: { Text("Quick Filters") }
+        } header: { Text(L10n.tr("pulse.filters.quick_filters")) }
         if !(store.options.contains(.readonly)) {
             Section {
                 if #available(iOS 16, tvOS 16, *) {
                     NavigationLink {
                         StoreDetailsView(source: .store(store)).padding()
                     } label: {
-                        Label("Store Info", systemImage: "info.circle")
+                        Label(L10n.tr("pulse.settings.store_info"), systemImage: "info.circle")
                     }
                 }
                 Button(role: .destructive, action: {
                     environment.index.clear()
                     store.removeAll()
                 }, label: {
-                    Label("Remove Logs", systemImage: "trash")
+                    Label(L10n.tr("pulse.store.remove_logs"), systemImage: "trash")
                 })
-            } header: { Text("Store") }
+            } header: { Text(L10n.tr("pulse.store.title")) }
         }
         Section {
             NavigationLink(destination: destinationSettings) {
-                Label("Settings", systemImage: "gear")
+                Label(L10n.tr("pulse.common.settings"), systemImage: "gear")
             }
-        } header: { Text("Settings") }
+        } header: { Text(L10n.tr("pulse.common.settings")) }
     }
 
     private var destinationSettings: some View {

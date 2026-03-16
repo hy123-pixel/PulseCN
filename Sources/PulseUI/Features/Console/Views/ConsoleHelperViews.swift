@@ -24,7 +24,7 @@ struct ConsoleTimestampView: View {
 
 struct MockBadgeView: View {
     var body: some View {
-        Text("MOCK")
+        Text(L10n.tr("pulse.common.mock"))
             .foregroundStyle(.background)
             .font(.caption2.weight(.semibold))
             .padding(EdgeInsets(top: 2, leading: 5, bottom: 1, trailing: 5))

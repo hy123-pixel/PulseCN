@@ -26,32 +26,32 @@ package enum ContextMenu {
         package var body: some View {
             Section {
                 Button(action: { shareItems = ShareService.share(message, as: .plainText) }) {
-                    Label("Share", systemImage: "square.and.arrow.up")
+                    Label(L10n.tr("pulse.common.share"), systemImage: "square.and.arrow.up")
                 }.tint(.blue)
                 Button(action: { UXPasteboard.general.string = message.text }) {
-                    Label("Copy Message", systemImage: "doc.on.doc")
+                    Label(L10n.tr("pulse.context.copy_message"), systemImage: "doc.on.doc")
                 }.tint(.blue)
             }
             Section {
                 Menu(content: {
-                    Button("Show Label '\(message.label)'") {
+                    Button(L10n.fmt("pulse.context.show_label", message.label)) {
                         filters.criteria.messages.labels.focused = message.label
                     }
-                    Button("Show Level '\(message.logLevel.name)'") {
+                    Button(L10n.fmt("pulse.context.show_level", message.logLevel.name)) {
                         filters.criteria.messages.logLevels.levels = [message.logLevel]
                     }
                 }, label: {
-                    Label("Show", systemImage: "eye")
+                    Label(L10n.tr("pulse.common.show"), systemImage: "eye")
                 })
                 Menu(content: {
-                    Button("Hide Label '\(message.label)'") {
+                    Button(L10n.fmt("pulse.context.hide_label", message.label)) {
                         filters.criteria.messages.labels.hidden.insert(message.label)
                     }
-                    Button("Hide Level '\(message.logLevel.name)'") {
+                    Button(L10n.fmt("pulse.context.hide_level", message.logLevel.name)) {
                         filters.criteria.messages.logLevels.levels.remove(message.logLevel)
                     }
                 }, label: {
-                    Label("Hide", systemImage: "eye.slash")
+                    Label(L10n.tr("pulse.common.hide"), systemImage: "eye.slash")
                 })
             }
 #if os(iOS) || os(visionOS)
@@ -88,7 +88,7 @@ package enum ContextMenu {
                 ContextMenu.NetworkTaskShareMenu(task: task, shareItems: $sharedItems)
 #else
                 Button(action: { sharedTask = task }) {
-                    Label("Share...", systemImage: "square.and.arrow.up")
+                    Label(L10n.tr("pulse.common.share_ellipsis"), systemImage: "square.and.arrow.up")
                 }
 #endif
                 ContextMenu.NetworkTaskCopyMenu(task: task)
@@ -122,31 +122,31 @@ package enum ContextMenu {
         private var menus: some View {
             Menu(content: {
                 if let host = task.host {
-                    Button("Host '\(host)'") {
+                    Button(L10n.fmt("pulse.context.host_value", host)) {
                         filters.criteria.network.host.focused = host
                     }
                 }
                 if let url = task.url {
-                    Button("URL '\(url)'") {
+                    Button(L10n.fmt("pulse.context.url_value", url)) {
                         filters.criteria.network.url.focused = url
                     }
                 }
             }, label: {
-                Label("Show", systemImage: "eye")
+                Label(L10n.tr("pulse.common.show"), systemImage: "eye")
             })
             Menu(content: {
                 if let host = task.host {
-                    Button("Host '\(host)'") {
+                    Button(L10n.fmt("pulse.context.host_value", host)) {
                         filters.criteria.network.host.hidden.insert(host)
                     }
                 }
                 if let url = task.url {
-                    Button("URL '\(url)'") {
+                    Button(L10n.fmt("pulse.context.url_value", url)) {
                         filters.criteria.network.url.focused = url
                     }
                 }
             }, label: {
-                Label("Hide", systemImage: "eye.slash")
+                Label(L10n.tr("pulse.common.hide"), systemImage: "eye.slash")
             })
         }
     }
@@ -159,7 +159,7 @@ package enum ContextMenu {
 
         var body: some View {
             Menu(content: content) {
-                Label("Share...", systemImage: "square.and.arrow.up")
+                Label(L10n.tr("pulse.common.share_ellipsis"), systemImage: "square.and.arrow.up")
             }
         }
 
@@ -171,7 +171,7 @@ package enum ContextMenu {
                 }
             }
             Button(action: { shareItems = ShareItems([task.cURLDescription()]) }) {
-                Label("Share as cURL", systemImage: "square.and.arrow.up")
+                Label(L10n.tr("pulse.network.share_as_curl"), systemImage: "square.and.arrow.up")
             }
         }
     }
@@ -185,7 +185,7 @@ package enum ContextMenu {
 
         package var body: some View {
             Menu(content: content) {
-                Label("Copy", systemImage: "doc.on.doc")
+                Label(L10n.tr("pulse.common.copy"), systemImage: "doc.on.doc")
             }
         }
 
@@ -196,7 +196,7 @@ package enum ContextMenu {
                     UXPasteboard.general.string = url
                     runHapticFeedback()
                 }) {
-                    Label("Copy URL", systemImage: "doc.on.doc")
+                    Label(L10n.tr("pulse.context.copy_url"), systemImage: "doc.on.doc")
                 }
             }
             if let host = task.host {
@@ -204,7 +204,7 @@ package enum ContextMenu {
                     UXPasteboard.general.string = host
                     runHapticFeedback()
                 }) {
-                    Label("Copy Host", systemImage: "doc.on.doc")
+                    Label(L10n.tr("pulse.context.copy_host"), systemImage: "doc.on.doc")
                 }
             }
             if task.requestBodySize > 0 {
@@ -213,7 +213,7 @@ package enum ContextMenu {
                     UXPasteboard.general.string = String(data: data, encoding: .utf8)
                     runHapticFeedback()
                 }) {
-                    Label("Copy Request", systemImage: "arrow.up.circle")
+                    Label(L10n.tr("pulse.context.copy_request"), systemImage: "arrow.up.circle")
                 }
             }
             if task.responseBodySize > 0 {
@@ -222,7 +222,7 @@ package enum ContextMenu {
                     UXPasteboard.general.string = String(data: data, encoding: .utf8)
                     runHapticFeedback()
                 }) {
-                    Label("Copy Response", systemImage: "arrow.down.circle")
+                    Label(L10n.tr("pulse.context.copy_response"), systemImage: "arrow.down.circle")
                 }
             }
         }
@@ -293,7 +293,7 @@ struct ButtonOpenOnMac: View {
         if logger.isOpenOnMacSupported {
             Section {
                 Button(action: { openOnMac(entity) }) {
-                    Label("Open on Mac", systemImage: "macbook.and.iphone")
+                    Label(L10n.tr("pulse.context.open_on_mac"), systemImage: "macbook.and.iphone")
                 }.disabled(logger.connectionState != .connected)
             }
         }
@@ -322,14 +322,14 @@ package struct AttributedStringShareMenu: View {
 
     package var body: some View {
         Button(action: { shareItems = ShareService.share(string(), as: .plainText) }) {
-            Label("Share as Text", systemImage: "square.and.arrow.up")
+            Label(L10n.tr("pulse.context.share_as_text"), systemImage: "square.and.arrow.up")
         }
         Button(action: { shareItems = ShareService.share(string(), as: .html) }) {
-            Label("Share as HTML", systemImage: "square.and.arrow.up")
+            Label(L10n.tr("pulse.context.share_as_html"), systemImage: "square.and.arrow.up")
         }
 #if os(iOS) || os(visionOS)
         Button(action: { shareItems = ShareService.share(string(), as: .pdf) }) {
-            Label("Share as PDF", systemImage: "square.and.arrow.up")
+            Label(L10n.tr("pulse.context.share_as_pdf"), systemImage: "square.and.arrow.up")
         }
 #endif
     }
@@ -345,14 +345,14 @@ struct StringSearchOptionsMenu_Previews: PreviewProvider {
                     TextRenderer(options: .sharing).make { $0.render(LoggerStore.preview.entity(for: .login), content: .sharing, store: .mock) }
                 }
             }) {
-                Text("Attributed String Share")
+                Text(L10n.tr("pulse.context.attributed_string_share"))
             }
             Menu(content: {
-                Section(header: Label("Search Options", systemImage: "magnifyingglass")) {
+                Section(header: Label(L10n.tr("pulse.context.search_options"), systemImage: "magnifyingglass")) {
                     StringSearchOptionsMenu(options: .constant(.default))
                 }
             }) {
-                Text("Search Options")
+                Text(L10n.tr("pulse.context.search_options"))
             }
         }
     }

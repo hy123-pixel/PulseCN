@@ -31,7 +31,7 @@ package struct ConsoleSessionsPickerView: View {
     package var body: some View {
 #if os(iOS) || os(visionOS)
         NavigationLink(destination: ConsoleSessionsPickerView.makeSessionPicker($selection)) {
-            InfoRow(title: "Sessions", details: selectedSessionTitle)
+            InfoRow(title: L10n.tr("pulse.console.sessions.title"), details: selectedSessionTitle)
         }
 #elseif os(macOS)
         HStack {
@@ -39,7 +39,7 @@ package struct ConsoleSessionsPickerView: View {
                 .lineLimit(1)
                 .foregroundColor(.secondary)
             Spacer()
-            Button("Select...") { isShowingPicker = true }
+            Button(L10n.tr("pulse.common.select_ellipsis")) { isShowingPicker = true }
         }
         .popover(isPresented: $isShowingPicker, arrowEdge: .trailing) {
             ConsoleSessionsPickerView.makeSessionPicker($selection)
@@ -48,7 +48,7 @@ package struct ConsoleSessionsPickerView: View {
         }
 #else
         ConsoleSearchListSelectionView(
-            title: "Sessions",
+            title: L10n.tr("pulse.console.sessions.title"),
             items: sessions,
             id: \.id,
             selection: $selection,
@@ -61,14 +61,14 @@ package struct ConsoleSessionsPickerView: View {
 
     private var selectedSessionTitle: String {
         if selection.isEmpty {
-            return "None"
+            return L10n.tr("pulse.common.none")
         } else if selection == [store.session.id] {
-            return "Current"
+            return L10n.tr("pulse.network.current")
         } else if selection.count == 1, let session = session(withID: selection.first!) {
             return session.formattedDate
         } else {
 #if os(macOS)
-            return "\(selection.count) Sessions Selected"
+            return L10n.fmt("pulse.sessions.sessions_selected", selection.count)
 #else
             return "\(selection.count)"
 #endif

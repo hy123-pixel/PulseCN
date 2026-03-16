@@ -59,7 +59,7 @@ package struct ConsoleSearchListSelectionView<Data: RandomAccessCollection, ID: 
                 }
             if items.count > limit {
                 let viewAllView = HStack {
-                    Text("View All").foregroundColor(.accentColor)
+                    Text(L10n.tr("pulse.common.view_all")).foregroundColor(.accentColor)
                     Spacer()
                     Text("\(items.count) ").foregroundColor(.secondary)
                 }
@@ -94,7 +94,7 @@ package struct ConsoleSearchListSelectionView<Data: RandomAccessCollection, ID: 
     // MARK: - Shared
 
     private var emptyView: some View {
-        Text("Empty")
+        Text(L10n.tr("pulse.common.empty"))
             .frame(maxWidth: .infinity, alignment: .center)
             .foregroundColor(.secondary)
     }
@@ -117,7 +117,7 @@ package struct ConsoleSearchListSelectionView<Data: RandomAccessCollection, ID: 
 
     @ViewBuilder
     private var buttonToggleAll: some View {
-        Button(selection.isEmpty ? "Select All" : "Deselect All") {
+        Button(selection.isEmpty ? L10n.tr("pulse.common.select_all") : L10n.tr("pulse.common.deselect_all")) {
             selection = selection.isEmpty ? Set(items.map { $0[keyPath: id] }) : []
         }
         .foregroundColor(.accentColor)

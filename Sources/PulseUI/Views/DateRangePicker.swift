@@ -21,7 +21,7 @@ package struct DateRangePicker: View {
 #if os(macOS)
     package var body: some View {
         HStack {
-            Text(title + " Date")
+            Text(L10n.fmt("pulse.date.date_label", title))
             Spacer()
             contents
         }.frame(height: 24)
@@ -34,7 +34,7 @@ package struct DateRangePicker: View {
                 horizontal
 
                 VStack(alignment: .leading) {
-                    Text(title + " Date")
+                    Text(L10n.fmt("pulse.date.date_label", title))
                     contents
                 }
             }
@@ -86,7 +86,7 @@ package struct DateRangePicker: View {
 
     @ViewBuilder
     private var setDateView: some View {
-        Button("Set \(title) Date") {
+        Button(L10n.fmt("pulse.date.set_date", title)) {
             date = Date()
         }
     }

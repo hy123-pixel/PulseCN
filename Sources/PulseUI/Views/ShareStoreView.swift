@@ -45,7 +45,7 @@ package struct ShareStoreView: View {
             sectionSharingOptions
             sectionShare
         }
-        .inlineNavigationTitle("Share Logs")
+        .inlineNavigationTitle(L10n.tr("pulse.share.logs_title"))
         .toolbar {
 #if os(watchOS)
             ToolbarItem(placement: .cancellationAction) {
@@ -55,7 +55,7 @@ package struct ShareStoreView: View {
             }
 #else
             ToolbarItem(placement: .navigationBarLeading) {
-                Button("Cancel", action: onDismiss)
+                Button(L10n.tr("pulse.common.cancel"), action: onDismiss)
             }
 #endif
         }
@@ -86,11 +86,11 @@ package struct ShareStoreView: View {
             ConsoleSessionsPickerView(selection: $viewModel.sessions)
 #if os(iOS) || os(visionOS)
             NavigationLink(destination: destinationLogLevels) {
-                InfoRow(title: "Log Levels", details: viewModel.selectedLevelsTitle)
+                InfoRow(title: L10n.tr("pulse.filters.levels"), details: viewModel.selectedLevelsTitle)
             }
 #else
             HStack {
-                Text("Log Levels")
+                Text(L10n.tr("pulse.filters.levels"))
                 Spacer()
                 Button(action: { isShowingLabelPicker = true }) {
                     Text(viewModel.selectedLevelsTitle + "...")
@@ -99,7 +99,7 @@ package struct ShareStoreView: View {
 #endif
         }
         Section {
-            Picker("Output", selection: $viewModel.output) {
+            Picker(L10n.tr("pulse.share.output"), selection: $viewModel.output) {
                 ForEach(viewModel.shareStoreOutputs, id: \.rawValue) { shareOutput in
                     Text(shareOutput.interfaceTitle).tag(shareOutput)
                 }
@@ -113,7 +113,7 @@ package struct ShareStoreView: View {
     private var destinationLogLevels: some View {
         Form {
             ConsoleSearchLogLevelsCell(selection: $viewModel.logLevels)
-        }.inlineNavigationTitle("Log Levels")
+        }.inlineNavigationTitle(L10n.tr("pulse.filters.levels"))
     }
 
 #if os(iOS) || os(macOS) || os(visionOS)
@@ -123,12 +123,12 @@ package struct ShareStoreView: View {
 #if os(iOS) || os(visionOS)
                 HStack {
                     Spacer()
-                    Text(viewModel.isPreparingForSharing ? "Exporting..." : "Share")
+                    Text(viewModel.isPreparingForSharing ? L10n.tr("pulse.common.exporting") : L10n.tr("pulse.common.share"))
                         .bold()
                     Spacer()
                 }
 #else
-                Text(viewModel.isPreparingForSharing ? "Exporting..." : "Share")
+                Text(viewModel.isPreparingForSharing ? L10n.tr("pulse.common.exporting") : L10n.tr("pulse.common.share"))
 #endif
             }
             .disabled(viewModel.isPreparingForSharing)
@@ -146,13 +146,13 @@ package struct ShareStoreView: View {
                     ShareLink(items: shareItems.items as! [URL])
                 } else {
                     ProgressView(label: {
-                        Text("Exporting...")
+                        Text(L10n.tr("pulse.common.exporting"))
                     }).onAppear {
                         viewModel.prepareForSharing()
                     }
                 }
             }, label: {
-                Text("Share...")
+                Text(L10n.tr("pulse.common.share_ellipsis"))
             })
         }
     }

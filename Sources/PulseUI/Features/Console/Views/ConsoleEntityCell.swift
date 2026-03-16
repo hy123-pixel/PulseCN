@@ -42,7 +42,7 @@ private struct _ConsoleMessageCell: View {
 #if os(iOS) || os(visionOS)
         cell.swipeActions(edge: .trailing, allowsFullSwipe: true) {
             Button(action: { shareItems = ShareService.share(message, as: .html) }) {
-                Label("Share", systemImage: "square.and.arrow.up.fill")
+                Label(L10n.tr("pulse.common.share"), systemImage: "square.and.arrow.up.fill")
             }.tint(.blue)
         }
         .contextMenu {
@@ -86,7 +86,7 @@ private struct _ConsoleTaskCell: View {
                 sharedTask = task
 #endif
             }) {
-                Label("Share", systemImage: "square.and.arrow.up.fill")
+                Label(L10n.tr("pulse.common.share"), systemImage: "square.and.arrow.up.fill")
             }.tint(.blue)
         }
         .contextMenu {

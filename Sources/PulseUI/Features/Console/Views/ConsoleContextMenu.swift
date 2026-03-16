@@ -18,7 +18,7 @@ struct ConsoleContextMenu: View {
         Menu {
             Section {
                 Button(action: { router.isShowingSessions = true }) {
-                    Label("Sessions", systemImage: "list.bullet.clipboard")
+                    Label(L10n.tr("pulse.console.sessions.title"), systemImage: "list.bullet.clipboard")
                 }
             }
             Section {
@@ -27,25 +27,25 @@ struct ConsoleContextMenu: View {
             Section {
                 if !UserDefaults.standard.bool(forKey: "pulse-disable-settings-prompts") {
                     Button(action: { router.isShowingSettings = true }) {
-                        Label("Settings", systemImage: "gear")
+                        Label(L10n.tr("pulse.common.settings"), systemImage: "gear")
                     }
                 }
                 
                 if !environment.store.options.contains(.readonly) {
                     Button(role: .destructive, action: environment.removeAllLogs) {
-                        Label("Remove Logs", systemImage: "trash")
+                        Label(L10n.tr("pulse.store.remove_logs"), systemImage: "trash")
                     }
                 }
             }
             Section {
                 if !UserDefaults.standard.bool(forKey: "pulse-disable-support-prompts") {
                     Button(action: buttonGetPulseProTapped) {
-                        Label("Get Pulse Pro", systemImage: "link")
+                        Label(L10n.tr("pulse.console.get_pulse_pro"), systemImage: "link")
                     }
                 }
                 if !UserDefaults.standard.bool(forKey: "pulse-disable-report-issue-prompts") {
                     Button(action: buttonSendFeedbackTapped) {
-                        Label("Report Issue", systemImage: "envelope")
+                        Label(L10n.tr("pulse.console.report_issue"), systemImage: "envelope")
                     }
                 }
             }
@@ -73,24 +73,24 @@ private struct ConsoleSortByMenu: View {
     var body: some View {
         Menu(content: {
             if environment.mode == .network {
-                Picker("Sort By", selection: $environment.listOptions.taskSortBy) {
+                Picker(L10n.tr("pulse.console.sort_by"), selection: $environment.listOptions.taskSortBy) {
                     ForEach(ConsoleListOptions.TaskSortBy.allCases, id: \.self) {
                         Text($0.rawValue).tag($0)
                     }
                 }
             } else {
-                Picker("Sort By", selection: $environment.listOptions.messageSortBy) {
+                Picker(L10n.tr("pulse.console.sort_by"), selection: $environment.listOptions.messageSortBy) {
                     ForEach(ConsoleListOptions.MessageSortBy.allCases, id: \.self) {
                         Text($0.rawValue).tag($0)
                     }
                 }
             }
-            Picker("Ordering", selection: $environment.listOptions.order) {
-                Text("Descending").tag(ConsoleListOptions.Ordering.descending)
-                Text("Ascending").tag(ConsoleListOptions.Ordering.ascending)
+            Picker(L10n.tr("pulse.console.ordering"), selection: $environment.listOptions.order) {
+                Text(L10n.tr("pulse.console.descending")).tag(ConsoleListOptions.Ordering.descending)
+                Text(L10n.tr("pulse.console.ascending")).tag(ConsoleListOptions.Ordering.ascending)
             }
         }, label: {
-            Label("Sort By", systemImage: "arrow.up.arrow.down")
+            Label(L10n.tr("pulse.console.sort_by"), systemImage: "arrow.up.arrow.down")
         })
     }
 }
