@@ -16,7 +16,7 @@ struct ButtonCopyMessage: View {
             UXPasteboard.general.string = text
             runHapticFeedback()
         }) {
-            Text("Copy Message")
+            Text(L10n.tr("pulse.context.copy_message"))
             Image(systemName: "doc.on.doc")
         }
     }
@@ -30,7 +30,7 @@ struct NetworkMessageContextMenu: View {
     var body: some View {
         Section {
             if #available(iOS 14.0, *) {
-                Menu("Share Request Log") {
+                Menu(L10n.tr("pulse.context.share_request_log")) {
                     shareAsButtons
                 }
             } else {
@@ -40,7 +40,7 @@ struct NetworkMessageContextMenu: View {
                 Button(action: {
                     sharedItems = ShareItems([task.responseBody?.data ?? Data()])
                 }) {
-                    Text("Share Response")
+                    Text(L10n.tr("pulse.context.share_response"))
                     Image(systemName: "square.and.arrow.up")
                 }
             }
@@ -56,7 +56,7 @@ struct NetworkMessageContextMenu: View {
         Button(action: {
             sharedItems = ShareItems([ConsoleShareService.share(task, output: .plainText)])
         }) {
-            Text("Share as Plain Text")
+            Text(L10n.tr("pulse.context.share_plain_text"))
             Image(systemName: "square.and.arrow.up")
         }
         Button(action: {
@@ -65,7 +65,7 @@ struct NetworkMessageContextMenu: View {
             let fileURL = directory.write(text: text, extension: "markdown")
             sharedItems = ShareItems([fileURL], cleanup: directory.remove)
         }) {
-            Text("Share as Markdown")
+            Text(L10n.tr("pulse.context.share_markdown"))
             Image(systemName: "square.and.arrow.up")
         }
         Button(action: {
@@ -74,13 +74,13 @@ struct NetworkMessageContextMenu: View {
             let fileURL = directory.write(text: text, extension: "html")
             sharedItems = ShareItems([fileURL], cleanup: directory.remove)
         }) {
-            Text("Share as HTML")
+            Text(L10n.tr("pulse.context.share_html"))
             Image(systemName: "square.and.arrow.up")
         }
         Button(action: {
             sharedItems = ShareItems([task.cURLDescription()])
         }) {
-            Text("Share as cURL")
+            Text(L10n.tr("pulse.network.share_as_curl"))
             Image(systemName: "square.and.arrow.up")
         }
     }
@@ -96,7 +96,7 @@ struct NetworkMessageContextMenuCopySection: View {
                     UXPasteboard.general.string = url
                     runHapticFeedback()
                 }) {
-                    Text("Copy URL")
+                    Text(L10n.tr("pulse.context.copy_url"))
                     Image(systemName: "doc.on.doc")
                 }
             }
@@ -105,7 +105,7 @@ struct NetworkMessageContextMenuCopySection: View {
                     UXPasteboard.general.string = host
                     runHapticFeedback()
                 }) {
-                    Text("Copy Host")
+                    Text(L10n.tr("pulse.context.copy_host"))
                     Image(systemName: "doc.on.doc")
                 }
             }
@@ -115,7 +115,7 @@ struct NetworkMessageContextMenuCopySection: View {
                     UXPasteboard.general.string = String(data: data, encoding: .utf8)
                     runHapticFeedback()
                 }) {
-                    Text("Copy Response")
+                    Text(L10n.tr("pulse.context.copy_response"))
                     Image(systemName: "doc.on.doc")
                 }
             }
@@ -150,16 +150,16 @@ struct StringSearchOptionsMenu: View {
     #endif
 
     var pickerCase: some View {
-        Picker(options.isCaseSensitive ? "Case Sensitive" :  "Case Insensitive", selection: $options.isCaseSensitive) {
-            Text("Case Sensitive").tag(true)
-            Text("Case Insensitive").tag(false)
+        Picker(options.isCaseSensitive ? L10n.tr("pulse.search.case_sensitive") :  L10n.tr("pulse.search.case_insensitive"), selection: $options.isCaseSensitive) {
+            Text(L10n.tr("pulse.search.case_sensitive")).tag(true)
+            Text(L10n.tr("pulse.search.case_insensitive")).tag(false)
         }.pickerStyle(.inline)
     }
 
     var pickerKind: some View {
-        Picker(options.isRegex ? "Regular Expression" : "Text", selection: $options.isRegex) {
-            Text("Text").tag(false)
-            Text("Regular Expression").tag(true)
+        Picker(options.isRegex ? L10n.tr("pulse.search.regex") : L10n.tr("pulse.search.text"), selection: $options.isRegex) {
+            Text(L10n.tr("pulse.search.text")).tag(false)
+            Text(L10n.tr("pulse.search.regex")).tag(true)
         }.pickerStyle(.inline)
     }
 
