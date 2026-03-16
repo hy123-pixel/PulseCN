@@ -28,7 +28,7 @@ struct CustomFilterView: View {
                 .buttonStyle(.plain)
                 .foregroundColor(.red)
             }
-            TextField("Value", text: $filter.value)
+            TextField(L10n.tr("pulse.filters.value"), text: $filter.value)
                 .textFieldStyle(.roundedBorder)
                 .disableAutocorrection(true)
                 .autocapitalization(.none)
@@ -74,7 +74,7 @@ struct CustomFilterView: View {
                 Spacer()
             }
             HStack {
-                TextField("Value", text: $filter.value)
+                TextField(L10n.tr("pulse.filters.value"), text: $filter.value)
                     .textFieldStyle(.roundedBorder)
             }
         }
@@ -86,29 +86,29 @@ struct CustomFilterView: View {
     #endif
 
     private var fieldPicker: some View {
-        Picker("Field", selection: $filter.field) {
-            Text("Level").tag(ConsoleSearchFilter.Field.level)
-            Text("Label").tag(ConsoleSearchFilter.Field.label)
-            Text("Message").tag(ConsoleSearchFilter.Field.message)
+        Picker(L10n.tr("pulse.filters.field"), selection: $filter.field) {
+            Text(L10n.tr("pulse.message.level")).tag(ConsoleSearchFilter.Field.level)
+            Text(L10n.tr("pulse.message.label")).tag(ConsoleSearchFilter.Field.label)
+            Text(L10n.tr("pulse.filters.message")).tag(ConsoleSearchFilter.Field.message)
             Divider()
-            Text("Metadata").tag(ConsoleSearchFilter.Field.metadata)
+            Text(L10n.tr("pulse.message.metadata")).tag(ConsoleSearchFilter.Field.metadata)
             Divider()
-            Text("File").tag(ConsoleSearchFilter.Field.file)
+            Text(L10n.tr("pulse.message.file")).tag(ConsoleSearchFilter.Field.file)
         }
         .labelsHidden()
     }
 
     private var matchPicker: some View {
-        Picker("Match", selection: $filter.match) {
-            Text("Contains").tag(ConsoleSearchFilter.Match.contains)
-            Text("Not Contains").tag(ConsoleSearchFilter.Match.notContains)
+        Picker(L10n.tr("pulse.filters.match"), selection: $filter.match) {
+            Text(L10n.tr("pulse.filters.contains")).tag(ConsoleSearchFilter.Match.contains)
+            Text(L10n.tr("pulse.filters.not_contains")).tag(ConsoleSearchFilter.Match.notContains)
             Divider()
-            Text("Equals").tag(ConsoleSearchFilter.Match.equal)
-            Text("Not Equals").tag(ConsoleSearchFilter.Match.notEqual)
+            Text(L10n.tr("pulse.filters.equals")).tag(ConsoleSearchFilter.Match.equal)
+            Text(L10n.tr("pulse.filters.not_equals")).tag(ConsoleSearchFilter.Match.notEqual)
             Divider()
-            Text("Begins With").tag(ConsoleSearchFilter.Match.beginsWith)
+            Text(L10n.tr("pulse.filters.begins_with")).tag(ConsoleSearchFilter.Match.beginsWith)
             Divider()
-            Text("Regex").tag(ConsoleSearchFilter.Match.regex)
+            Text(L10n.tr("pulse.search.regex")).tag(ConsoleSearchFilter.Match.regex)
         }
         .labelsHidden()
     }

@@ -28,7 +28,7 @@ struct CustomNetworkFilterView: View {
                 .buttonStyle(.plain)
                 .foregroundColor(Color.red)
             }
-            TextField("Value", text: $filter.value)
+            TextField(L10n.tr("pulse.filters.value"), text: $filter.value)
                 .textFieldStyle(.roundedBorder)
                 .disableAutocorrection(true)
                 .autocapitalization(.none)
@@ -75,7 +75,7 @@ struct CustomNetworkFilterView: View {
                 Spacer()
             }
             HStack {
-                TextField("Value", text: $filter.value)
+                TextField(L10n.tr("pulse.filters.value"), text: $filter.value)
                     .textFieldStyle(.roundedBorder)
             }
         }
@@ -88,7 +88,7 @@ struct CustomNetworkFilterView: View {
 
     @ViewBuilder
     private var fieldPicker: some View {
-        Picker("Field", selection: $filter.field) {
+        Picker(L10n.tr("pulse.filters.field"), selection: $filter.field) {
             fieldPickerBasicSection
             Divider()
             fieldPickerAdvancedSection
@@ -97,33 +97,33 @@ struct CustomNetworkFilterView: View {
 
     @ViewBuilder
     private var fieldPickerBasicSection: some View {
-        Text("URL").tag(NetworkSearchFilter.Field.url)
-        Text("Host").tag(NetworkSearchFilter.Field.host)
-        Text("Method").tag(NetworkSearchFilter.Field.method)
-        Text("Status Code").tag(NetworkSearchFilter.Field.statusCode)
-        Text("Error Code").tag(NetworkSearchFilter.Field.errorCode)
+        Text(L10n.tr("pulse.details.url")).tag(NetworkSearchFilter.Field.url)
+        Text(L10n.tr("pulse.details.host")).tag(NetworkSearchFilter.Field.host)
+        Text(L10n.tr("pulse.network.method")).tag(NetworkSearchFilter.Field.method)
+        Text(L10n.tr("pulse.network.status_code")).tag(NetworkSearchFilter.Field.statusCode)
+        Text(L10n.tr("pulse.network.error_code")).tag(NetworkSearchFilter.Field.errorCode)
     }
 
     @ViewBuilder
     private var fieldPickerAdvancedSection: some View {
-        Text("Request Headers").tag(NetworkSearchFilter.Field.requestHeader)
-        Text("Response Headers").tag(NetworkSearchFilter.Field.responseHeader)
+        Text(L10n.tr("pulse.network.request_headers")).tag(NetworkSearchFilter.Field.requestHeader)
+        Text(L10n.tr("pulse.network.response_headers")).tag(NetworkSearchFilter.Field.responseHeader)
         Divider()
-        Text("Request Body").tag(NetworkSearchFilter.Field.requestBody)
-        Text("Response Body").tag(NetworkSearchFilter.Field.responseBody)
+        Text(L10n.tr("pulse.network.request_body")).tag(NetworkSearchFilter.Field.requestBody)
+        Text(L10n.tr("pulse.network.response_body")).tag(NetworkSearchFilter.Field.responseBody)
     }
 
     private var matchPicker: some View {
-        Picker("Matching", selection: $filter.match) {
-            Text("Contains").tag(NetworkSearchFilter.Match.contains)
-            Text("Not Contains").tag(NetworkSearchFilter.Match.notContains)
+        Picker(L10n.tr("pulse.filters.match"), selection: $filter.match) {
+            Text(L10n.tr("pulse.filters.contains")).tag(NetworkSearchFilter.Match.contains)
+            Text(L10n.tr("pulse.filters.not_contains")).tag(NetworkSearchFilter.Match.notContains)
             Divider()
-            Text("Equals").tag(NetworkSearchFilter.Match.equal)
-            Text("Not Equals").tag(NetworkSearchFilter.Match.notEqual)
+            Text(L10n.tr("pulse.filters.equals")).tag(NetworkSearchFilter.Match.equal)
+            Text(L10n.tr("pulse.filters.not_equals")).tag(NetworkSearchFilter.Match.notEqual)
             Divider()
-            Text("Begins With").tag(NetworkSearchFilter.Match.beginsWith)
+            Text(L10n.tr("pulse.filters.begins_with")).tag(NetworkSearchFilter.Match.beginsWith)
             Divider()
-            Text("Regex").tag(NetworkSearchFilter.Match.regex)
+            Text(L10n.tr("pulse.search.regex")).tag(NetworkSearchFilter.Match.regex)
         }.labelsHidden()
     }
 }
