@@ -65,7 +65,7 @@ package struct NetworkInspectorView: View {
     @ViewBuilder
     private var requestTypePicker: some View {
         HStack {
-            Text("Request Type")
+            Text(L10n.tr("pulse.network.request_type"))
             Spacer()
             NetworkInspectorRequestTypePicker(isCurrentRequest: $settings.isShowingCurrentRequest)
                 .pickerStyle(.segmented)
@@ -85,7 +85,7 @@ package struct NetworkInspectorView: View {
                 }
             }
             Button(action: { shareItems = ShareItems([task.cURLDescription()]) }) {
-                Label("Share as cURL", systemImage: "square.and.arrow.up")
+                Label(L10n.tr("pulse.network.share_as_curl"), systemImage: "square.and.arrow.up")
             }
         }, label: {
             Image(systemName: "square.and.arrow.up")
