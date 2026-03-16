@@ -67,13 +67,13 @@ struct ConsoleModePicker: View {
 
     var body: some View {
         HStack(spacing: 7) {
-            ConsoleModeButton(title: "Network", details: CountFormatter.string(from: tasksCounter.count), isSelected: environment.mode == .network) {
+            ConsoleModeButton(title: L10n.tr("pulse.console.mode.network"), details: CountFormatter.string(from: tasksCounter.count), isSelected: environment.mode == .network) {
                 environment.mode = .network
             }
-            ConsoleModeButton(title: "Logs", details: CountFormatter.string(from: logsCounter.count), isSelected: environment.mode == .logs) {
+            ConsoleModeButton(title: L10n.tr("pulse.console.mode.logs"), details: CountFormatter.string(from: logsCounter.count), isSelected: environment.mode == .logs) {
                 environment.mode = .logs
             }
-            ConsoleModeButton(title: "All", details: CountFormatter.string(from: logsCounter.count + tasksCounter.count), isSelected: environment.mode == .all) {
+            ConsoleModeButton(title: L10n.tr("pulse.console.mode.all"), details: CountFormatter.string(from: logsCounter.count + tasksCounter.count), isSelected: environment.mode == .all) {
                 environment.mode = .all
             }
         }
@@ -91,7 +91,9 @@ private struct ConsoleToolbarTitle: View {
     }
 
     private var title: String {
-        let kind = environment.initialMode == .network ? "Requests" : "Logs"
+        let kind = environment.initialMode == .network
+            ? L10n.tr("pulse.console.requests")
+            : L10n.tr("pulse.console.mode.logs")
         return "\(listViewModel.entities.count) \(kind)"
     }
 }

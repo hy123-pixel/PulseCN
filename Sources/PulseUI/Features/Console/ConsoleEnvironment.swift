@@ -40,9 +40,9 @@ final class ConsoleEnvironment: ObservableObject {
     init(store: LoggerStore, mode: ConsoleMode = .all) {
         self.store = store
         switch mode {
-        case .all: self.title = "Console"
-        case .logs: self.title = "Logs"
-        case .network: self.title = "Network"
+        case .all: self.title = L10n.tr("pulse.console.title")
+        case .logs: self.title = L10n.tr("pulse.console.mode.logs")
+        case .network: self.title = L10n.tr("pulse.console.mode.network")
         }
         self.initialMode = mode
 
