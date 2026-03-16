@@ -14,7 +14,7 @@ struct ConsoleMessageMetadataView: View {
         contents
             .background(links)
 #if os(iOS)
-            .navigationBarTitle("Details", displayMode: .inline)
+            .navigationBarTitle(Text(L10n.tr("pulse.message.details")), displayMode: .inline)
 #endif
     }
 

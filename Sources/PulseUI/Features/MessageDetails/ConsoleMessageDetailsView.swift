@@ -14,7 +14,7 @@ struct ConsoleMessageDetailsView: View {
     #if os(iOS)
     var body: some View {
         contents
-            .navigationBarTitle("", displayMode: .inline)
+            .navigationBarTitle(Text(""), displayMode: .inline)
             .navigationBarItems(trailing: trailingNavigationBarItems)
             .sheet(isPresented: $isShowingShareSheet) {
                 ShareView(activityItems: [self.viewModel.prepareForSharing()])
