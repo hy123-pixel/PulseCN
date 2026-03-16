@@ -41,7 +41,7 @@ struct ConsoleMessageDetailsView: View {
         ScrollView {
             VStack(spacing: 8) {
                 NavigationLink(destination: ConsoleMessageMetadataView(message: viewModel.message)) {
-                    Label("Details", systemImage: "info.circle")
+                    Label(L10n.tr("pulse.message.details"), systemImage: "info.circle")
                 }
                 contents
             }
@@ -79,14 +79,14 @@ struct ConsoleMessageDetailsView: View {
         .sheet(isPresented: $isMetaVisible, content: {
             VStack(spacing: 0) {
                 HStack {
-                    Text("Message Details")
+                    Text(L10n.tr("pulse.message.details_title"))
                         .font(.headline)
                         .foregroundColor(.secondary)
                     Spacer()
-                    Button("Close") { isMetaVisible = false }
+                    Button(L10n.tr("pulse.common.close")) { isMetaVisible = false }
                         .keyboardShortcut(.cancelAction)
                 }.padding()
-                ConsoleMessageMetadataView(message: viewModel.message)
+                LegacyConsoleMessageMetadataSheet(message: viewModel.message)
             }.frame(width: 440, height: 600)
         })
     }
@@ -126,6 +126,45 @@ struct ConsoleMessageDetailsView: View {
     }
     #endif
 }
+
+#if os(macOS)
+private struct LegacyConsoleMessageMetadataSheet: View {
+    let message: LoggerMessageEntity
+
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 16) {
+                KeyValueSectionView(viewModel: .init(title: L10n.tr("pulse.message.summary"), color: Color.badgeColor(for: .init(rawValue: message.level) ?? .debug), items: [
+                    (L10n.tr("pulse.message.date"), legacyDateFormatter.string(from: message.createdAt)),
+                    (L10n.tr("pulse.message.level"), LoggerStore.Level(rawValue: message.level)?.name),
+                    (L10n.tr("pulse.message.label"), message.label.name.nonEmpty)
+                ]))
+                KeyValueSectionView(viewModel: .init(title: L10n.tr("pulse.message.details"), color: .secondary, items: [
+                    (L10n.tr("pulse.message.session"), message.session.uuidString.nonEmpty),
+                    (L10n.tr("pulse.message.file"), message.file.nonEmpty),
+                    (L10n.tr("pulse.message.function"), message.function.nonEmpty),
+                    (L10n.tr("pulse.message.line"), message.line == 0 ? nil : "\(message.line)"),
+                ]))
+                KeyValueSectionView(viewModel: .init(title: L10n.tr("pulse.message.metadata"), color: .indigo, items: message.metadata.sorted(by: { $0.key < $1.key }).map { ($0.key, $0.value) }))
+            }
+            .padding()
+        }
+    }
+}
+
+private let legacyDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.locale = Locale(identifier: "en_US")
+    formatter.dateFormat = "HH:mm:ss.SSS, yyyy-MM-dd"
+    return formatter
+}()
+
+private extension String {
+    var nonEmpty: String? {
+        isEmpty ? nil : self
+    }
+}
+#endif
 
 #if DEBUG
 struct ConsoleMessageDetailsView_Previews: PreviewProvider {
