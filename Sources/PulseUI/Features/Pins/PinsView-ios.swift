@@ -24,7 +24,7 @@ public struct PinsView: View {
     public var body: some View {
         contents
             .edgesIgnoringSafeArea(.bottom)
-            .navigationBarTitle(Text("Pins"))
+            .navigationBarTitle(Text(L10n.tr("pulse.main.pins")))
             .navigationBarItems(leading: navigationBarLeadingItems, trailing: navigationBarTralingItems)
             .onAppear { viewModel.onAppear() }
             .onAppear { viewModel.onDisappear() }
@@ -48,7 +48,7 @@ public struct PinsView: View {
     private var contents: some View {
         if viewModel.messages.isEmpty {
             placeholder
-                .navigationBarTitle(Text("Pins"))
+                .navigationBarTitle(Text(L10n.tr("pulse.main.pins")))
         } else {
             ConsoleTableView(
                 header: { EmptyView() },
@@ -59,7 +59,7 @@ public struct PinsView: View {
     }
 
     private var placeholder: PlaceholderView {
-        PlaceholderView(imageName: "pin.circle", title: "No Pins", subtitle: "Pin messages using the context menu or from the details page")
+        PlaceholderView(imageName: "pin.circle", title: L10n.tr("pulse.pins.no_pins"), subtitle: L10n.tr("pulse.pins.hint"))
     }
 }
 
