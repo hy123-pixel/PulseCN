@@ -35,7 +35,7 @@ public struct NetworkView: View {
         .onAppear(perform: viewModel.onAppear)
         .onDisappear(perform: viewModel.onDisappear)
         .overlay(tableOverlay)
-        .navigationBarTitle(Text("Network"))
+        .navigationBarTitle(Text(L10n.tr("pulse.network.title")))
         .navigationBarItems(leading: navigationBarTrailingItems)
     }
 
@@ -74,7 +74,7 @@ private struct NetworkToolbarView: View {
     var body: some View {
         VStack {
             HStack(spacing: 0) {
-                SearchBar(title: "Search \(viewModel.entities.count) messages", text: $viewModel.filterTerm)
+                SearchBar(title: L10n.fmt("pulse.network.search_messages", viewModel.entities.count), text: $viewModel.filterTerm)
                 Button(action: { viewModel.isOnlyErrors.toggle() }) {
                     Image(systemName: viewModel.isOnlyErrors ? "exclamationmark.octagon.fill" : "exclamationmark.octagon")
                         .font(.system(size: 20))
