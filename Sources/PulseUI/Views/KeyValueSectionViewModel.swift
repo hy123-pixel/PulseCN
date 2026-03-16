@@ -20,29 +20,29 @@ package struct KeyValueSectionViewModel {
 extension KeyValueSectionViewModel {
     package static func makeParameters(for request: NetworkRequestEntity) -> KeyValueSectionViewModel {
         var items: [(String, String?)] = [
-            ("Cache Policy", request.cachePolicy.description),
-            ("Timeout Interval", DurationFormatter.string(from: TimeInterval(request.timeoutInterval), isPrecise: false))
+            (L10n.tr("pulse.details.cache_policy"), request.cachePolicy.description),
+            (L10n.tr("pulse.details.timeout_interval"), DurationFormatter.string(from: TimeInterval(request.timeoutInterval), isPrecise: false))
         ]
         // Display only non-default values
         if !request.allowsCellularAccess {
-            items.append(("Allows Cellular Access", request.allowsCellularAccess.description))
+            items.append((L10n.tr("pulse.details.allows_cellular_access"), request.allowsCellularAccess.description))
         }
         if !request.allowsExpensiveNetworkAccess {
-            items.append(("Allows Expensive Network Access", request.allowsExpensiveNetworkAccess.description))
+            items.append((L10n.tr("pulse.details.allows_expensive_network_access"), request.allowsExpensiveNetworkAccess.description))
         }
         if !request.allowsConstrainedNetworkAccess {
-            items.append(("Allows Constrained Network Access", request.allowsConstrainedNetworkAccess.description))
+            items.append((L10n.tr("pulse.details.allows_constrained_network_access"), request.allowsConstrainedNetworkAccess.description))
         }
         if !request.httpShouldHandleCookies {
-            items.append(("Should Handle Cookies", request.httpShouldHandleCookies.description))
+            items.append((L10n.tr("pulse.details.should_handle_cookies"), request.httpShouldHandleCookies.description))
         }
         if request.httpShouldUsePipelining {
-            items.append(("HTTP Should Use Pipelining", request.httpShouldUsePipelining.description))
+            items.append((L10n.tr("pulse.details.http_should_use_pipelining"), request.httpShouldUsePipelining.description))
         }
         if #available(iOS 16, *) {
-            return KeyValueSectionViewModel(title: "Options", color: .indigo, items: items)
+            return KeyValueSectionViewModel(title: L10n.tr("pulse.details.options"), color: .indigo, items: items)
         } else {
-            return KeyValueSectionViewModel(title: "Options", color: .purple, items: items)
+            return KeyValueSectionViewModel(title: L10n.tr("pulse.details.options"), color: .purple, items: items)
         }
     }
 
@@ -52,14 +52,14 @@ extension KeyValueSectionViewModel {
         }
         let taskType = task.type?.urlSessionTaskClassName ?? "URLSessionDataTask"
         var items: [(String, String?)] = [
-            ("Host", task.url.flatMap(URL.init)?.host),
-            ("Date", task.startDate.map(DateFormatter.fullDateFormatter.string))
+            (L10n.tr("pulse.details.host"), task.url.flatMap(URL.init)?.host),
+            (L10n.tr("pulse.details.date"), task.startDate.map(DateFormatter.fullDateFormatter.string))
         ]
         if task.duration > 0 {
-            items.append(("Duration", DurationFormatter.string(from: task.duration)))
+            items.append((L10n.tr("pulse.details.duration"), DurationFormatter.string(from: task.duration)))
         }
         if let description = task.taskDescription, !description.isEmpty {
-            items.append(("Description", description))
+            items.append((L10n.tr("pulse.details.description"), description))
         }
         return KeyValueSectionViewModel(title: taskType, color: .primary, items: items)
     }
@@ -69,17 +69,17 @@ extension KeyValueSectionViewModel {
             return nil
         }
         return KeyValueSectionViewModel(
-            title: "URL Components",
+            title: L10n.tr("pulse.details.url_components"),
             color: .blue,
             items: [
-                ("Scheme", components.scheme),
-                ("Port", components.port?.description),
-                ("User", components.user),
-                ("Password", components.password),
-                ("Host", components.host),
-                ("Path", components.path),
-                ("Query", components.query),
-                ("Fragment", components.fragment)
+                (L10n.tr("pulse.details.scheme"), components.scheme),
+                (L10n.tr("pulse.details.port"), components.port?.description),
+                (L10n.tr("pulse.details.user"), components.user),
+                (L10n.tr("pulse.details.password"), components.password),
+                (L10n.tr("pulse.details.host"), components.host),
+                (L10n.tr("pulse.details.path"), components.path),
+                (L10n.tr("pulse.details.query"), components.query),
+                (L10n.tr("pulse.details.fragment"), components.fragment)
             ].filter { $0.1?.isEmpty == false })
     }
 
@@ -99,12 +99,12 @@ extension KeyValueSectionViewModel {
             return nil
         }
         return KeyValueSectionViewModel(
-            title: "Error",
+            title: L10n.tr("pulse.details.error"),
             color: .red,
             items: [
-                ("Domain", task.errorDomain),
-                ("Code", descriptionForError(domain: task.errorDomain, code: task.errorCode)),
-                ("Description", task.errorDebugDescription)
+                (L10n.tr("pulse.details.domain"), task.errorDomain),
+                (L10n.tr("pulse.details.code"), descriptionForError(domain: task.errorDomain, code: task.errorCode)),
+                (L10n.tr("pulse.details.description"), task.errorDebugDescription)
             ])
     }
 
@@ -126,7 +126,7 @@ extension KeyValueSectionViewModel {
 
     package static func makeQueryItems(for queryItems: [URLQueryItem]) -> KeyValueSectionViewModel? {
         KeyValueSectionViewModel(
-            title: "Query",
+            title: L10n.tr("pulse.details.query"),
             color: .purple,
             items: queryItems.map { ($0.name, $0.value) }
         )
@@ -179,28 +179,28 @@ extension KeyValueSectionViewModel {
             ($0.0.padding(toLength: longestTitleCount + 1, withPad: " ", startingAt: 0), $0.1)
         }
 #endif
-        return KeyValueSectionViewModel(title: "Timing", color: .orange, items: items)
+        return KeyValueSectionViewModel(title: L10n.tr("pulse.details.timing"), color: .orange, items: items)
     }
 
     private static func makeTransferSection(for metrics: NetworkTransactionMetricsEntity) -> KeyValueSectionViewModel? {
         let transferSize = metrics.transferSize
-        return KeyValueSectionViewModel(title: "Data Transfer", color: .primary, items: [
-            ("Request Headers", formatBytes(transferSize.requestHeaderBytesSent)),
-            ("Request Body", formatBytes(transferSize.requestBodyBytesBeforeEncoding)),
-            ("Request Body (Encoded)", formatBytes(transferSize.requestBodyBytesSent)),
-            ("Response Headers", formatBytes(transferSize.responseHeaderBytesReceived)),
-            ("Response Body", formatBytes(transferSize.responseBodyBytesReceived)),
-            ("Response Body (Decoded)", formatBytes(transferSize.responseBodyBytesAfterDecoding))
+        return KeyValueSectionViewModel(title: L10n.tr("pulse.details.data_transfer"), color: .primary, items: [
+            (L10n.tr("pulse.network.request_headers"), formatBytes(transferSize.requestHeaderBytesSent)),
+            (L10n.tr("pulse.network.request_body"), formatBytes(transferSize.requestBodyBytesBeforeEncoding)),
+            (L10n.tr("pulse.details.request_body_encoded"), formatBytes(transferSize.requestBodyBytesSent)),
+            (L10n.tr("pulse.network.response_headers"), formatBytes(transferSize.responseHeaderBytesReceived)),
+            (L10n.tr("pulse.network.response_body"), formatBytes(transferSize.responseBodyBytesReceived)),
+            (L10n.tr("pulse.details.response_body_decoded"), formatBytes(transferSize.responseBodyBytesAfterDecoding))
         ])
     }
 
     private static func makeProtocolSection(for metrics: NetworkTransactionMetricsEntity) -> KeyValueSectionViewModel? {
-        KeyValueSectionViewModel(title: "Protocol", color: .primary, items: [
-            ("Network Protocol", metrics.networkProtocol),
-            ("Remote Address", metrics.remoteAddress),
-            ("Remote Port", metrics.remotePort > 0 ? String(metrics.remotePort) : nil),
-            ("Local Address", metrics.localAddress),
-            ("Local Port", metrics.localPort > 0 ? String(metrics.localPort) : nil)
+        KeyValueSectionViewModel(title: L10n.tr("pulse.details.protocol"), color: .primary, items: [
+            (L10n.tr("pulse.details.network_protocol"), metrics.networkProtocol),
+            (L10n.tr("pulse.details.remote_address"), metrics.remoteAddress),
+            (L10n.tr("pulse.details.remote_port"), metrics.remotePort > 0 ? String(metrics.remotePort) : nil),
+            (L10n.tr("pulse.details.local_address"), metrics.localAddress),
+            (L10n.tr("pulse.details.local_port"), metrics.localPort > 0 ? String(metrics.localPort) : nil)
         ])
     }
 
@@ -209,33 +209,33 @@ extension KeyValueSectionViewModel {
               let version = metrics.negotiatedTLSProtocolVersion else {
             return nil
         }
-        return KeyValueSectionViewModel(title: "Security", color: .primary, items: [
-            ("Cipher Suite", suite.description),
-            ("Protocol Version", version.description)
+        return KeyValueSectionViewModel(title: L10n.tr("pulse.details.security"), color: .primary, items: [
+            (L10n.tr("pulse.details.cipher_suite"), suite.description),
+            (L10n.tr("pulse.details.protocol_version"), version.description)
         ])
     }
 
     private static func makeMiscSection(for metrics: NetworkTransactionMetricsEntity) -> KeyValueSectionViewModel? {
-        KeyValueSectionViewModel(title: "Characteristics", color: .primary, items: [
-            ("Cellular", metrics.isCellular.description),
-            ("Expensive", metrics.isExpensive.description),
-            ("Constrained", metrics.isConstrained.description),
-            ("Proxy Connection", metrics.isProxyConnection.description),
-            ("Reused Connection", metrics.isReusedConnection.description),
-            ("Multipath", metrics.isMultipath.description)
+        KeyValueSectionViewModel(title: L10n.tr("pulse.details.characteristics"), color: .primary, items: [
+            (L10n.tr("pulse.details.cellular"), metrics.isCellular.description),
+            (L10n.tr("pulse.details.expensive"), metrics.isExpensive.description),
+            (L10n.tr("pulse.details.constrained"), metrics.isConstrained.description),
+            (L10n.tr("pulse.details.proxy_connection"), metrics.isProxyConnection.description),
+            (L10n.tr("pulse.details.reused_connection"), metrics.isReusedConnection.description),
+            (L10n.tr("pulse.details.multipath"), metrics.isMultipath.description)
         ])
     }
 
     package static func makeDetails(for cookie: HTTPCookie, color: Color) -> KeyValueSectionViewModel {
         KeyValueSectionViewModel(title: cookie.name, color: color, items: [
-            ("Name", cookie.name),
-            ("Value", cookie.value),
-            ("Domain", cookie.domain),
-            ("Path", cookie.path),
-            ("Expires", cookie.expiresDate?.description(with: Locale(identifier: "en_US"))),
-            ("Secure", "\(cookie.isSecure)"),
-            ("HTTP Only", "\(cookie.isHTTPOnly)"),
-            ("Session Only", "\(cookie.isSessionOnly)")
+            (L10n.tr("pulse.details.name"), cookie.name),
+            (L10n.tr("pulse.details.value"), cookie.value),
+            (L10n.tr("pulse.details.domain"), cookie.domain),
+            (L10n.tr("pulse.details.path"), cookie.path),
+            (L10n.tr("pulse.details.expires"), cookie.expiresDate?.description(with: Locale(identifier: "en_US"))),
+            (L10n.tr("pulse.details.secure"), "\(cookie.isSecure)"),
+            (L10n.tr("pulse.details.http_only"), "\(cookie.isHTTPOnly)"),
+            (L10n.tr("pulse.details.session_only"), "\(cookie.isSessionOnly)")
         ])
     }
 }

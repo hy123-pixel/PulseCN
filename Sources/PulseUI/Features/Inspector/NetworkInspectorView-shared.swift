@@ -14,11 +14,11 @@ extension NetworkInspectorView {
         let url = URL(string: task.url ?? "")
         NetworkRequestBodyCell(viewModel: .init(task: task))
         if isCurrentRequest {
-            NetworkHeadersCell(viewModel: .init(title: "Request Headers", headers: task.currentRequest?.headers))
-            NetworkCookiesCell(viewModel: .init(title: "Request Cookies", headers: task.currentRequest?.headers, url: url))
+            NetworkHeadersCell(viewModel: .init(title: L10n.tr("pulse.network.request_headers"), headers: task.currentRequest?.headers))
+            NetworkCookiesCell(viewModel: .init(title: L10n.tr("pulse.network.request_cookies"), headers: task.currentRequest?.headers, url: url))
         } else {
-            NetworkHeadersCell(viewModel: .init(title: "Request Headers", headers: task.originalRequest?.headers))
-            NetworkCookiesCell(viewModel: .init(title: "Request Cookies", headers: task.originalRequest?.headers, url: url))
+            NetworkHeadersCell(viewModel: .init(title: L10n.tr("pulse.network.request_headers"), headers: task.originalRequest?.headers))
+            NetworkCookiesCell(viewModel: .init(title: L10n.tr("pulse.network.request_cookies"), headers: task.originalRequest?.headers, url: url))
         }
     }
 
@@ -26,8 +26,8 @@ extension NetworkInspectorView {
     static func makeResponseSection(task: NetworkTaskEntity) -> some View {
         let url = URL(string: task.url ?? "")
         NetworkResponseBodyCell(viewModel: .init(task: task))
-        NetworkHeadersCell(viewModel: .init(title: "Response Headers", headers: task.response?.headers))
-        NetworkCookiesCell(viewModel: .init(title: "Response Cookies", headers: task.response?.headers, url: url))
+        NetworkHeadersCell(viewModel: .init(title: L10n.tr("pulse.network.response_headers"), headers: task.response?.headers))
+        NetworkCookiesCell(viewModel: .init(title: L10n.tr("pulse.network.response_cookies"), headers: task.response?.headers, url: url))
     }
 
     @ViewBuilder
@@ -55,9 +55,9 @@ struct NetworkInspectorRequestTypePicker: View {
     @Binding var isCurrentRequest: Bool
 
     var body: some View {
-        Picker("Request Type", selection: $isCurrentRequest) {
-            Text("Original").tag(false)
-            Text("Current").tag(true)
+        Picker(L10n.tr("pulse.network.request_type"), selection: $isCurrentRequest) {
+            Text(L10n.tr("pulse.network.original")).tag(false)
+            Text(L10n.tr("pulse.network.current")).tag(true)
         }
     }
 }

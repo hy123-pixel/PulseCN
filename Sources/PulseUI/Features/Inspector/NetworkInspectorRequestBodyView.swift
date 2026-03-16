@@ -12,7 +12,7 @@ struct NetworkInspectorRequestBodyView: View {
 
     var body: some View {
         contents
-            .inlineNavigationTitle("Request Body")
+            .inlineNavigationTitle(L10n.tr("pulse.network.request_body"))
     }
 
     @ViewBuilder
@@ -22,16 +22,16 @@ struct NetworkInspectorRequestBodyView: View {
                 .onDisappear { self.viewModel.onDisappear() }
         } else if viewModel.task.type == .uploadTask {
             PlaceholderView(imageName: "arrow.up.circle", title: {
-                var title = "Uploaded from a File"
+                var title = L10n.tr("pulse.network.uploaded_from_file")
                 if viewModel.task.requestBodySize > 0 {
                     title = "\(ByteCountFormatter.string(fromByteCount: viewModel.task.requestBodySize))\n\(title)"
                 }
                 return title
             }())
         } else if viewModel.task.requestBodySize > 0 {
-            PlaceholderView(imageName: "exclamationmark.circle", title: "Unavailable", subtitle: "The request body is no longer available")
+            PlaceholderView(imageName: "exclamationmark.circle", title: L10n.tr("pulse.common.unavailable"), subtitle: L10n.tr("pulse.network.request_body_unavailable"))
         } else {
-            PlaceholderView(imageName: "nosign", title: "Empty Request")
+            PlaceholderView(imageName: "nosign", title: L10n.tr("pulse.network.empty_request"))
         }
     }
 }
@@ -39,7 +39,7 @@ struct NetworkInspectorRequestBodyView: View {
 final class NetworkInspectorRequestBodyViewModel {
     private(set) lazy var fileViewModel = data.map { data in
         FileViewerViewModel(
-            title: "Request Body",
+            title: L10n.tr("pulse.network.request_body"),
             context: task.requestFileViewerContext,
             data: { data }
         )

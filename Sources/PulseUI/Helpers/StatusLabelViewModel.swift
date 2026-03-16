@@ -15,7 +15,7 @@ package struct StatusLabelViewModel {
         guard let state = task.state(in: store) else {
             self.systemImage = "questionmark.diamond.fill"
             self.tint = .secondary
-            self.title = "Unknown"
+            self.title = L10n.tr("pulse.status.unknown")
             return
         }
         switch state {
@@ -47,7 +47,7 @@ package struct StatusLabelViewModel {
             }
         } else {
             self.systemImage = "exclamationmark.octagon.fill"
-            self.title = "No Response"
+            self.title = L10n.tr("pulse.status.no_response")
             self.tint = .secondary
         }
     }

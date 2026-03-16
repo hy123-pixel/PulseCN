@@ -49,7 +49,7 @@ package struct NetworkInspectorTransferInfoView: View {
 
     private var bytesSent: some View {
         makeView(
-            title: "Sent",
+            title: L10n.tr("pulse.metrics.sent"),
             imageName: "arrow.up.circle",
             total: viewModel.totalBytesSent,
             headers: viewModel.headersBytesSent,
@@ -59,7 +59,7 @@ package struct NetworkInspectorTransferInfoView: View {
 
     private var bytesReceived: some View {
         makeView(
-            title: "Received",
+            title: L10n.tr("pulse.metrics.received"),
             imageName: "arrow.down.circle",
             total: viewModel.totalBytesReceived,
             headers: viewModel.headersBytesReceived,
@@ -86,10 +86,10 @@ package struct NetworkInspectorTransferInfoView: View {
             .padding(2)
             HStack(alignment: .center, spacing: 4) {
                 VStack(alignment: .trailing) {
-                    Text("Headers:")
+                    Text(L10n.tr("pulse.metrics.headers"))
                         .foregroundColor(.secondary)
                         .font(valueFont)
-                    Text("Body:")
+                    Text(L10n.tr("pulse.metrics.body"))
                         .foregroundColor(.secondary)
                         .font(valueFont)
                 }

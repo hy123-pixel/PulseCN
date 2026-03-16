@@ -37,16 +37,16 @@ struct NetworkInspectorView: View {
         Section {
             NetworkInspectorRequestTypePicker(isCurrentRequest: $settings.isShowingCurrentRequest)
             NetworkInspectorView.makeRequestSection(task: task, isCurrentRequest: settings.isShowingCurrentRequest)
-        } header: { Text("Request") }
+        } header: { Text(L10n.tr("pulse.network.request")) }
         if task.state != .pending {
             Section {
                 NetworkInspectorView.makeResponseSection(task: task)
-            } header: { Text("Response") }
+            } header: { Text(L10n.tr("pulse.network.response")) }
 
         }
         Section {
             NetworkCURLCell(task: task)
-        } header: { Text("Transactions") }
+        } header: { Text(L10n.tr("pulse.network.transactions")) }
     }
 
     @ViewBuilder

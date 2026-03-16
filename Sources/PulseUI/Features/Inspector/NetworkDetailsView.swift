@@ -35,7 +35,7 @@ package struct NetworkDetailsView: View {
             RichTextView(viewModel: viewModel)
 #endif
         } else {
-            PlaceholderView(imageName: "nosign", title: "Empty")
+            PlaceholderView(imageName: "nosign", title: L10n.tr("pulse.common.empty"))
         }
     }
 }

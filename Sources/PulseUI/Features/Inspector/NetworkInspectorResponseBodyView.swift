@@ -12,7 +12,7 @@ struct NetworkInspectorResponseBodyView: View {
 
     var body: some View {
         contents
-            .inlineNavigationTitle("Response Body")
+            .inlineNavigationTitle(L10n.tr("pulse.network.response_body"))
     }
 
     @ViewBuilder
@@ -22,16 +22,16 @@ struct NetworkInspectorResponseBodyView: View {
                 .onDisappear { self.viewModel.onDisappear() }
         } else if viewModel.task.type == .downloadTask {
             PlaceholderView(imageName: "arrow.down.circle", title: {
-                var title = "Downloaded to a File"
+                var title = L10n.tr("pulse.network.downloaded_to_file")
                 if viewModel.task.responseBodySize > 0 {
                     title = "\(ByteCountFormatter.string(fromByteCount: viewModel.task.responseBodySize))\n\(title)"
                 }
                 return title
             }())
         } else if viewModel.task.responseBodySize > 0 {
-            PlaceholderView(imageName: "exclamationmark.circle", title: "Unavailable", subtitle: "The response body was deleted from the store to reduce its size. Increase `responseBodySizeLimit` of the store.")
+            PlaceholderView(imageName: "exclamationmark.circle", title: L10n.tr("pulse.common.unavailable"), subtitle: L10n.tr("pulse.network.response_body_unavailable"))
         } else {
-            PlaceholderView(imageName: "nosign", title: "Empty Response")
+            PlaceholderView(imageName: "nosign", title: L10n.tr("pulse.network.empty_response"))
         }
     }
 }
@@ -41,7 +41,7 @@ struct NetworkInspectorResponseBodyView: View {
 final class NetworkInspectorResponseBodyViewModel {
     private(set) lazy var fileViewModel = data.map { data in
         FileViewerViewModel(
-            title: "Response Body",
+            title: L10n.tr("pulse.network.response_body"),
             context: task.responseFileViewerContext,
             data: { data }
         )

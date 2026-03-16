@@ -37,7 +37,7 @@ package struct ConsoleMessageDetailsView: View {
         ScrollView {
             VStack(spacing: 8) {
                 NavigationLink(destination: ConsoleMessageMetadataView(message: message)) {
-                    Label("Details", systemImage: "info.circle")
+                    Label(L10n.tr("pulse.message.details"), systemImage: "info.circle")
                 }
                 contents
             }

@@ -31,7 +31,7 @@ struct NetworkInspectorMetricsView: View {
         .scrollContentBackground(.hidden)
 #endif
 #if !os(macOS)
-        .navigationTitle("Metrics")
+        .navigationTitle(L10n.tr("pulse.metrics.title"))
 #endif
 #endif
     }

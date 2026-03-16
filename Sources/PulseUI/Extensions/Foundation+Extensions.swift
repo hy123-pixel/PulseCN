@@ -79,7 +79,7 @@ extension tls_ciphersuite_t {
         case .AES_128_GCM_SHA256: return "AES_128_GCM_SHA256"
         case .AES_256_GCM_SHA384: return "AES_256_GCM_SHA384"
         case .CHACHA20_POLY1305_SHA256: return "CHACHA20_POLY1305_SHA256"
-        @unknown default: return "Unknown"
+        @unknown default: return L10n.tr("pulse.status.unknown")
         }
     }
 }
@@ -93,62 +93,62 @@ extension tls_protocol_version_t {
         case .TLSv13: return "TLS 1.3"
         case .DTLSv10: return "DTLS 1.0"
         case .DTLSv12: return "DTLS 1.2"
-        @unknown default: return "Unknown"
+        @unknown default: return L10n.tr("pulse.status.unknown")
         }
     }
 }
 
 package func descriptionForURLErrorCode(_ code: Int) -> String {
     switch code {
-    case NSURLErrorUnknown: return "Unknown"
-    case NSURLErrorCancelled: return "Cancelled"
-    case NSURLErrorBadURL: return "Bad URL"
-    case NSURLErrorTimedOut: return "Timed Out"
-    case NSURLErrorUnsupportedURL: return "Unsupported URL"
-    case NSURLErrorCannotFindHost: return "Cannot Find Host"
-    case NSURLErrorCannotConnectToHost: return "Cannot Connect To Host"
-    case NSURLErrorNetworkConnectionLost: return "Network Connection Lost"
-    case NSURLErrorDNSLookupFailed: return "DNS Lookup Failed"
-    case NSURLErrorHTTPTooManyRedirects: return "HTTP Too Many Redirects"
-    case NSURLErrorResourceUnavailable: return "Resource Unavailable"
-    case NSURLErrorNotConnectedToInternet: return "Not Connected To Internet"
-    case NSURLErrorRedirectToNonExistentLocation: return "Redirect To Non Existent Location"
-    case NSURLErrorBadServerResponse: return "Bad Server Response"
-    case NSURLErrorUserCancelledAuthentication: return "User Cancelled Authentication"
-    case NSURLErrorUserAuthenticationRequired: return "User Authentication Required"
-    case NSURLErrorZeroByteResource: return "Zero Byte Resource"
-    case NSURLErrorCannotDecodeRawData: return "Cannot Decode Raw Data"
-    case NSURLErrorCannotDecodeContentData: return "Cannot Decode Content Data"
-    case NSURLErrorCannotParseResponse: return "Cannot Parse Response"
-    case NSURLErrorAppTransportSecurityRequiresSecureConnection: return "ATS Requirement Failed"
-    case NSURLErrorFileDoesNotExist: return "File Does Not Exist"
-    case NSURLErrorFileIsDirectory: return "File Is Directory"
-    case NSURLErrorNoPermissionsToReadFile: return "No Permissions To Read File"
-    case NSURLErrorDataLengthExceedsMaximum: return "Data Length Exceeds Maximum"
-    case NSURLErrorFileOutsideSafeArea: return "File Outside Safe Area"
-    case NSURLErrorSecureConnectionFailed: return "Secure Connection Failed"
-    case NSURLErrorServerCertificateHasBadDate: return "Server Certificate Bad Date"
-    case NSURLErrorServerCertificateUntrusted: return "Server Certificate Untrusted"
-    case NSURLErrorServerCertificateHasUnknownRoot: return "Server Certificate Unknown Root"
-    case NSURLErrorServerCertificateNotYetValid: return "Server Certificate Not Valid"
-    case NSURLErrorClientCertificateRejected: return "Client Certificate Rejected"
-    case NSURLErrorClientCertificateRequired: return "Client Certificate Required"
-    case NSURLErrorCannotLoadFromNetwork: return "Cannot Load From Network"
-    case NSURLErrorCannotCreateFile: return "Cannot Create File"
-    case NSURLErrorCannotOpenFile: return "Cannot Open File"
-    case NSURLErrorCannotCloseFile: return "Cannot Close File"
-    case NSURLErrorCannotWriteToFile: return "Cannot Write To File"
-    case NSURLErrorCannotRemoveFile: return "Cannot Remove File"
-    case NSURLErrorCannotMoveFile: return "Cannot Move File"
-    case NSURLErrorDownloadDecodingFailedMidStream: return "Download Decoding Failed"
-    case NSURLErrorDownloadDecodingFailedToComplete: return "Download Decoding Failed"
-    case NSURLErrorInternationalRoamingOff: return "Roaming Off"
-    case NSURLErrorCallIsActive: return "Call Is Active"
-    case NSURLErrorDataNotAllowed: return "Data Not Allowed"
-    case NSURLErrorRequestBodyStreamExhausted: return "Request Stream Exhausted"
-    case NSURLErrorBackgroundSessionRequiresSharedContainer: return "Background Session Requires Shared Container"
-    case NSURLErrorBackgroundSessionInUseByAnotherProcess: return "Background Session In Use By Another Process"
-    case NSURLErrorBackgroundSessionWasDisconnected: return "Background Session Disconnected"
+    case NSURLErrorUnknown: return L10n.tr("pulse.error.unknown")
+    case NSURLErrorCancelled: return L10n.tr("pulse.error.cancelled")
+    case NSURLErrorBadURL: return L10n.tr("pulse.error.bad_url")
+    case NSURLErrorTimedOut: return L10n.tr("pulse.error.timed_out")
+    case NSURLErrorUnsupportedURL: return L10n.tr("pulse.error.unsupported_url")
+    case NSURLErrorCannotFindHost: return L10n.tr("pulse.error.cannot_find_host")
+    case NSURLErrorCannotConnectToHost: return L10n.tr("pulse.error.cannot_connect_to_host")
+    case NSURLErrorNetworkConnectionLost: return L10n.tr("pulse.error.network_connection_lost")
+    case NSURLErrorDNSLookupFailed: return L10n.tr("pulse.error.dns_lookup_failed")
+    case NSURLErrorHTTPTooManyRedirects: return L10n.tr("pulse.error.http_too_many_redirects")
+    case NSURLErrorResourceUnavailable: return L10n.tr("pulse.error.resource_unavailable")
+    case NSURLErrorNotConnectedToInternet: return L10n.tr("pulse.error.not_connected_to_internet")
+    case NSURLErrorRedirectToNonExistentLocation: return L10n.tr("pulse.error.redirect_to_non_existent_location")
+    case NSURLErrorBadServerResponse: return L10n.tr("pulse.error.bad_server_response")
+    case NSURLErrorUserCancelledAuthentication: return L10n.tr("pulse.error.user_cancelled_authentication")
+    case NSURLErrorUserAuthenticationRequired: return L10n.tr("pulse.error.user_authentication_required")
+    case NSURLErrorZeroByteResource: return L10n.tr("pulse.error.zero_byte_resource")
+    case NSURLErrorCannotDecodeRawData: return L10n.tr("pulse.error.cannot_decode_raw_data")
+    case NSURLErrorCannotDecodeContentData: return L10n.tr("pulse.error.cannot_decode_content_data")
+    case NSURLErrorCannotParseResponse: return L10n.tr("pulse.error.cannot_parse_response")
+    case NSURLErrorAppTransportSecurityRequiresSecureConnection: return L10n.tr("pulse.error.ats_requirement_failed")
+    case NSURLErrorFileDoesNotExist: return L10n.tr("pulse.error.file_does_not_exist")
+    case NSURLErrorFileIsDirectory: return L10n.tr("pulse.error.file_is_directory")
+    case NSURLErrorNoPermissionsToReadFile: return L10n.tr("pulse.error.no_permissions_to_read_file")
+    case NSURLErrorDataLengthExceedsMaximum: return L10n.tr("pulse.error.data_length_exceeds_maximum")
+    case NSURLErrorFileOutsideSafeArea: return L10n.tr("pulse.error.file_outside_safe_area")
+    case NSURLErrorSecureConnectionFailed: return L10n.tr("pulse.error.secure_connection_failed")
+    case NSURLErrorServerCertificateHasBadDate: return L10n.tr("pulse.error.server_certificate_bad_date")
+    case NSURLErrorServerCertificateUntrusted: return L10n.tr("pulse.error.server_certificate_untrusted")
+    case NSURLErrorServerCertificateHasUnknownRoot: return L10n.tr("pulse.error.server_certificate_unknown_root")
+    case NSURLErrorServerCertificateNotYetValid: return L10n.tr("pulse.error.server_certificate_not_valid")
+    case NSURLErrorClientCertificateRejected: return L10n.tr("pulse.error.client_certificate_rejected")
+    case NSURLErrorClientCertificateRequired: return L10n.tr("pulse.error.client_certificate_required")
+    case NSURLErrorCannotLoadFromNetwork: return L10n.tr("pulse.error.cannot_load_from_network")
+    case NSURLErrorCannotCreateFile: return L10n.tr("pulse.error.cannot_create_file")
+    case NSURLErrorCannotOpenFile: return L10n.tr("pulse.error.cannot_open_file")
+    case NSURLErrorCannotCloseFile: return L10n.tr("pulse.error.cannot_close_file")
+    case NSURLErrorCannotWriteToFile: return L10n.tr("pulse.error.cannot_write_to_file")
+    case NSURLErrorCannotRemoveFile: return L10n.tr("pulse.error.cannot_remove_file")
+    case NSURLErrorCannotMoveFile: return L10n.tr("pulse.error.cannot_move_file")
+    case NSURLErrorDownloadDecodingFailedMidStream: return L10n.tr("pulse.error.download_decoding_failed")
+    case NSURLErrorDownloadDecodingFailedToComplete: return L10n.tr("pulse.error.download_decoding_failed")
+    case NSURLErrorInternationalRoamingOff: return L10n.tr("pulse.error.roaming_off")
+    case NSURLErrorCallIsActive: return L10n.tr("pulse.error.call_is_active")
+    case NSURLErrorDataNotAllowed: return L10n.tr("pulse.error.data_not_allowed")
+    case NSURLErrorRequestBodyStreamExhausted: return L10n.tr("pulse.error.request_stream_exhausted")
+    case NSURLErrorBackgroundSessionRequiresSharedContainer: return L10n.tr("pulse.error.background_session_requires_shared_container")
+    case NSURLErrorBackgroundSessionInUseByAnotherProcess: return L10n.tr("pulse.error.background_session_in_use")
+    case NSURLErrorBackgroundSessionWasDisconnected: return L10n.tr("pulse.error.background_session_disconnected")
     default: return "–"
     }
 }
@@ -156,13 +156,13 @@ package func descriptionForURLErrorCode(_ code: Int) -> String {
 extension URLRequest.CachePolicy {
     package var description: String {
         switch self {
-        case .useProtocolCachePolicy: return "useProtocolCachePolicy"
-        case .reloadIgnoringLocalCacheData: return "reloadIgnoringLocalCacheData"
-        case .reloadIgnoringLocalAndRemoteCacheData: return "reloadIgnoringLocalAndRemoteCacheData"
-        case .returnCacheDataElseLoad: return "returnCacheDataElseLoad"
-        case .returnCacheDataDontLoad: return "returnCacheDataDontLoad"
-        case .reloadRevalidatingCacheData: return "reloadRevalidatingCacheData"
-        @unknown default: return "unknown"
+        case .useProtocolCachePolicy: return L10n.tr("pulse.cache.use_protocol_cache_policy")
+        case .reloadIgnoringLocalCacheData: return L10n.tr("pulse.cache.reload_ignoring_local_cache_data")
+        case .reloadIgnoringLocalAndRemoteCacheData: return L10n.tr("pulse.cache.reload_ignoring_local_and_remote_cache_data")
+        case .returnCacheDataElseLoad: return L10n.tr("pulse.cache.return_cache_data_else_load")
+        case .returnCacheDataDontLoad: return L10n.tr("pulse.cache.return_cache_data_dont_load")
+        case .reloadRevalidatingCacheData: return L10n.tr("pulse.cache.reload_revalidating_cache_data")
+        @unknown default: return L10n.tr("pulse.status.unknown")
         }
     }
 }

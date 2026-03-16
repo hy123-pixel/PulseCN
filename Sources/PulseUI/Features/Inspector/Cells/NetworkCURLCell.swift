@@ -15,7 +15,7 @@ struct NetworkCURLCell: View {
             NetworkMenuCell(
                 icon: "terminal.fill",
                 tintColor: .secondary,
-                title: "cURL Representation",
+                title: L10n.tr("pulse.network.curl_representation"),
                 details: ""
             )
         }
@@ -27,7 +27,7 @@ struct NetworkCURLCell: View {
         let viewModel = RichTextViewModel(string: string)
         viewModel.isLinkDetectionEnabled = false
         return RichTextView(viewModel: viewModel)
-            .navigationTitle("cURL Representation")
+            .navigationTitle(L10n.tr("pulse.network.curl_representation"))
     }
 }
 

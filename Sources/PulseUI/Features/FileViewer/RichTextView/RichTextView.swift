@@ -32,7 +32,7 @@ struct RichTextView: View {
             .sheet(isPresented: $isWebViewOpen) {
                 NavigationView {
                     WebView(data: viewModel.textStorage.string.data(using: .utf8) ?? Data(), contentType: "application/html")
-                        .inlineNavigationTitle("Browser Preview")
+                        .inlineNavigationTitle(L10n.tr("pulse.file.browser_preview"))
                         .navigationBarItems(trailing: Button(action: {
                             isWebViewOpen = false
                         }) { Image(systemName: "xmark") })
@@ -85,7 +85,7 @@ struct RichTextView: View {
                     Section {
                         if viewModel.contentType?.isHTML == true {
                             Button(action: { isWebViewOpen = true }) {
-                                Label("Open in Browser", systemImage: "safari")
+                                Label(L10n.tr("pulse.file.open_in_browser"), systemImage: "safari")
                             }
                         }
                     }
@@ -102,7 +102,7 @@ struct RichTextView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             RichTextView(viewModel: makePreviewViewModel())
-                .inlineNavigationTitle("Rich Text View")
+                .inlineNavigationTitle(L10n.tr("pulse.file.rich_text_view"))
         }
     }
 }
