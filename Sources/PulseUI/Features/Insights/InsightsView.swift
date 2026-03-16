@@ -21,7 +21,7 @@ public struct InsightsView: View {
 
     public var body: some View {
         List {
-            Section(header: Text("Transfer Size")) {
+            Section(header: Text(L10n.tr("pulse.insights.transfer_size"))) {
                 NetworkInspectorTransferInfoView(viewModel: .init(transferSize: insights.transferSize))
                     .padding(.vertical, 8)
             }
@@ -34,12 +34,12 @@ public struct InsightsView: View {
             }
         }
         .listStyle(.automatic)
-        .backport.navigationTitle("Insights")
+        .backport.navigationTitle(L10n.tr("pulse.main.insights"))
         .navigationBarItems(trailing: navigationTrailingBarItems)
     }
 
     private var navigationTrailingBarItems: some View {
-        Button("Reset") {
+        Button(L10n.tr("pulse.common.reset")) {
             viewModel.insights.reset()
         }
     }
@@ -47,12 +47,12 @@ public struct InsightsView: View {
     // MARK: - Duration
 
     private var durationSection: some View {
-        Section(header: Text("Duration")) {
-            InfoRow(title: "Median Duration", details: viewModel.medianDuration)
-            InfoRow(title: "Duration Range", details: viewModel.durationRange)
+        Section(header: Text(L10n.tr("pulse.filters.duration"))) {
+            InfoRow(title: L10n.tr("pulse.insights.median_duration"), details: viewModel.medianDuration)
+            InfoRow(title: L10n.tr("pulse.insights.duration_range"), details: viewModel.durationRange)
             durationChart
             NavigationLink(destination: TopSlowestRequestsViw(viewModel: viewModel)) {
-                Text("Show Slowest Requests")
+                Text(L10n.tr("pulse.insights.show_slowest_requests"))
             }.disabled(insights.duration.topSlowestRequests.isEmpty)
         }
     }
@@ -62,7 +62,7 @@ public struct InsightsView: View {
 #if !os(macOS) && !targetEnvironment(macCatalyst) && swift(>=5.7)
         if #available(iOS 16.0, *) {
             if insights.duration.values.isEmpty {
-                Text("No network requests yet")
+                Text(L10n.tr("pulse.insights.no_requests_yet"))
                     .foregroundColor(.secondary)
                     .frame(height: 140)
             } else {
@@ -106,12 +106,12 @@ public struct InsightsView: View {
         Section(header: HStack {
             Image(systemName: "exclamationmark.triangle.fill")
                 .foregroundColor(.orange)
-            Text("Redirects")
+            Text(L10n.tr("pulse.insights.redirects"))
         }) {
-            InfoRow(title: "Redirect Count", details: "\(insights.redirects.count)")
-            InfoRow(title: "Total Time Lost", details: DurationFormatter.string(from: insights.redirects.timeLost, isPrecise: false))
+            InfoRow(title: L10n.tr("pulse.insights.redirect_count"), details: "\(insights.redirects.count)")
+            InfoRow(title: L10n.tr("pulse.insights.total_time_lost"), details: DurationFormatter.string(from: insights.redirects.timeLost, isPrecise: false))
             NavigationLink(destination: RequestsWithRedirectsView(viewModel: viewModel)) {
-                Text("Show Requests with Redirects")
+                Text(L10n.tr("pulse.insights.show_requests_with_redirects"))
             }.disabled(insights.duration.topSlowestRequests.isEmpty)
         }
     }
@@ -123,11 +123,11 @@ public struct InsightsView: View {
         Section(header: HStack {
             Image(systemName: "xmark.octagon.fill")
                 .foregroundColor(.red)
-            Text("Failures")
+            Text(L10n.tr("pulse.insights.failures"))
         }) {
             NavigationLink(destination: FailingRequestsListView(viewModel: viewModel)) {
                 HStack {
-                    Text("Failed Requests")
+                    Text(L10n.tr("pulse.insights.failed_requests"))
                     Spacer()
                     Text("\(insights.failures.count)")
                         .foregroundColor(.secondary)
@@ -142,7 +142,7 @@ private struct TopSlowestRequestsViw: View {
 
     var body: some View {
         NetworkInsightsRequestsList(viewModel: viewModel.topSlowestRequestsViewModel())
-            .navigationBarTitle(Text("Slowest Requests"), displayMode: .inline)
+            .navigationBarTitle(Text(L10n.tr("pulse.insights.slowest_requests")), displayMode: .inline)
     }
 }
 
@@ -151,7 +151,7 @@ private struct RequestsWithRedirectsView: View {
 
     var body: some View {
         NetworkInsightsRequestsList(viewModel: viewModel.requestsWithRedirectsViewModel())
-            .navigationBarTitle(Text("Redirects"), displayMode: .inline)
+            .navigationBarTitle(Text(L10n.tr("pulse.insights.redirects")), displayMode: .inline)
     }
 }
 
@@ -160,7 +160,7 @@ private struct FailingRequestsListView: View {
 
     var body: some View {
         NetworkInsightsRequestsList(viewModel: viewModel.failedRequestsViewModel())
-            .navigationBarTitle(Text("Failed Requests"), displayMode: .inline)
+            .navigationBarTitle(Text(L10n.tr("pulse.insights.failed_requests")), displayMode: .inline)
     }
 }
 
