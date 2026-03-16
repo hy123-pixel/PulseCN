@@ -4,6 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "Pulse",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v13),
         .tvOS(.v13),
@@ -20,7 +21,7 @@ let package = Package(
     ],
     targets: [
         .target(name: "Pulse"),
-        .target(name: "PulseUI", dependencies: ["Pulse"]),
+        .target(name: "PulseUI", dependencies: ["Pulse"], resources: [.process("Resources")]),
         .target(name: "PulseLogHandler", dependencies: [.product(name: "Logging", package: "swift-log"), "Pulse"]),
         .testTarget(name: "PulseTests", dependencies: ["Pulse"]),
         .testTarget(name: "PulseUITests", dependencies: ["PulseUI"]),
