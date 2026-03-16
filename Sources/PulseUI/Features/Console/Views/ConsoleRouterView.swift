@@ -53,8 +53,8 @@ extension ConsoleRouterView {
     private var destinationFilters: some View {
         NavigationView {
             ConsoleFiltersView()
-                .inlineNavigationTitle("Filters")
-                .navigationBarItems(trailing: Button("Done") {
+                .inlineNavigationTitle(L10n.tr("pulse.console.filters.title"))
+                .navigationBarItems(trailing: Button(L10n.tr("pulse.common.done")) {
                     router.isShowingFilters = false
                 })
                 .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
@@ -65,12 +65,12 @@ extension ConsoleRouterView {
     private var destinationSessions: some View {
         NavigationView {
             SessionsView()
-                .navigationTitle("Sessions")
+                .navigationTitle(L10n.tr("pulse.console.sessions.title"))
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarLeading) {
                         Button(action: { router.isShowingSessions = false }) {
-                            Text("Close")
+                            Text(L10n.tr("pulse.common.close"))
                         }
                     }
                 }
@@ -80,10 +80,10 @@ extension ConsoleRouterView {
     private var destinationSettings: some View {
         NavigationView {
             SettingsView(store: environment.store)
-                .navigationTitle("Settings")
+                .navigationTitle(L10n.tr("pulse.common.settings"))
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarItems(trailing: Button(action: { router.isShowingSettings = false }) {
-                    Text("Done")
+                    Text(L10n.tr("pulse.common.done"))
                 })
         }
     }
@@ -143,11 +143,11 @@ extension ConsoleRouterView {
     private var destinationSettings: some View {
         SettingsView()
             .frame(width: 320, height: UserSettings.shared.isRemoteLoggingHidden ? 175 : 420)
-            .navigationTitle("Settings")
+            .navigationTitle(L10n.tr("pulse.common.settings"))
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(action: { router.isShowingSettings = false }) {
-                        Text("Close")
+                        Text(L10n.tr("pulse.common.close"))
                     }
                 }
             }

@@ -23,7 +23,11 @@ public struct ConsoleView: View {
         if #available(iOS 16, *) {
             contents
         } else {
-            PlaceholderView(imageName: "xmark.octagon", title: "Unsupported", subtitle: "Pulse requires iOS 16 or later").padding()
+            PlaceholderView(
+                imageName: "xmark.octagon",
+                title: L10n.tr("pulse.common.unsupported"),
+                subtitle: L10n.tr("pulse.console.ios16_required")
+            ).padding()
         }
     }
 
@@ -34,7 +38,7 @@ public struct ConsoleView: View {
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarLeading) {
                     if !isCloseButtonHidden && presentationMode.wrappedValue.isPresented {
-                        Button("Close") {
+                        Button(L10n.tr("pulse.common.close")) {
                             presentationMode.wrappedValue.dismiss()
                         }
                     }
