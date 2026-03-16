@@ -40,11 +40,11 @@ struct NetworkInspectorView: View {
     }
 
     private var toolbar: some View {
-        Picker("Inspector Tab", selection: $selectedTab) {
-            Text("Response").tag(NetworkInspectorTab.response)
-            Text("Request").tag(NetworkInspectorTab.request)
-            Text("Summary").tag(NetworkInspectorTab.summary)
-            Text("Metrics").tag(NetworkInspectorTab.metrics)
+        Picker(L10n.tr("pulse.network.inspector_tab"), selection: $selectedTab) {
+            Text(L10n.tr("pulse.network.response")).tag(NetworkInspectorTab.response)
+            Text(L10n.tr("pulse.network.request")).tag(NetworkInspectorTab.request)
+            Text(L10n.tr("pulse.network.summary")).tag(NetworkInspectorTab.summary)
+            Text(L10n.tr("pulse.network.metrics" )).tag(NetworkInspectorTab.metrics)
         }
         .pickerStyle(.segmented)
         .labelsHidden()
@@ -145,11 +145,11 @@ private enum NetworkInspectorTab: Identifiable {
 
     var text: String {
         switch self {
-        case .summary: return "Summary"
-        case .headers: return "Headers"
-        case .request: return "Request"
-        case .response: return "Response"
-        case .metrics: return "Metrics"
+        case .summary: return L10n.tr("pulse.network.summary")
+        case .headers: return L10n.tr("pulse.network.headers")
+        case .request: return L10n.tr("pulse.network.request")
+        case .response: return L10n.tr("pulse.network.response")
+        case .metrics: return L10n.tr("pulse.network.metrics")
         }
     }
 }
@@ -161,18 +161,18 @@ private struct NetworkTabPickerView: View {
     var body: some View {
         HStack(spacing: 0) {
             HStack {
-                makeItem("Response", tab: .response)
+                makeItem(L10n.tr("pulse.network.response"), tab: .response)
                 Divider()
-                makeItem("Request", tab: .request)
+                makeItem(L10n.tr("pulse.network.request"), tab: .request)
                 Divider()
-                makeItem("Headers", tab: .headers)
+                makeItem(L10n.tr("pulse.network.headers"), tab: .headers)
                 Divider()
             }
             HStack {
                 Spacer().frame(width: 8)
-                makeItem("Summary", tab: .summary)
+                makeItem(L10n.tr("pulse.network.summary"), tab: .summary)
                 Divider()
-                makeItem("Metrics", tab: .metrics)
+                makeItem(L10n.tr("pulse.network.metrics"), tab: .metrics)
             }
         }.fixedSize()
     }

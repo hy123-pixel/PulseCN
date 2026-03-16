@@ -52,10 +52,10 @@ struct NetworkInspectorSummaryView: View {
 
     @ViewBuilder
     private var requestHeaderView: some View {
-        LargeSectionHeader(title: "Request", accessory: {
-            Picker("Request Type", selection: $isShowingCurrentRequest) {
-                Text("Original").tag(false)
-                Text("Current").tag(true)
+        LargeSectionHeader(title: L10n.tr("pulse.network.request"), accessory: {
+            Picker(L10n.tr("pulse.network.request_type"), selection: $isShowingCurrentRequest) {
+                Text(L10n.tr("pulse.network.original")).tag(false)
+                Text(L10n.tr("pulse.network.current")).tag(true)
             }
             .pickerStyle(.segmented)
             .labelsHidden()
@@ -91,7 +91,7 @@ struct NetworkInspectorSummaryView: View {
 
     @ViewBuilder
     private var responseSection: some View {
-        Section(header: LargeSectionHeader(title: "Response")) {
+        Section(header: LargeSectionHeader(title: L10n.tr("pulse.network.response"))) {
             VStack(spacing: 16) {
                 viewModel.responseSummary.map(KeyValueSectionView.init)
                 KeyValueSectionView(viewModel: viewModel.responseHeaders, limit: 10)
@@ -207,7 +207,7 @@ struct NetworkInspectorSummaryView: View {
 
             NavigationLink.programmatic(isActive: $viewModel.isRequestRawLinkActive, destination: {
                 FileViewer(viewModel: viewModel.requestBodyViewModel)
-                    .backport.navigationTitle("Request")
+                    .backport.navigationTitle(L10n.tr("pulse.network.request"))
             })
 
 #if os(iOS) || os(macOS)
@@ -218,7 +218,7 @@ struct NetworkInspectorSummaryView: View {
             
             NavigationLink.programmatic(isActive: $viewModel.isResponseRawLinkActive, destination: {
                 FileViewer(viewModel: viewModel.responseBodyViewModel)
-                    .backport.navigationTitle("Response")
+                    .backport.navigationTitle(L10n.tr("pulse.network.response"))
             })
             
             NavigationLink.programmatic(isActive: $viewModel.isOriginalRequestHeadersLinkActive) {

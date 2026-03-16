@@ -17,7 +17,7 @@ struct NetworkInspectorMetricsTabView: View {
         } else if viewModel.isPending {
             SpinnerView(viewModel: viewModel.progress)
         } else {
-            PlaceholderView(imageName: "exclamationmark.circle", title: "Unavailable")
+            PlaceholderView(imageName: "exclamationmark.circle", title: L10n.tr("pulse.common.unavailable"))
         }
     }
 }

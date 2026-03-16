@@ -56,7 +56,7 @@ struct NetworkHeadersDetailsView: View {
     @ViewBuilder
     private var contents: some View {
         if viewModel.items.isEmpty {
-            PlaceholderView(imageName: "folder", title: "Empty")
+            PlaceholderView(imageName: "folder", title: L10n.tr("pulse.common.empty"))
         } else {
             #if os(watchOS) || os(tvOS)
             RichTextView(viewModel: .init(string: viewModel.asAttributedString().string))
@@ -87,11 +87,11 @@ final class NetworkInspectorHeaderViewModel: ObservableObject {
     var requestHeadersOriginal: KeyValueSectionViewModel {
         let items = (task.originalRequest?.headers ?? [:]).sorted(by: { $0.key < $1.key })
         return KeyValueSectionViewModel(
-            title: "Request Headers (Original)",
+            title: L10n.tr("pulse.network.request_headers_original"),
             color: .blue,
             action: ActionViewModel(
                 action: { [unowned self] in isRequestOriginalRawActive = true },
-                title: "View Raw"
+                title: L10n.tr("pulse.common.view_raw")
             ),
             items: items
         )
@@ -100,11 +100,11 @@ final class NetworkInspectorHeaderViewModel: ObservableObject {
     var requestHeadersCurrent: KeyValueSectionViewModel {
         let items = (task.currentRequest?.headers ?? [:]).sorted(by: { $0.key < $1.key })
         return KeyValueSectionViewModel(
-            title: "Request Headers (Current)",
+            title: L10n.tr("pulse.network.request_headers_current"),
             color: .blue,
             action: ActionViewModel(
                 action: { [unowned self] in isRequestCurrentRawActive = true },
-                title: "View Raw"
+                title: L10n.tr("pulse.common.view_raw")
             ),
             items: items
         )
@@ -115,11 +115,11 @@ final class NetworkInspectorHeaderViewModel: ObservableObject {
             return nil
         }
         return KeyValueSectionViewModel(
-            title: "Response Headers",
+            title: L10n.tr("pulse.network.response_headers"),
             color: .indigo,
             action: ActionViewModel(
                 action: { [unowned self] in isResponseRawActive = true },
-                title: "View Raw"
+                title: L10n.tr("pulse.common.view_raw")
             ),
             items: headers.sorted(by: { $0.key < $1.key })
         )
