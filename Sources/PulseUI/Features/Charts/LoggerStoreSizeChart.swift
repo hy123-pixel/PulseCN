@@ -18,7 +18,7 @@ struct LoggerStoreSizeChart: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Logger Store")
+                Text(L10n.tr("pulse.store.logger_store"))
                 Spacer()
                 Text(title).foregroundColor(.secondary)
             }

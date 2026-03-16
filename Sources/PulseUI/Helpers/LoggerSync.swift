@@ -63,9 +63,9 @@ private final class SessionDelegate: NSObject, WCSessionDelegate {
                 ToastView {
                     HStack {
                         Image(systemName: "applewatch.watchface")
-                        Text("Store received")
+                        Text(L10n.tr("pulse.sync.store_received"))
                         Spacer().frame(width: 16)
-                        Button("Open", action: {
+                        Button(L10n.tr("pulse.common.open"), action: {
                             guard let store = try? LoggerStore(storeURL: storeURL) else {
                                 return
                             }

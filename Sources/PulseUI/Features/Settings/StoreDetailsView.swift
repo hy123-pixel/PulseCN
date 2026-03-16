@@ -24,7 +24,7 @@ struct StoreDetailsView: View {
         Contents(viewModel: viewModel)
             .onAppear { viewModel.load(from: source) }
 #if os(iOS)
-            .navigationBarTitle("Store Details", displayMode: .inline)
+            .navigationBarTitle(L10n.tr("pulse.store.details"), displayMode: .inline)
 #endif
     }
 }
@@ -39,7 +39,7 @@ private struct Contents: View {
             if viewModel.isLoading {
                 Spinner().frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             } else if let error = viewModel.errorMessage {
-                PlaceholderView(imageName: "exclamationmark.circle", title: "Failed to load info", subtitle: error)
+                PlaceholderView(imageName: "exclamationmark.circle", title: L10n.tr("pulse.store.failed_to_load_info"), subtitle: error)
             } else {
                 form
             }

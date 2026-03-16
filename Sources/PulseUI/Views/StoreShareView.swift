@@ -28,7 +28,7 @@ struct ShareStoreView: View {
             sectionShare
         }
         .onAppear { viewModel.display(store) }
-        .navigationTitle("Sharing Options")
+        .navigationTitle(L10n.tr("pulse.share.options"))
 #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(leading: leadingBarItems)
@@ -44,26 +44,26 @@ struct ShareStoreView: View {
     }
 
     private var leadingBarItems: some View {
-        Button("Cancel") {
+        Button(L10n.tr("pulse.common.cancel")) {
             isPresented = false
         }
     }
 
     private var sectionSharingOptions: some View {
         Section {
-            Picker("Time Range", selection: $viewModel.timeRange) {
+            Picker(L10n.tr("pulse.share.time_range"), selection: $viewModel.timeRange) {
                 ForEach(TimeRange.allCases, id: \.self) {
                     Text($0.rawValue).tag($0)
                 }
             }
-            Picker("Log Level", selection: $viewModel.level) {
-                Text("Trace").tag(LoggerStore.Level.trace)
-                Text("Debug").tag(LoggerStore.Level.debug)
-                Text("Errors").tag(LoggerStore.Level.error)
+            Picker(L10n.tr("pulse.share.log_level"), selection: $viewModel.level) {
+                Text(L10n.tr("pulse.log.trace")).tag(LoggerStore.Level.trace)
+                Text(L10n.tr("pulse.log.debug")).tag(LoggerStore.Level.debug)
+                Text(L10n.tr("pulse.log.errors")).tag(LoggerStore.Level.error)
             }
-            Picker("Output Format", selection: $viewModel.output) {
-                Text("Pulse Document").tag(ShareStoreOutput.store)
-                Text("Text Document").tag(ShareStoreOutput.text)
+            Picker(L10n.tr("pulse.share.output_format"), selection: $viewModel.output) {
+                Text(L10n.tr("pulse.share.pulse_document")).tag(ShareStoreOutput.store)
+                Text(L10n.tr("pulse.share.text_document")).tag(ShareStoreOutput.text)
             }
         }
     }
@@ -75,23 +75,23 @@ struct ShareStoreView: View {
 #if os(iOS)
                     ProgressView().id(UUID())
 #endif
-                    Text("Preparing for Sharing...")
+                    Text(L10n.tr("pulse.share.preparing"))
                         .foregroundColor(.secondary)
                 }
             } else if let contents = viewModel.sharedContents {
                 if let info = contents.info {
 #if os(iOS)
                     NavigationLink(destination: StoreDetailsView(source: .info(info))) {
-                        InfoRow(title: "Shared File Size", details: contents.formattedFileSize)
+                        InfoRow(title: L10n.tr("pulse.share.shared_file_size"), details: contents.formattedFileSize)
                     }
 #else
-                    InfoRow(title: "Shared File Size", details: contents.formattedFileSize)
+                    InfoRow(title: L10n.tr("pulse.share.shared_file_size"), details: contents.formattedFileSize)
 #endif
                 } else {
                     InfoRow(title: "Shared File Size", details: contents.formattedFileSize)
                 }
             } else {
-                Text(viewModel.errorMessage ?? "Unavailable")
+                Text(viewModel.errorMessage ?? L10n.tr("pulse.common.unavailable"))
                     .foregroundColor(.red)
                     .lineLimit(3)
             }
@@ -103,7 +103,7 @@ struct ShareStoreView: View {
             Button(action: buttonShareTapped) {
                 HStack {
                     Spacer()
-                    Text("Share").bold()
+                    Text(L10n.tr("pulse.common.share")).bold()
                     Spacer()
                 }
             }
