@@ -62,8 +62,16 @@ public final class RemoteLogger: ObservableObject, RemoteLoggerConnectionDelegat
     /// - parameter store: The store to be synced with the server. By default,
     /// ``LoggerStore/shared``. Only one store can be synced at at time.
     public func initialize(store: LoggerStore = .shared) {
+        if self.store === store {
+            return
+        }
+
         if isInitialized {
-            cancel()
+            if DispatchQueue.getSpecific(key: specificKey) != nil {
+                cancel()
+            } else {
+                queue.sync(execute: cancel)
+            }
         }
         isInitialized = true
 
@@ -124,28 +132,29 @@ public final class RemoteLogger: ObservableObject, RemoteLoggerConnectionDelegat
 
         browser.stateUpdateHandler = { [weak self] newState in
             guard let self = self, self.isEnabled else { return }
-
-            log(label: "RemoteLogger", "Browser did update state: \(newState)")
-            switch newState {
-            case .failed(let error):
-                self.browserError = error
-            case .waiting(let error):
-                self.browserError = error
-            default:
-                self.browserError = nil
-            }
-            if case .failed = newState {
-                self.scheduleBrowserRetry()
+            self.queue.async {
+                log(label: "RemoteLogger", "Browser did update state: \(newState)")
+                switch newState {
+                case .failed(let error):
+                    self.browserError = error
+                case .waiting(let error):
+                    self.browserError = error
+                default:
+                    self.browserError = nil
+                }
+                if case .failed = newState {
+                    self.scheduleBrowserRetry()
+                }
             }
         }
 
         browser.browseResultsChangedHandler = { [weak self] results, _ in
             guard let self = self, self.isEnabled else { return }
-
-            log(label: "RemoteLogger", "Found services \(results.map { $0.endpoint.debugDescription })")
-
-            self.servers = results
-            self.connectAutomaticallyIfNeeded()
+            self.queue.async {
+                log(label: "RemoteLogger", "Found services \(results.map { $0.endpoint.debugDescription })")
+                self.servers = results
+                self.connectAutomaticallyIfNeeded()
+            }
         }
 
         // Start browsing and ask for updates on the main queue.

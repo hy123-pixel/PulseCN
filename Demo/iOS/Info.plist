@@ -11,6 +11,12 @@
 		<string>en</string>
 		<string>zh-Hans</string>
 	</array>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_pulse._tcp</string>
+	</array>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Debugging purposes</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>

@@ -44,9 +44,6 @@ public struct SettingsView: View {
             } else {
                 sectionRemoteLoggingUnavailable
             }
-#if os(iOS)
-            sectionSponsor
-#endif
         }
         .backport.navigationTitle(L10n.tr("pulse.common.settings"))
 #if os(iOS)
@@ -111,27 +108,6 @@ public struct SettingsView: View {
     }
 #endif
 
-#if os(iOS)
-    private var sectionSponsor: some View {
-        Section(footer: Text(L10n.tr("pulse.settings.community_funded"))) {
-            Button(action: {
-                if let url = URL(string: "https://github.com/sponsors/kean") {
-                    UIApplication.shared.open(url)
-                }
-            }) {
-                HStack {
-                    Image(systemName: "heart.fill")
-                        .foregroundColor(Color.pink)
-                    Text(L10n.tr("pulse.settings.sponsor"))
-                        .foregroundColor(Color.primary)
-                    Spacer()
-                    Image(systemName: "link")
-                        .foregroundColor(.secondary)
-                }
-            }
-        }
-    }
-#endif
 }
 
 #if os(iOS)

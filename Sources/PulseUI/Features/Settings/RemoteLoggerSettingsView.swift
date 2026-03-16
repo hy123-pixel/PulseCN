@@ -147,11 +147,65 @@ struct RemoteLoggerSettingsView: View {
     }
 
     private func browserErrorView(_ error: NWError) -> some View {
+        switch error {
+        case .dns(let error):
+            switch Int(error) {
+            case kDNSServiceErr_NoAuth:
+                return AnyView(remoteLoggerNoAuthView)
+            case kDNSServiceErr_PolicyDenied:
+                return AnyView(remoteLoggerPolicyDeniedView)
+            default:
+                return AnyView(genericBrowserErrorDescription(String(describing: error)))
+            }
+        default:
+            return AnyView(genericBrowserErrorView(error))
+        }
+    }
+
+    private func genericBrowserErrorView(_ error: NWError) -> some View {
+        genericBrowserErrorDescription(error.localizedDescription)
+    }
+
+    private func genericBrowserErrorDescription(_ description: String) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(L10n.tr("pulse.remote.devices_browser_failed"))
                 .font(.headline)
-            Text(error.localizedDescription)
+            Text(description)
                 .font(.subheadline)
+        }
+    }
+
+    private var remoteLoggerPolicyDeniedView: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(L10n.tr("pulse.remote.local_network_denied"))
+                .font(.headline)
+            Text(L10n.tr("pulse.remote.local_network_denied_help"))
+                .font(.subheadline)
+#if os(iOS)
+            Button(L10n.tr("pulse.remote.open_settings")) {
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            }
+#endif
+        }
+    }
+
+    private var remoteLoggerNoAuthView: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(L10n.tr("pulse.remote.info_plist_misconfigured"))
+                .font(.headline)
+            Text(L10n.tr("pulse.remote.info_plist_help"))
+                .font(.subheadline)
+
+            Text(remoteLoggerPlistContents)
+                .font(.system(.caption, design: .monospaced))
+                .padding(8)
+                .background(Color.secondary.opacity(0.12))
+                .cornerRadius(4)
+#if os(iOS)
+            Button(L10n.tr("pulse.remote.copy_contents")) {
+                UIPasteboard.general.string = remoteLoggerPlistContents
+            }
+#endif
         }
     }
 }
@@ -256,3 +310,12 @@ struct RemoteLoggerSettingsView_Previews: PreviewProvider {
     }
 }
 #endif
+
+private let remoteLoggerPlistContents = """
+<key>NSLocalNetworkUsageDescription</key>
+<string>Debugging purposes</string>
+<key>NSBonjourServices</key>
+<array>
+  <string>_pulse._tcp</string>
+</array>
+"""
