@@ -13,10 +13,11 @@ import SwiftUI
 /// The logger is thread-safe. The updates to the `Published` properties will
 /// be delivered on a background queue.
 @available(iOS 14.0, tvOS 14.0, *)
-public final class RemoteLogger: RemoteLoggerConnectionDelegate {
+public final class RemoteLogger: ObservableObject, RemoteLoggerConnectionDelegate {
     public private(set) var store: LoggerStore?
 
     @Published public private(set) var servers: Set<NWBrowser.Result> = []
+    @Published public private(set) var browserError: NWError?
 
     // Browsing
     private var isStarted = false
@@ -45,6 +46,10 @@ public final class RemoteLogger: RemoteLoggerConnectionDelegate {
     public private(set) var isEnabled = false
     @AppStorage("com-github-kean-pulse-selected-server")
     public private(set) var selectedServer = ""
+
+    public var selectedServerName: String? {
+        selectedServer.isEmpty ? nil : selectedServer
+    }
 
     private let queue = DispatchQueue(label: "com.github.kean.remote-logger")
     private let specificKey = DispatchSpecificKey<String>()
@@ -121,6 +126,14 @@ public final class RemoteLogger: RemoteLoggerConnectionDelegate {
             guard let self = self, self.isEnabled else { return }
 
             log(label: "RemoteLogger", "Browser did update state: \(newState)")
+            switch newState {
+            case .failed(let error):
+                self.browserError = error
+            case .waiting(let error):
+                self.browserError = error
+            default:
+                self.browserError = nil
+            }
             if case .failed = newState {
                 self.scheduleBrowserRetry()
             }
@@ -170,6 +183,7 @@ public final class RemoteLogger: RemoteLoggerConnectionDelegate {
     private func cancelBrowser() {
         browser?.cancel()
         browser = nil
+        browserError = nil
     }
 
     // MARK: Connection
@@ -190,6 +204,17 @@ public final class RemoteLogger: RemoteLoggerConnectionDelegate {
         selectedServer = name
 
         queue.async { self._connect(to: server) }
+    }
+
+    public func forgetServer(named name: String) {
+        if selectedServer == name {
+            selectedServer = ""
+        }
+        queue.async {
+            if self.connectedServer?.name == name {
+                self.cancelConnection()
+            }
+        }
     }
 
     private func _connect(to server: NWBrowser.Result) {
@@ -423,6 +448,17 @@ private extension NWBrowser.Result {
             return name
         default:
             return nil
+        }
+    }
+
+    var isProtected: Bool {
+        switch metadata {
+        case .bonjour(let record):
+            return record["protected"].map { Bool($0) } == true
+        case .none:
+            return false
+        @unknown default:
+            return false
         }
     }
 }

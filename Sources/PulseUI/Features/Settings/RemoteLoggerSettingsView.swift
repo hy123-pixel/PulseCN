@@ -10,19 +10,15 @@ import Network
 
 @available(iOS 14.0, tvOS 14.0, *)
 struct RemoteLoggerSettingsView: View {
+    @ObservedObject private var logger: RemoteLogger = .shared
     @ObservedObject var viewModel: RemoteLoggerSettingsViewModel
     
     var body: some View {
-        Toggle(isOn: $viewModel.isEnabled, label: {
-            HStack {
-#if !os(watchOS)
-                Image(systemName: "network")
-#endif
-                Text(L10n.tr("pulse.remote.logging"))
-            }
-        })
+        toggleView
         if viewModel.isEnabled {
-            if !viewModel.servers.isEmpty {
+            if let error = logger.browserError {
+                browserErrorView(error)
+            } else if !viewModel.servers.isEmpty {
 #if os(macOS)
                 ForEach(viewModel.servers, content: makeServerView)
 #else
@@ -30,6 +26,30 @@ struct RemoteLoggerSettingsView: View {
 #endif
             } else {
                 progressView
+            }
+        }
+    }
+
+    private var toggleView: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Toggle(isOn: $viewModel.isEnabled, label: {
+                HStack {
+#if !os(watchOS)
+                    Image(systemName: "network")
+#endif
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(L10n.tr("pulse.remote.logging"))
+#if !os(watchOS)
+                        Text(L10n.tr("pulse.remote.requires_pulse_for_mac"))
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+#endif
+                    }
+                }
+            })
+
+            if let server = logger.selectedServerName {
+                selectedServerView(name: server)
             }
         }
     }
@@ -73,10 +93,66 @@ struct RemoteLoggerSettingsView: View {
                 }
                 Text(server.name)
                     .lineLimit(1)
+                if server.isProtected {
+                    Image(systemName: "lock.fill")
+                        .foregroundColor(.secondary)
+                }
                 Spacer()
             }
         }.foregroundColor(Color.primary)
             .frame(maxWidth: .infinity)
+    }
+
+    private func selectedServerView(name: String) -> some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(name)
+                HStack(spacing: 8) {
+                    Circle()
+                        .frame(width: 8, height: 8)
+                        .foregroundColor(connectionStatusColor)
+                    Text(connectionStatusText)
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                }
+            }
+            Spacer()
+            Button(action: {
+                logger.forgetServer(named: name)
+                viewModel.refreshServers()
+            }, label: {
+                Image(systemName: "trash")
+                    .foregroundColor(.red)
+            })
+#if os(tvOS)
+            .buttonStyle(.plain)
+#endif
+        }
+    }
+
+    private var connectionStatusColor: Color {
+        switch logger.connectionState {
+        case .connected: return .green
+        case .connecting: return .yellow
+        case .idle: return .gray
+        }
+    }
+
+    private var connectionStatusText: String {
+        switch logger.connectionState {
+        case .connected: return L10n.tr("pulse.remote.connected")
+        case .connecting: return L10n.tr("pulse.remote.connecting")
+        case .idle: return L10n.tr("pulse.remote.disconnected")
+        }
+    }
+
+    private func browserErrorView(_ error: NWError) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(L10n.tr("pulse.remote.devices_browser_failed"))
+                .font(.headline)
+            Text(error.localizedDescription)
+                .font(.subheadline)
+        }
     }
 }
 
@@ -122,10 +198,15 @@ final class RemoteLoggerSettingsViewModel: ObservableObject {
                     id: server,
                     name: server.name ?? "–",
                     isSelected: logger.isSelected(server),
+                    isProtected: server.isProtected,
                     connect: { [weak self] in self?.connect(to: server) }
                 )
             }
             .sorted { $0.name.caseInsensitiveCompare($1.name) == .orderedAscending }
+    }
+
+    func refreshServers() {
+        refresh(servers: logger.servers)
     }
     
     private func connect(to server: NWBrowser.Result) {
@@ -138,6 +219,7 @@ struct RemoteLoggerServerViewModel: Identifiable {
     let id: AnyHashable
     let name: String
     let isSelected: Bool
+    let isProtected: Bool
     let connect: () -> Void
 }
 
@@ -149,6 +231,17 @@ private extension NWBrowser.Result {
             return name
         default:
             return nil
+        }
+    }
+
+    var isProtected: Bool {
+        switch metadata {
+        case .bonjour(let record):
+            return record["protected"].map { Bool($0) } == true
+        case .none:
+            return false
+        @unknown default:
+            return false
         }
     }
 }

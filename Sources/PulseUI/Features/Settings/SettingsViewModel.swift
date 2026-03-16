@@ -22,11 +22,15 @@ final class SettingsViewModel: ObservableObject {
 
     @available(iOS 14.0, tvOS 14.0, *)
     var isRemoteLoggingAvailable: Bool {
-        store === RemoteLogger.shared.store
+        !store.isArchive
     }
 
     init(store: LoggerStore) {
         self.store = store
+
+        if #available(iOS 14.0, tvOS 14.0, *), !store.isArchive {
+            RemoteLogger.shared.initialize(store: store)
+        }
 
 #if os(watchOS) || os(iOS)
         LoggerSyncSession.shared.$fileTransferStatus.sink(receiveValue: { [weak self] in

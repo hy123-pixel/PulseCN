@@ -74,7 +74,13 @@
 "pulse.placeholder.no_stored_messages" = "There are no stored messages.";
 "pulse.placeholder.no_stored_requests" = "There are no stored network requests.";
 "pulse.remote.logging" = "Remote Logging";
+"pulse.remote.connected" = "Connected";
+"pulse.remote.connecting" = "Connecting...";
+"pulse.remote.devices" = "Devices";
+"pulse.remote.devices_browser_failed" = "Devices browser failed";
+"pulse.remote.disconnected" = "Disconnected";
 "pulse.remote.requires_ios14" = "Requires iOS 14 or later";
+"pulse.remote.requires_pulse_for_mac" = "Requires Pulse for Mac";
 "pulse.remote.searching" = "Searching...";
 "pulse.search.case_insensitive" = "Case Insensitive";
 "pulse.search.case_sensitive" = "Case Sensitive";
