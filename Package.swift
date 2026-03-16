@@ -3,6 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "Pulse",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v15),
         .tvOS(.v15),
@@ -18,7 +19,11 @@ let package = Package(
     targets: [
         .target(name: "Pulse"),
         .target(name: "PulseProxy", dependencies: ["Pulse"]),
-        .target(name: "PulseUI", dependencies: ["Pulse"]),
+        .target(
+            name: "PulseUI",
+            dependencies: ["Pulse"],
+            resources: [.process("Resources")]
+        ),
     ],
     swiftLanguageVersions: [
       .v5
