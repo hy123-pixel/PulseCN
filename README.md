@@ -3,23 +3,29 @@
 <br/>
 <br/>
 
-**Pulse** is a powerful logging system for Apple Platforms. Native. Built with SwiftUI.
+> 文档
+>
+- PulseCN 上游同步指南：[docs/upstream-sync.zh-CN.md](./docs/upstream-sync.zh-CN.md)
 
-Record and inspect logs and `URLSession` network requests right from your iOS app. Share logs and view them in [Pulse Pro](https://pulselogger.com) or use remote logging to see them in real time. Logs are stored locally and never leave your devices.
+**Pulse** 是一个面向 Apple 平台的强大日志系统。原生实现，基于 SwiftUI 构建。
 
-## About
+你可以直接在 iOS App 中记录并查看日志与 `URLSession` 网络请求；还可以分享日志、在 [Pulse Pro](https://pulselogger.com) 中查看，或者使用远程日志实时观察。所有日志默认都存储在本地，不会离开你的设备。
 
-`Pulse` is not just a tool, it's a framework. It records events from `URLSession` or from frameworks that use it, such as [Alamofire](https://github.com/Alamofire/Alamofire) or [Get](https://github.com/kean/Get), and displays them using `PulseUI` views that you integrate directly into your app. This way Pulse console is available for everyone who has your test builds. You or your QA team can view the logs on the device and easily share them to attach to bug reports.
+## 关于 Pulse
 
-> Pulse is **not** a network proxy. If you need one, check out [**Proxyman**](https://proxyman.io).
+`Pulse` 不只是一个工具，更是一套框架。它可以记录来自 `URLSession` 的事件，或者来自依赖 `URLSession` 的框架（例如 [Alamofire](https://github.com/Alamofire/Alamofire) 与 [Get](https://github.com/kean/Get)）的事件，并通过你直接集成到 App 中的 `PulseUI` 视图进行展示。
 
-## Getting Started
+这样一来，凡是拿到测试构建的人都能使用 Pulse 控制台。你或 QA 团队可以直接在设备上查看日志，并轻松导出后附加到 Bug 报告中。
 
-The best way to start using Pulse is with the [**Getting Started**](https://kean-docs.github.io/pulse/documentation/pulse/gettingstarted) guide. There are many ways to use it and to learn more, see the dedicated docs: 
+> Pulse **不是** 网络代理。如果你需要代理工具，可以看看 [**Proxyman**](https://proxyman.io)。
 
-- [**Pulse Docs**](https://kean-docs.github.io/pulse/documentation/pulse/) describe how to integrate the main framework and enable logging
-- [**PulseUI Docs**](https://kean-docs.github.io/pulseui/documentation/pulseui/) contains information about adding the debug menu and console into your app
-- [**PulseLogHandler Docs**](https://kean-docs.github.io/pulseloghandler/documentation/pulseloghandler/) describe how to use Pulse as [SwiftLog](https://github.com/apple/swift-log) backend
+## 快速开始
+
+开始使用 Pulse 的最佳入口是官方的 [**Getting Started**](https://kean-docs.github.io/pulse/documentation/pulse/gettingstarted) 指南。想了解更多用法，可以继续查看这些官方文档：
+
+- [**Pulse Docs**](https://kean-docs.github.io/pulse/documentation/pulse/)：介绍主框架的集成方式与日志启用方法
+- [**PulseUI Docs**](https://kean-docs.github.io/pulseui/documentation/pulseui/)：介绍如何把调试菜单与控制台集成到 App 中
+- [**PulseLogHandler Docs**](https://kean-docs.github.io/pulseloghandler/documentation/pulseloghandler/)：介绍如何把 Pulse 作为 [SwiftLog](https://github.com/apple/swift-log) 后端使用
 
 <a href="https://kean.blog/pulse/home">
 <img src="https://user-images.githubusercontent.com/1567433/184552639-cf6765df-b5af-416b-95d3-0204e32df9d6.png">
@@ -27,15 +33,31 @@ The best way to start using Pulse is with the [**Getting Started**](https://kean
 
 ## Pulse Pro
 
-[**Pulse Pro**](https://pulselogger.com) is a professional macOS app that allows you to view logs in real time. The app is designed to be flexible, expansive, and precise while using all the familiar macOS patterns. It makes it easy to navigate large log files with table and text modes, filters, an all-new network inspector, JSON filters, and more.
+[**Pulse Pro**](https://pulselogger.com) 是一款专业的 macOS 应用，可以让你实时查看日志。它强调灵活、可扩展和精确，同时遵循熟悉的 macOS 交互模式。面对大型日志文件时，它也能通过表格模式、文本模式、过滤器、全新网络检查器、JSON 过滤等能力提升排查效率。
 
-## Minimum Requirements
+## 最低要求
 
-| Pulse      | Swift      | Xcode       | Platforms                                        |
-|------------|------------|-------------|--------------------------------------------------|
-| Pulse 5.0  | Swift 5.10 | Xcode 15.4  | iOS 15, tvOS 15, watchOS 8, macOS 12, visionOS 1 |
-| Pulse 4.0  | Swift 5.7  | Xcode 14.1  | iOS 14, tvOS 15, watchOS 8, macOS 12             |
+| Pulse      | Swift      | Xcode       | 平台                                               |
+|------------|------------|-------------|----------------------------------------------------|
+| Pulse 5.0  | Swift 5.10 | Xcode 15.4  | iOS 15、tvOS 15、watchOS 8、macOS 12、visionOS 1 |
+| Pulse 4.0  | Swift 5.7  | Xcode 14.1  | iOS 14、tvOS 15、watchOS 8、macOS 12              |
 
-## License
+## PulseCN 维护说明
 
-Pulse is available under the MIT license. See the LICENSE file for more info.
+`PulseCN` 相比原始 Pulse，主要增加了：
+
+- `PulseUI` 基于 Swift Package Resources 的本地化资源
+- `en.lproj` / `zh-Hans.lproj` 字符串资源
+- 少量把 UI 文案改接到 `L10n` key 的代码变更
+
+因此后续同步上游时，建议始终遵循：
+
+1. **先同步上游源码**
+2. **再补齐新增文案的本地化 key**
+3. **最后重新构建验证中英文界面**
+
+详细步骤见：[上游同步维护指南](./docs/upstream-sync.zh-CN.md)
+
+## 许可证
+
+Pulse 基于 MIT 许可证发布。详情见 [LICENSE.md](./LICENSE.md)。
