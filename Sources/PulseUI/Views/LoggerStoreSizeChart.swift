@@ -19,7 +19,7 @@ package struct LoggerStoreSizeChart: View {
     package var body: some View {
         VStack {
             HStack {
-                Text("Logs")
+                Text(L10n.tr("pulse.console.mode.logs"))
                 Spacer()
                 Text(title).foregroundColor(.secondary)
             }
@@ -34,7 +34,7 @@ package struct LoggerStoreSizeChart: View {
 #if os(watchOS)
             return "\(used) / \(limit)"
 #else
-            return "\(used) of \(limit) used"
+            return L10n.fmt("pulse.store.size_usage", used, limit)
 #endif
         }
         return used

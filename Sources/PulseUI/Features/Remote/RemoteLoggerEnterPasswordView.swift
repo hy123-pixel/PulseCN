@@ -21,7 +21,7 @@ struct RemoteLoggerEnterPasswordView: View {
     var body: some View {
         Form {
             Section(content: {
-                SecureField("Password", text: $passcode)
+                SecureField(L10n.tr("pulse.remote.password"), text: $passcode)
                     .focused($isTextFieldFocused)
                     .submitLabel(.continue)
                     .onSubmit {
@@ -29,20 +29,20 @@ struct RemoteLoggerEnterPasswordView: View {
                     }
             }, footer: {
                 VStack(alignment: .leading, spacing: 16) {
-                    Text("Enter the password for '\(server.name)'.")
+                    Text(L10n.fmt("pulse.remote.enter_password_for", server.name))
                 }
             })
         }
-        .inlineNavigationTitle("Enter Password")
+        .inlineNavigationTitle(L10n.tr("pulse.remote.enter_password"))
 #if os(iOS) || os(visionOS)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button("Cancel", role: .cancel) {
+                Button(L10n.tr("pulse.common.cancel"), role: .cancel) {
                     viewModel.pendingPasscodeProtectedServer = nil
                 }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button("Connect") {
+                Button(L10n.tr("pulse.remote.connect")) {
                     connect()
                 }
             }

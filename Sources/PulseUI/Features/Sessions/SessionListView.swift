@@ -27,7 +27,7 @@ struct SessionListView: View {
     var body: some View {
         VStack(spacing: 0) {
             if sessions.isEmpty {
-                Text("No Recorded Sessions")
+                Text(L10n.tr("pulse.sessions.no_recorded_sessions"))
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .foregroundColor(.secondary)
             } else {
@@ -76,7 +76,7 @@ struct SessionListView: View {
 
                 let ids = Set(sessions.map(\.id))
                 let isAllSelected = selection.intersection(ids).count == ids.count
-                Button(isAllSelected ? "Deselect All" : "Select All") {
+                Button(isAllSelected ? L10n.tr("pulse.common.deselect_all") : L10n.tr("pulse.common.select_all")) {
                     if isAllSelected {
                         selection.subtract(ids)
                     } else {
@@ -96,11 +96,11 @@ struct SessionListView: View {
                         store.removeSessions(withIDs: [session.id])
                     }
                 }, label: {
-                    Label("Delete", systemImage: "trash")
+                    Label(L10n.tr("pulse.common.delete"), systemImage: "trash")
                 }).tint(Color.red)
 
                 Button(action: { sharedSessions = .init(ids: [session.id]) }) {
-                    Label("Share", systemImage: "square.and.arrow.up.fill")
+                    Label(L10n.tr("pulse.common.share"), systemImage: "square.and.arrow.up.fill")
                 }.tint(.blue)
             }
     }

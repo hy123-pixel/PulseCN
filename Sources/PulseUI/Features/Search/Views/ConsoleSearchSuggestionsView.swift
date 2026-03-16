@@ -30,7 +30,7 @@ struct ConsoleSearchSuggestionsView: View {
             Spacer()
             Button(action: viewModel.buttonClearRecentSearchesTapped) {
                 HStack {
-                    Text("Clear Search History")
+                    Text(L10n.tr("pulse.search.clear_history"))
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)

@@ -25,7 +25,7 @@ struct RemoteLoggerSettingsView: View {
         }
 
         if viewModel.isEnabled {
-            Section(header: Text("Devices")) {
+            Section(header: Text(L10n.tr("pulse.remote.devices"))) {
                 if let error = logger.browserError {
                     RemoteLoggerErrorView(error: error)
                 } else {
@@ -44,7 +44,7 @@ struct RemoteLoggerSettingsView: View {
         Toggle(isOn: $viewModel.isEnabled, label: {
             HStack(spacing: 12) {
 #if os(watchOS)
-                Text("Remote Logging")
+                Text(L10n.tr("pulse.remote.logging"))
 #else
                 Text(Image(systemName: "wifi"))
                     .font(.headline)
@@ -53,8 +53,8 @@ struct RemoteLoggerSettingsView: View {
                     .background(Color.blue)
                     .cornerRadius(6)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Remote Logging")
-                    Text("Requires [Pulse for Mac](https://pulselogger.com)")
+                    Text(L10n.tr("pulse.remote.logging"))
+                    Text(L10n.tr("pulse.remote.requires_pulse_for_mac"))
                         .font(.caption2)
                         .foregroundColor(.secondary)
                 }
@@ -80,7 +80,7 @@ struct RemoteLoggerSettingsView: View {
             ProgressView()
                 .progressViewStyle(.circular)
 #endif
-            Text("Searching...")
+            Text(L10n.tr("pulse.remote.searching"))
                 .foregroundColor(.secondary)
         }
 #endif
@@ -139,7 +139,7 @@ struct RemoteLoggerSettingsRouterView: View {
         Text("").invisible()
             .sheet(item: $viewModel.pendingPasscodeProtectedServer, content: makeEnterPasswordView)
             .alert(isPresented: $viewModel.isShowingConnectionError, error: viewModel.connectionError) {
-                Button("OK", role: .cancel) {
+                Button(L10n.tr("pulse.common.ok"), role: .cancel) {
                     viewModel.isShowingConnectionError = false
                 }
             }
@@ -176,7 +176,7 @@ struct RemoteLoggerSettingsView_Previews: PreviewProvider {
             List {
                 RemoteLoggerSettingsView(viewModel: .init())
             }
-            .navigationTitle("Settings")
+            .navigationTitle(L10n.tr("pulse.common.settings"))
         }
 #endif
     }

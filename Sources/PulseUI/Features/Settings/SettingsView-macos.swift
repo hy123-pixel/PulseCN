@@ -21,11 +21,11 @@ struct SettingsView: View {
                 if store === RemoteLogger.shared.store {
                     RemoteLoggerSettingsView(viewModel: .shared)
                 } else {
-                    Text("Not available")
+                    Text(L10n.tr("pulse.common.not_available"))
                         .foregroundColor(.secondary)
                 }
             }
-            Section("Store") {
+            Section(L10n.tr("pulse.store.title")) {
                 // TODO: load this info async
                 //                if #available(macOS 13, *), let info = try? store.info() {
                 //                    LoggerStoreSizeChart(info: info, sizeLimit: store.configuration.sizeLimit)
@@ -34,11 +34,11 @@ struct SettingsView: View {
 
             Section {
                 HStack {
-                    Button("Show in Finder") {
+                    Button(L10n.tr("pulse.store.show_in_finder")) {
                         NSWorkspace.shared.activateFileViewerSelecting([store.storeURL])
                     }
                     if !(store.options.contains(.readonly)) {
-                        Button("Remove Logs") {
+                        Button(L10n.tr("pulse.store.remove_logs")) {
                             store.removeAll()
                         }
                     }

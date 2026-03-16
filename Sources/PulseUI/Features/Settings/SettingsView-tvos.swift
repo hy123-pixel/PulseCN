@@ -23,17 +23,17 @@ public struct SettingsView: View {
             Section {
                 if #available(tvOS 16, *) {
                     NavigationLink(destination: StoreDetailsView(source: .store(store))) {
-                        Text("Store Info")
+                        Text(L10n.tr("pulse.settings.store_info"))
                     }
                 }
                 if !store.options.contains(.readonly) {
                     Button(role: .destructive, action: { store.removeAll() }) {
-                        Text("Remove Logs")
+                        Text(L10n.tr("pulse.store.remove_logs"))
                     }
                 }
             }
         }
-        .navigationTitle("Settings")
+        .navigationTitle(L10n.tr("pulse.common.settings"))
         .frame(maxWidth: 800)
     }
 }

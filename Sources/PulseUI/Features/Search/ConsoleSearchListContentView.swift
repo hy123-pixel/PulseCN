@@ -28,7 +28,7 @@ struct ConsoleSearchListContentView: View {
         Button(action: viewModel.buttonShowNewlyAddedSearchResultsTapped) {
             HStack {
                 Image(systemName: "arrow.clockwise.circle.fill")
-                Text("New Results Added")
+                Text(L10n.tr("pulse.search.new_results_added"))
             }
             .font(.subheadline.weight(.medium))
             .foregroundColor(.white)
@@ -59,7 +59,7 @@ struct ConsoleSearchResultsListContentView: View {
                 }
         }
         if !viewModel.isSearching && !viewModel.hasMore && !viewModel.results.isEmpty {
-            Text("No more results")
+            Text(L10n.tr("pulse.search.no_more_results"))
                 .frame(maxWidth: .infinity, minHeight: 24, alignment: .center)
                 .font(.footnote)
                 .foregroundStyle(.secondary)

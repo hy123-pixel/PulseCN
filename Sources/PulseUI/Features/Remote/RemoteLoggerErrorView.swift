@@ -31,7 +31,7 @@ private struct RemoteLoggerPolicyGenericErrorView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Devices browser failed")
+            Text(L10n.tr("pulse.remote.devices_browser_failed"))
                 .font(.headline)
             Text(error.localizedDescription)
                 .font(.subheadline)
@@ -42,13 +42,13 @@ private struct RemoteLoggerPolicyGenericErrorView: View {
 private struct RemoteLoggerPolicyDeniedView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Local network access denied")
+            Text(L10n.tr("pulse.remote.local_network_denied"))
                 .font(.headline)
-            Text("Open **Settings** / **Privacy** / **Local Network** and check that the app is listed and the toggle is enabled")
+            Text(L10n.tr("pulse.remote.local_network_denied_help"))
                 .font(.subheadline)
         }
 #if os(iOS) || os(visionOS)
-        Button("Open Settings") {
+        Button(L10n.tr("pulse.remote.open_settings")) {
             UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
         }
 #endif
@@ -59,9 +59,9 @@ private struct RemoteLoggerPolicyDeniedView: View {
 private struct RemoteLoggerNoAuthView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Info.plist is misconfigured")
+            Text(L10n.tr("pulse.remote.info_plist_misconfigured"))
                 .font(.headline)
-            Text("Add the following to the app’s plist file to allow it to use [local networking](https://kean-docs.github.io/pulse/documentation/pulse/gettingstarted):")
+            Text(L10n.tr("pulse.remote.info_plist_help"))
                 .font(.subheadline)
 
             Text(plistContents)
@@ -76,7 +76,7 @@ private struct RemoteLoggerNoAuthView: View {
                 .padding(.top, 8)
         }
 #if os(iOS) || os(visionOS)
-        Button("Copy Contents") {
+        Button(L10n.tr("pulse.remote.copy_contents")) {
             UXPasteboard.general.string = plistContents
         }
 #endif

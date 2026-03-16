@@ -23,7 +23,7 @@ struct SessionsView: View {
 
     var body: some View {
         if store.version < LoggerStore.Version(3, 6, 0) {
-            PlaceholderView(imageName: "questionmark.app", title: "Unsupported", subtitle: "This feature requires a store created by Pulse version 3.6.0 or higher").padding()
+            PlaceholderView(imageName: "questionmark.app", title: L10n.tr("pulse.common.unsupported"), subtitle: L10n.tr("pulse.sessions.version_required")).padding()
         } else {
             content
         }
@@ -34,7 +34,7 @@ struct SessionsView: View {
         list
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(editMode.isEditing ? "Done" : "Edit") {
+                    Button(editMode.isEditing ? L10n.tr("pulse.common.done" ) : L10n.tr("pulse.common.edit")) {
                         withAnimation {
                             editMode = editMode.isEditing ? .inactive : .active
                         }
@@ -76,9 +76,9 @@ struct SessionsView: View {
             // It should ideally be done using stringsdict, but Pulse
             // doesn't support localization.
             if selection.count % 10 == 1 {
-                Text("\(selection.count) Session Selected")
+                Text(L10n.fmt("pulse.sessions.session_selected", selection.count))
             } else {
-                Text("\(selection.count) Sessions Selected")
+                Text(L10n.fmt("pulse.sessions.sessions_selected", selection.count))
             }
 
             Spacer()
@@ -89,7 +89,7 @@ struct SessionsView: View {
             .disabled(selection.isEmpty)
 
             Menu(content: {
-                Button("Show in Console") {
+                Button(L10n.tr("pulse.sessions.show_in_console")) {
                     showInConsole(sessions: selection)
                 }.disabled(selection.isEmpty)
             }, label: {

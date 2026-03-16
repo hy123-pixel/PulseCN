@@ -51,7 +51,7 @@ package struct PlaceholderView: View {
 #if DEBUG
 struct PlaceholderView_Previews: PreviewProvider {
     static var previews: some View {
-        PlaceholderView(imageName: "questionmark.folder", title: "Store Unavailable")
+        PlaceholderView(imageName: "questionmark.folder", title: L10n.tr("pulse.store.unavailable"))
     }
 }
 #endif

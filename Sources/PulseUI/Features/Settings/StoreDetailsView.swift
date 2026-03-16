@@ -17,7 +17,7 @@ struct StoreDetailsView: View {
 #if os(tvOS)
             .padding()
 #else
-            .inlineNavigationTitle("Store Details")
+            .inlineNavigationTitle(L10n.tr("pulse.store.details_title"))
 #endif
     }
 }
@@ -32,7 +32,7 @@ struct StoreDetailsContentsView: View {
         // important: zstack fixed infinite onAppear loop on iOS 14
         ZStack {
             if let error = viewModel.errorMessage {
-                PlaceholderView(imageName: "exclamationmark.circle", title: "Failed to load info", subtitle: error)
+                PlaceholderView(imageName: "exclamationmark.circle", title: L10n.tr("pulse.store.failed_to_load_info"), subtitle: error)
             } else {
                 form
             }
@@ -72,11 +72,11 @@ struct StoreDetailsContentsView: View {
             if isShowingActions {
                 ConsoleSection(header: { EmptyView() }, content: {
                     HStack {
-                        Button("Show in Finder") {
+                        Button(L10n.tr("pulse.store.show_in_finder")) {
                             NSWorkspace.shared.activateFileViewerSelecting([store.storeURL])
                         }
                         if !(store.options.contains(.readonly)) {
-                            Button("Remove Logs") {
+                            Button(L10n.tr("pulse.store.remove_logs")) {
                                 store.removeAll()
                             }
                         }
@@ -135,18 +135,18 @@ enum StoreDetailsViewSource {
     private func makeInfoSection(for info: LoggerStore.Info) -> KeyValueSectionViewModel {
         let device = info.deviceInfo
         let app = info.appInfo
-        return KeyValueSectionViewModel(title: "App Info", color: .gray, items: [
-            ("App", "\(app.name ?? "–") \(app.version ?? "–") (\(app.build ?? "–"))"),
-            ("Device", "\(device.name) (\(device.systemName) \(device.systemVersion))")
+        return KeyValueSectionViewModel(title: L10n.tr("pulse.store.app_info"), color: .gray, items: [
+            (L10n.tr("pulse.store.app"), "\(app.name ?? "–") \(app.version ?? "–") (\(app.build ?? "–"))"),
+            (L10n.tr("pulse.store.device"), "\(device.name) (\(device.systemName) \(device.systemVersion))")
         ])
     }
 
     private func makeSizeSection(for info: LoggerStore.Info) -> KeyValueSectionViewModel {
-        KeyValueSectionViewModel(title: "Statistics", color: .gray, items: [
-            ("Created", dateFormatter.string(from: info.creationDate)),
-            ("Messages", info.messageCount.description),
-            ("Requests", info.taskCount.description),
-            ("Blobs Size", ByteCountFormatter.string(fromByteCount: info.blobsSize)),
+        KeyValueSectionViewModel(title: L10n.tr("pulse.store.statistics"), color: .gray, items: [
+            (L10n.tr("pulse.store.created"), dateFormatter.string(from: info.creationDate)),
+            (L10n.tr("pulse.store.messages"), info.messageCount.description),
+            (L10n.tr("pulse.store.requests"), info.taskCount.description),
+            (L10n.tr("pulse.store.blobs_size"), ByteCountFormatter.string(fromByteCount: info.blobsSize)),
             makeDecompressedRow(for: info)
         ].compactMap { $0 })
     }
@@ -155,7 +155,7 @@ enum StoreDetailsViewSource {
         if info.blobsDecompressedSize == info.blobsSize {
             return nil
         }
-        return ("Blobs Size Decompressed", ByteCountFormatter.string(fromByteCount: info.blobsDecompressedSize))
+        return (L10n.tr("pulse.store.blobs_size_decompressed"), ByteCountFormatter.string(fromByteCount: info.blobsDecompressedSize))
     }
 }
 
