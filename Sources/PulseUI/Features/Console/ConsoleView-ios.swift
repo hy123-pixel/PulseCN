@@ -26,7 +26,7 @@ public struct ConsoleView: View {
             .onAppear(perform: viewModel.onAppear)
             .onDisappear(perform: viewModel.onDisappear)
             .edgesIgnoringSafeArea(.bottom)
-            .navigationBarTitle(Text("Console"))
+            .navigationBarTitle(Text(L10n.tr("pulse.console.title")))
             .navigationBarItems(
                 leading: viewModel.onDismiss.map {
                     Button(action: $0) { Image(systemName: "xmark") }
@@ -69,7 +69,7 @@ private struct ConsoleToolbarView: View {
     var body: some View {
         VStack(spacing: 8) {
             HStack(spacing: 0) {
-                SearchBar(title: "Search \(viewModel.entities.count) messages", text: $viewModel.filterTerm)
+                SearchBar(title: L10n.fmt("pulse.console.search_messages", viewModel.entities.count), text: $viewModel.filterTerm)
                 Button(action: { viewModel.isOnlyErrors.toggle() }) {
                     Image(systemName: viewModel.isOnlyErrors ? "exclamationmark.octagon.fill" : "exclamationmark.octagon")
                         .font(.system(size: 20))

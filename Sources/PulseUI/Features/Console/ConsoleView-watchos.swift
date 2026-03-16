@@ -18,22 +18,22 @@ struct ConsoleView: View {
     var body: some View {
         List {
             NavigationLink(destination: SettingsView(viewModel: main.settings)) {
-                Label("Settings", systemImage: "gearshape")
+                Label(L10n.tr("pulse.common.settings"), systemImage: "gearshape")
             }
 
             Button(action: { viewModel.isOnlyErrors.toggle() }) {
-                Label("Show Errors", systemImage: viewModel.isOnlyErrors ? "exclamationmark.octagon.fill" : "exclamationmark.octagon")
+                Label(L10n.tr("pulse.console.show_errors"), systemImage: viewModel.isOnlyErrors ? "exclamationmark.octagon.fill" : "exclamationmark.octagon")
             }
             .listRowBackground(viewModel.isOnlyErrors ? Color.blue.cornerRadius(8) : nil)
 
             Button(action: { viewModel.isOnlyNetwork.toggle() }) {
-                Label("Show Requests", systemImage: "network")
+                Label(L10n.tr("pulse.console.show_requests"), systemImage: "network")
             }
             .listRowBackground(viewModel.isOnlyNetwork ? Color.blue.cornerRadius(8) : nil)
 
             ConsoleMessagesForEach(messages: viewModel.entities)
         }
-        .navigationTitle("Console")
+        .navigationTitle(L10n.tr("pulse.console.title"))
         .onAppear(perform: viewModel.onAppear)
         .onDisappear(perform: viewModel.onDisappear)
     }
