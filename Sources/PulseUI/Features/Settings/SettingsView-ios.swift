@@ -25,9 +25,9 @@ public struct SettingsView: View {
                store === RemoteLogger.shared.store {
                 RemoteLoggerSettingsView(viewModel: .shared)
             }
-            Section("Other") {
+            Section(L10n.tr("pulse.settings.other")) {
                 NavigationLink(destination: StoreDetailsView(source: .store(store)), label: {
-                    Text("Store Info")
+                    Text(L10n.tr("pulse.settings.store_info"))
                 })
             }
         }
@@ -44,7 +44,7 @@ struct SettingsView_Previews: PreviewProvider {
             SettingsView(store: .mock)
                 .environmentObject(UserSettings.shared)
                 .injecting(ConsoleEnvironment(store: .mock))
-                .navigationTitle("Settings")
+                .navigationTitle(L10n.tr("pulse.common.settings"))
         }
     }
 }

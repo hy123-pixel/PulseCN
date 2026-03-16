@@ -20,7 +20,7 @@ struct ConsoleListContentView: View {
     @ViewBuilder
     private var plainView: some View {
         if viewModel.entities.isEmpty {
-            Text("Empty")
+            Text(L10n.tr("pulse.common.empty"))
                 .font(.subheadline)
                 .foregroundColor(.secondary)
                 .listRowInsets(EdgeInsets(top: 12, leading: 20, bottom: 12, trailing: 16))
@@ -46,7 +46,7 @@ struct ConsoleListContentView: View {
     private var footerView: some View {
         if let session = viewModel.previousSession {
             Button(action: { viewModel.buttonShowPreviousSessionTapped(for: session) }) {
-                Text("Show Previous Session")
+                Text(L10n.tr("pulse.console.show_previous_session"))
                     .font(.subheadline)
                     .foregroundColor(.accentColor)
                 Spacer()
