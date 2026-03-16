@@ -74,6 +74,7 @@
 "pulse.placeholder.no_stored_messages" = "没有已存储的消息。";
 "pulse.placeholder.no_stored_requests" = "没有已存储的网络请求。";
 "pulse.remote.logging" = "远程日志";
+"pulse.remote.requires_ios14" = "需要 iOS 14 或更高版本";
 "pulse.remote.searching" = "搜索中...";
 "pulse.search.case_insensitive" = "不区分大小写";
 "pulse.search.case_sensitive" = "区分大小写";

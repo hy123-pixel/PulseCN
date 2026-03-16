@@ -74,6 +74,7 @@
 "pulse.placeholder.no_stored_messages" = "There are no stored messages.";
 "pulse.placeholder.no_stored_requests" = "There are no stored network requests.";
 "pulse.remote.logging" = "Remote Logging";
+"pulse.remote.requires_ios14" = "Requires iOS 14 or later";
 "pulse.remote.searching" = "Searching...";
 "pulse.search.case_insensitive" = "Case Insensitive";
 "pulse.search.case_sensitive" = "Case Sensitive";

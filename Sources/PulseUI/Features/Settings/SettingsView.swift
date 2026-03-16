@@ -41,6 +41,8 @@ public struct SettingsView: View {
                 Section {
                     RemoteLoggerSettingsView(viewModel: .shared)
                 }
+            } else {
+                sectionRemoteLoggingUnavailable
             }
 #if os(iOS)
             sectionSponsor
@@ -53,6 +55,23 @@ public struct SettingsView: View {
 #if os(tvOS)
         .frame(maxWidth: 800)
 #endif
+    }
+
+    private var sectionRemoteLoggingUnavailable: some View {
+        Section {
+            HStack(spacing: 12) {
+#if !os(watchOS)
+                Image(systemName: "network")
+                    .foregroundColor(.secondary)
+#endif
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(L10n.tr("pulse.remote.logging"))
+                    Text(L10n.tr("pulse.remote.requires_ios14"))
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
+                }
+            }
+        }
     }
 
     @available(iOS 14.0, tvOS 14.0, *)
