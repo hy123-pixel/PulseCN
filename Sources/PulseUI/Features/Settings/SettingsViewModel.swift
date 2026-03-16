@@ -46,7 +46,7 @@ final class SettingsViewModel: ObservableObject {
         ToastView {
             HStack {
                 Image(systemName: "trash")
-                Text("All messages removed")
+                Text(L10n.tr("pulse.settings.all_messages_removed"))
             }
         }.show()
 #endif

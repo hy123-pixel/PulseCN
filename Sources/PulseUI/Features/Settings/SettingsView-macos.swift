@@ -27,31 +27,31 @@ public struct SettingsView: View {
         VStack {
             List {
                 HStack {
-                    Text("Settings")
+                    Text(L10n.tr("pulse.common.settings"))
                         .font(.title)
                     Spacer()
-                    Button("Close") {
+                    Button(L10n.tr("pulse.common.close")) {
                         presentationMode.wrappedValue.dismiss()
                     }
                 }
-                Section(header: Text("Open Store")) {
-                    Button("Open in Finder") {
+                Section(header: Text(L10n.tr("pulse.store.open_store"))) {
+                    Button(L10n.tr("pulse.store.open_in_finder")) {
                         NSWorkspace.shared.activateFileViewerSelecting([store.storeURL])
                     }
-                    Button("Open in Pulse Pro") {
+                    Button(L10n.tr("pulse.store.open_in_pulse_pro")) {
                         NSWorkspace.shared.open(store.storeURL)
                     }
                 }
-                Section(header: Text("Manage Messages")) {
+                Section(header: Text(L10n.tr("pulse.settings.manage_messages"))) {
                     if !viewModel.isArchive {
                         ButtonRemoveAll(action: viewModel.buttonRemoveAllMessagesTapped)
                     }
                 }
-                Section(header: Text("Remote Logging")) {
+                Section(header: Text(L10n.tr("pulse.remote.logging"))) {
                     if viewModel.isRemoteLoggingAvailable {
                         RemoteLoggerSettingsView(viewModel: .shared)
                     } else {
-                        Text("Not available")
+                        Text(L10n.tr("pulse.common.not_available"))
                             .foregroundColor(.secondary)
                     }
                 }

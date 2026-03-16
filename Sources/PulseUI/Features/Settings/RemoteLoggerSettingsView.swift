@@ -18,7 +18,7 @@ struct RemoteLoggerSettingsView: View {
 #if !os(watchOS)
                 Image(systemName: "network")
 #endif
-                Text("Remote Logging")
+                Text(L10n.tr("pulse.remote.logging"))
             }
         })
         if viewModel.isEnabled {
@@ -45,7 +45,7 @@ struct RemoteLoggerSettingsView: View {
             ProgressView()
                 .progressViewStyle(.circular)
 #endif
-            Text("Searching...")
+            Text(L10n.tr("pulse.remote.searching"))
                 .foregroundColor(.secondary)
         }
 #endif

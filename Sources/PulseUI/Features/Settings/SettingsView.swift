@@ -46,7 +46,7 @@ public struct SettingsView: View {
             sectionSponsor
 #endif
         }
-        .backport.navigationTitle("Settings")
+        .backport.navigationTitle(L10n.tr("pulse.common.settings"))
 #if os(iOS)
         .navigationBarItems(leading: viewModel.onDismiss.map { Button(action: $0) { Image(systemName: "xmark") } })
 #endif
@@ -61,7 +61,7 @@ public struct SettingsView: View {
             NavigationLink(destination: StoreDetailsView(source: .store(viewModel.store))) {
                 HStack {
                     Image(systemName: "info.circle")
-                    Text("Store Info")
+                    Text(L10n.tr("pulse.settings.store_info"))
                 }
             }
 #if os(iOS)
@@ -69,7 +69,7 @@ public struct SettingsView: View {
                 Button(action: { isDocumentBrowserPresented = true }) {
                     HStack {
                         Image(systemName: "doc")
-                        Text("Browse Stores")
+                        Text(L10n.tr("pulse.settings.browse_stores"))
                     }
                 }
                 .fullScreenCover(isPresented: $isDocumentBrowserPresented) {
@@ -87,14 +87,14 @@ public struct SettingsView: View {
         }
         .disabled(viewModel.fileTransferStatus.isButtonDisabled)
         .alert(item: $viewModel.fileTransferError) { error in
-            Alert(title: Text("Transfer Failed"), message: Text(error.message), dismissButton: .cancel(Text("Ok")))
+            Alert(title: Text(L10n.tr("pulse.settings.transfer_failed")), message: Text(error.message), dismissButton: .cancel(Text(L10n.tr("pulse.common.ok"))))
         }
     }
 #endif
 
 #if os(iOS)
     private var sectionSponsor: some View {
-        Section(footer: Text("Pulse is funded by the community contributions.")) {
+        Section(footer: Text(L10n.tr("pulse.settings.community_funded"))) {
             Button(action: {
                 if let url = URL(string: "https://github.com/sponsors/kean") {
                     UIApplication.shared.open(url)
@@ -103,7 +103,7 @@ public struct SettingsView: View {
                 HStack {
                     Image(systemName: "heart.fill")
                         .foregroundColor(Color.pink)
-                    Text("Sponsor")
+                    Text(L10n.tr("pulse.settings.sponsor"))
                         .foregroundColor(Color.primary)
                     Spacer()
                     Image(systemName: "link")
@@ -148,11 +148,11 @@ struct ButtonRemoveAll: View {
 
     var body: some View {
         #if os(watchOS)
-        let title = "Remove All"
+        let title = L10n.tr("pulse.settings.remove_all")
         #else
-        let title = "Remove Messages"
+        let title = L10n.tr("pulse.settings.remove_messages")
         #endif
-        ButtonRemove(title: title, alert: "Are you sure you want to remove all recorded messages?", action: action)
+        ButtonRemove(title: title, alert: L10n.tr("pulse.settings.remove_messages_confirm"), action: action)
     }
 }
 
