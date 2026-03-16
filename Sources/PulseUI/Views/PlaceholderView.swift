@@ -50,35 +50,35 @@ extension PlaceholderView {
         let message: String
         if viewModel.searchCriteria.isDefaultSearchCriteria {
             if viewModel.searchCriteria.criteria.dates.isCurrentSessionOnly {
-                message = "There are no messages in the current session."
+                message = L10n.tr("pulse.placeholder.no_messages_current_session")
             } else {
-                message = "There are no stored messages."
+                message = L10n.tr("pulse.placeholder.no_stored_messages")
             }
         } else {
-            message = "There are no messages for the selected filters."
+            message = L10n.tr("pulse.placeholder.no_messages_selected_filters")
         }
-        return PlaceholderView(imageName: "message", title: "No Messages", subtitle: message)
+        return PlaceholderView(imageName: "message", title: L10n.tr("pulse.placeholder.no_messages"), subtitle: message)
     }
 
     static func make(viewModel: NetworkViewModel) -> PlaceholderView {
         let message: String
         if viewModel.searchCriteria.isDefaultSearchCriteria {
             if viewModel.searchCriteria.criteria.dates.isCurrentSessionOnly {
-                message = "There are no network requests in the current session."
+                message = L10n.tr("pulse.placeholder.no_requests_current_session")
             } else {
-                message = "There are no stored network requests."
+                message = L10n.tr("pulse.placeholder.no_stored_requests")
             }
         } else {
-            message = "There are no network requests for the selected filters."
+            message = L10n.tr("pulse.placeholder.no_requests_selected_filters")
         }
-        return PlaceholderView(imageName: "network", title: "No Requests", subtitle: message)
+        return PlaceholderView(imageName: "network", title: L10n.tr("pulse.placeholder.no_requests"), subtitle: message)
     }
 }
 
 #if DEBUG
 struct PlaceholderView_Previews: PreviewProvider {
     static var previews: some View {
-        PlaceholderView(imageName: "questionmark.folder", title: "Store Unavailable")
+        PlaceholderView(imageName: "questionmark.folder", title: L10n.tr("pulse.store.unavailable"))
     }
 }
 #endif

@@ -245,7 +245,7 @@ private struct SearchToobar: View {
                     Image(systemName: "chevron.left.circle")
                         .font(.system(size: 20))
                 }.disabled(viewModel.matches.isEmpty)
-                Text(viewModel.matches.isEmpty ? "0 of 0" : "\(viewModel.selectedMatchIndex+1) of \(viewModel.matches.count)")
+                Text(viewModel.matches.isEmpty ? L10n.tr("pulse.search.match_count_empty") : L10n.fmt("pulse.search.match_count", viewModel.selectedMatchIndex + 1, viewModel.matches.count))
                     .font(Font.body.monospacedDigit())
                 Button(action: viewModel.nextMatch) {
                     Image(systemName: "chevron.right.circle")
@@ -256,7 +256,7 @@ private struct SearchToobar: View {
             Spacer()
 
             Button(action: viewModel.cancelSearch) {
-                Text("Cancel")
+                Text(L10n.tr("pulse.common.cancel"))
             }
         }
         .padding(12)
@@ -266,7 +266,7 @@ private struct SearchToobar: View {
 #else
     var body: some View {
         HStack {
-            SearchBar(title: "Search", text: $viewModel.searchTerm, onEditingChanged: { isEditing in
+            SearchBar(title: L10n.tr("pulse.search.search"), text: $viewModel.searchTerm, onEditingChanged: { isEditing in
                 if isEditing {
                     viewModel.isSearching = isEditing
                 }

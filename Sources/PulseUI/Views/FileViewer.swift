@@ -18,12 +18,12 @@ struct FileViewer: View {
                 NavigationView {
                     WebView(data: viewModel.data, contentType: "application/html")
 #if os(iOS)
-                        .navigationBarTitle("Browser Preview", displayMode: .inline)
+                        .navigationBarTitle(L10n.tr("pulse.file.browser_preview"), displayMode: .inline)
                         .navigationBarItems(trailing: Button(action: {
                             isWebViewOpen = false
                         }) { Image(systemName: "xmark") })
 #else
-                        .navigationTitle("Browser Preview")
+                        .navigationTitle(L10n.tr("pulse.file.browser_preview"))
 #endif
                 }
             }
@@ -67,7 +67,7 @@ struct FileViewer: View {
 #if os(iOS)
                 RichTextView(viewModel: viewModel, onToggleExpanded: onToggleExpanded) {
                     if self.viewModel.contentType?.isHTML ?? false {
-                        Button("Open in Browser") {
+                        Button(L10n.tr("pulse.file.open_in_browser")) {
                             isWebViewOpen = true
                         }
                     } else {
@@ -79,7 +79,7 @@ struct FileViewer: View {
 #endif
             }
         } else {
-            SpinnerView(viewModel: .init(title: "Rendering...", details: nil))
+            SpinnerView(viewModel: .init(title: L10n.tr("pulse.file.rendering"), details: nil))
         }
     }
 }

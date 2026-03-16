@@ -109,7 +109,7 @@ private struct KeyValueListView: View {
     var body: some View {
         if viewModel.items.isEmpty {
             HStack {
-                Text("Empty")
+                Text(L10n.tr("pulse.common.empty"))
                     .foregroundColor(actualTintColor)
                     .font(.system(size: fontSize, weight: .medium))
             }
@@ -148,7 +148,7 @@ private struct KeyValueListView: View {
     var body: some View {
         if viewModel.items.isEmpty {
             HStack {
-                Text("Empty")
+                Text(L10n.tr("pulse.common.empty"))
                     .foregroundColor(actualTintColor)
                     .font(.system(size: fontSize, weight: .medium))
             }
