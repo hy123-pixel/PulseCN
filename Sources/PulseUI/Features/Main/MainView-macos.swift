@@ -21,7 +21,7 @@ public struct MainView: View {
 
     public var body: some View {
         ConsoleContainerViewPro(viewModel: viewModel, details: viewModel.details, toolbar: viewModel.toolbar)
-            .navigationTitle("Console")
+            .navigationTitle(L10n.tr("pulse.console.title"))
             .toolbar {
                 ToolbarItemGroup(placement: .navigation) {
                     Button(action: { isShowingSettings = true }) {

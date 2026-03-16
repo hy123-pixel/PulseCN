@@ -69,17 +69,17 @@ struct MainViewModelItem: Hashable, Identifiable {
     var id: String { title }
 
 #if os(iOS) || os(tvOS)
-    static let console = MainViewModelItem(title: "Console", imageName: isPad ? "message" : "message.fill")
-    static let network = MainViewModelItem(title: "Network", imageName: {
+    static let console = MainViewModelItem(title: L10n.tr("pulse.console.title"), imageName: isPad ? "message" : "message.fill")
+    static let network = MainViewModelItem(title: L10n.tr("pulse.network.title"), imageName: {
         if #available(iOS 14.0, *) {
             return "network"
         } else {
             return "icloud.and.arrow.down.fill"
         }
     }())
-    static let pins = MainViewModelItem(title: "Pins", imageName: isPad ? "pin" : "pin.fill")
-    static let insights = MainViewModelItem(title: "Insights", imageName: isPad ? "chart.pie" : "chart.pie.fill")
-    static let settings = MainViewModelItem(title: "Settings", imageName: {
+    static let pins = MainViewModelItem(title: L10n.tr("pulse.main.pins"), imageName: isPad ? "pin" : "pin.fill")
+    static let insights = MainViewModelItem(title: L10n.tr("pulse.main.insights"), imageName: isPad ? "chart.pie" : "chart.pie.fill")
+    static let settings = MainViewModelItem(title: L10n.tr("pulse.common.settings"), imageName: {
         if #available(iOS 14.0, *) {
             return "gearshape.fill"
         } else {
@@ -87,10 +87,10 @@ struct MainViewModelItem: Hashable, Identifiable {
         }
     }())
 #else
-    static let console = MainViewModelItem(title: "Console", imageName: "message")
-    static let network = MainViewModelItem(title: "Network", imageName: "icloud.and.arrow.down")
-    static let pins = MainViewModelItem(title: "Pins", imageName: "pin")
-    static let settings = MainViewModelItem(title: "Settings", imageName: "ellipsis.circle")
+    static let console = MainViewModelItem(title: L10n.tr("pulse.console.title"), imageName: "message")
+    static let network = MainViewModelItem(title: L10n.tr("pulse.network.title"), imageName: "icloud.and.arrow.down")
+    static let pins = MainViewModelItem(title: L10n.tr("pulse.main.pins"), imageName: "pin")
+    static let settings = MainViewModelItem(title: L10n.tr("pulse.common.settings"), imageName: "ellipsis.circle")
 #endif
 }
 
