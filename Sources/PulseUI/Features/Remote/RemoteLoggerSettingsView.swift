@@ -52,12 +52,7 @@ struct RemoteLoggerSettingsView: View {
                     .padding(4)
                     .background(Color.blue)
                     .cornerRadius(6)
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(L10n.tr("pulse.remote.logging"))
-                    Text(L10n.tr("pulse.remote.requires_pulse_for_mac"))
-                        .font(.caption2)
-                        .foregroundColor(.secondary)
-                }
+                Text(L10n.tr("pulse.remote.logging"))
 #endif
             }
         })

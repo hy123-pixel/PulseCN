@@ -25,7 +25,6 @@
 "pulse.console.descending" = "Descending";
 "pulse.console.errors_only" = "Errors Only";
 "pulse.console.filters.title" = "Filters";
-"pulse.console.get_pulse_pro" = "Get Pulse Pro";
 "pulse.console.ios16_required" = "Pulse requires iOS 16 or later";
 "pulse.console.message_filters" = "Message Filters";
 "pulse.console.mode.all" = "All";
@@ -34,7 +33,6 @@
 "pulse.console.network_filters" = "Network Filters";
 "pulse.console.network_only" = "Network Only";
 "pulse.console.ordering" = "Ordering";
-"pulse.console.report_issue" = "Report Issue";
 "pulse.console.requests" = "Requests";
 "pulse.console.sessions.title" = "Sessions";
 "pulse.console.show_previous_session" = "Show Previous Session";
@@ -109,7 +107,6 @@
 "pulse.remote.logging" = "Remote Logging";
 "pulse.remote.open_settings" = "Open Settings";
 "pulse.remote.password" = "Password";
-"pulse.remote.requires_pulse_for_mac" = "Requires [Pulse for Mac](https://pulselogger.com)";
 "pulse.remote.searching" = "Searching...";
 "pulse.search.clear_history" = "Clear Search History";
 "pulse.search.new_results_added" = "New Results Added";
@@ -174,10 +171,12 @@
 "pulse.details.protocol_version" = "Protocol Version";
 "pulse.details.proxy_connection" = "Proxy Connection";
 "pulse.details.query" = "Query";
+"pulse.details.request_size" = "Request Size";
 "pulse.details.remote_address" = "Remote Address";
 "pulse.details.remote_port" = "Remote Port";
 "pulse.details.request_body_encoded" = "Request Body (Encoded)";
 "pulse.details.response_body_decoded" = "Response Body (Decoded)";
+"pulse.details.response_size" = "Response Size";
 "pulse.details.reused_connection" = "Reused Connection";
 "pulse.details.scheme" = "Scheme";
 "pulse.details.secure" = "Secure";
@@ -247,12 +246,12 @@
 "pulse.metrics.title" = "Metrics";
 "pulse.status.no_response" = "No Response";
 "pulse.status.unknown" = "Unknown";
-"pulse.cache.reload_ignoring_local_and_remote_cache_data" = "reloadIgnoringLocalAndRemoteCacheData";
-"pulse.cache.reload_ignoring_local_cache_data" = "reloadIgnoringLocalCacheData";
-"pulse.cache.reload_revalidating_cache_data" = "reloadRevalidatingCacheData";
-"pulse.cache.return_cache_data_dont_load" = "returnCacheDataDontLoad";
-"pulse.cache.return_cache_data_else_load" = "returnCacheDataElseLoad";
-"pulse.cache.use_protocol_cache_policy" = "useProtocolCachePolicy";
+"pulse.cache.reload_ignoring_local_and_remote_cache_data" = "Reload Ignoring Local and Remote Cache";
+"pulse.cache.reload_ignoring_local_cache_data" = "Reload Ignoring Local Cache";
+"pulse.cache.reload_revalidating_cache_data" = "Reload Revalidating Cache Data";
+"pulse.cache.return_cache_data_dont_load" = "Return Cache Data, Don't Load";
+"pulse.cache.return_cache_data_else_load" = "Return Cache Data Else Load";
+"pulse.cache.use_protocol_cache_policy" = "Use Protocol Cache Policy";
 "pulse.context.attributed_string_share" = "Attributed String Share";
 "pulse.context.search_options" = "Search Options";
 "pulse.common.mock" = "MOCK";

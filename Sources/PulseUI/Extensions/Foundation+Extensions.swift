@@ -154,7 +154,7 @@ package func descriptionForURLErrorCode(_ code: Int) -> String {
 }
 
 extension URLRequest.CachePolicy {
-    package var description: String {
+    package var localizedDescription: String {
         switch self {
         case .useProtocolCachePolicy: return L10n.tr("pulse.cache.use_protocol_cache_policy")
         case .reloadIgnoringLocalCacheData: return L10n.tr("pulse.cache.reload_ignoring_local_cache_data")

@@ -20,7 +20,7 @@ package struct KeyValueSectionViewModel {
 extension KeyValueSectionViewModel {
     package static func makeParameters(for request: NetworkRequestEntity) -> KeyValueSectionViewModel {
         var items: [(String, String?)] = [
-            (L10n.tr("pulse.details.cache_policy"), request.cachePolicy.description),
+            (L10n.tr("pulse.details.cache_policy"), request.cachePolicy.localizedDescription),
             (L10n.tr("pulse.details.timeout_interval"), DurationFormatter.string(from: TimeInterval(request.timeoutInterval), isPrecise: false))
         ]
         // Display only non-default values

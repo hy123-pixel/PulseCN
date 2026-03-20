@@ -140,15 +140,15 @@ extension NetworkTaskEntity {
 
         package var title: String {
             switch field {
-            case .method: return "HTTP Method"
-            case .requestSize: return "Request Size"
-            case .responseSize: return "Response Size"
-            case .responseContentType: return "Response Content Type"
-            case .duration: return "Duration"
-            case .host: return "Host"
-            case .statusCode: return "Status Code"
-            case .taskType: return "Task Type"
-            case .taskDescription: return "Task Description"
+            case .method: return L10n.tr("pulse.details.http_method")
+            case .requestSize: return L10n.tr("pulse.details.request_size")
+            case .responseSize: return L10n.tr("pulse.details.response_size")
+            case .responseContentType: return L10n.tr("pulse.details.response_content_type")
+            case .duration: return L10n.tr("pulse.details.duration")
+            case .host: return L10n.tr("pulse.details.host")
+            case .statusCode: return L10n.tr("pulse.details.status_code")
+            case .taskType: return L10n.tr("pulse.details.task_type")
+            case .taskDescription: return L10n.tr("pulse.details.task_description")
             case .requestHeaderField(let name): return name
             case .responseHeaderField(let name): return name
             }
